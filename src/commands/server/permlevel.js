@@ -6,7 +6,7 @@ module.exports = {
     description: "Show your permission level within this server",
     usage: "[User]",
     run: async ({ message, args }) => {
-        let target = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+        let target = message.mentions.members.first() || await message.guild.members.fetch(args[0])
         if (!target) {
             target = message.member
         }

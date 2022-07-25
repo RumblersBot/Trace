@@ -20,7 +20,7 @@ const getPermissionLevel = (member) => {
             return permlvl.level
 
         // check if there is matching roles
-        for (let role of member.roles.cache){
+        for (let role of member._roles){
             if (permlvl.role_ids.includes(role))
                 return permlvl.level
         }
