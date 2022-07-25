@@ -5,7 +5,7 @@ module.exports = {
     name: "listrumblenotifications",
     aliases: ["lrn"],
     category: "rumble",
-    permissions: 0,
+    permissions: 20,
     description: 'Lists a Rumble Royale mention notification for a specific role',
     usage: "[channelID]",
     run: async ({ client, message, args }) => {
