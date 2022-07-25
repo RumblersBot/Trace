@@ -45,6 +45,8 @@ function getAll(client, message, prefix) {
     //         embedfields[i][0].substring(1)}`;
     // }
 
+    
+
     //FIX change image to bot pfp auto link
     var em = new Discord.MessageEmbed()
         .setColor("RANDOM")
@@ -54,7 +56,7 @@ function getAll(client, message, prefix) {
         })
 
     embedfields.forEach(b => {
-        em.addField(b[0], b[1], true);
+        em.addFields({name: b[0], value: b[1], inline: true});
     });
 
     em.setFooter({
