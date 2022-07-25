@@ -4,7 +4,7 @@ const { getPermissionLevel } = require("../handlers/permissions")
 module.exports = {
     name: "interactionCreate",
     run: async function runAll(bot, interaction) {
-
+        let { client } = bot
         let member = interaction.member
         let userPermLevel = 99999
         if (member)
@@ -60,18 +60,18 @@ const handleSlashCommand = async (bot, interaction) => {
         try {
             await interaction.reply(message)
             isSend = true
-        } catch {}
+        } catch { }
         if (!isSend) {
             try {
                 await interaction.editReply(message)
                 isSend = true
-            } catch {}
+            } catch { }
         }
         if (!isSend) {
             try {
                 await interaction.channel.send(message)
                 isSend = true
-            } catch {}
+            } catch { }
         }
         addLog(error, error.stack)
     }
