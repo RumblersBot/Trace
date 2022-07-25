@@ -23,8 +23,8 @@ async function getLogs(number) {
 
         }
         logs += `\`${l.createdAt.toJSON()}\`\t${l.content} *(${topfile})*\n`
-    })
-    return logs
+    })    
+    return logs    
 }
 
 async function clearLogs() {
