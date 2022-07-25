@@ -33,6 +33,8 @@ module.exports = {
             if (!target.roles.cache.has(r.roleID)) {
                 await target.roles.add(r.roleID)
                 await message.channel.send(`Added \`${role.name}\` to \`${target.displayName}\``)
+            } else {
+                await message.channel.send(`\`${target.displayName}\` already has the role \`${role.name}\``)
             }
         })
     }
