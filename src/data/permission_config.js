@@ -32,7 +32,7 @@ module.exports = {
             name: "Moderator",
             level: 20,
             user_ids:[],
-            role_ids:[],
+            role_ids:['976227660407640124'],
             guild_perms:["MANAGE_MESSAGES"]
         },
         {
