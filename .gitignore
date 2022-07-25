@@ -1,0 +1,7 @@
+.env
+.dev
+.vscode/
+package-lock.json
+node_modules/
+.secret
+src/slashcommands/fun/test.js
