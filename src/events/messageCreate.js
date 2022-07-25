@@ -10,11 +10,14 @@ module.exports = {
     run: async function runAll(bot, message) {
         const { client } = bot
         let prefix = await client.functions.get("functions").getPrefix()
-        const args = message.content.slice(prefix.length).trim().split(/ +/g)
-        let member = message.member
-        let userPermLevel = getPermissionLevel(member)
+        const args = message.content.slice(prefix.length).trim().split(/ +/g)        
 
         if (!message.guild) return
+
+        let member = message.member
+        let userPermLevel = 0
+        if (member) 
+         userPermLevel = getPermissionLevel(member)
 
         if (client.functions.get("functions").isDevMode()) {
             if (userPermLevel >= 0) return // only bot owner
