@@ -32,7 +32,9 @@ module.exports = {
             name: "Helper",
             level: 20,
             user_ids:[],
-            role_ids:['995786988470931508'],
+            role_ids:[
+                "995786988470931508" // Helpers
+            ],
             guild_perms:["MANAGE_MESSAGES"]
         },
         {
