@@ -5,6 +5,15 @@ module.exports = {
     name: "interactionCreate",
     run: async function runAll(bot, interaction) {
 
+        let member = interaction.member
+        let userPermLevel = 99999
+        if (member)
+            userPermLevel = getPermissionLevel(member)
+
+        if (client.functions.get("functions").isDevMode()) {
+            if (userPermLevel >= 0) return // only bot owner
+        }
+
         if (interaction.isCommand()) handleSlashCommand(bot, interaction)
         else if (interaction.isButton()) handleButton(bot, interaction)
     }

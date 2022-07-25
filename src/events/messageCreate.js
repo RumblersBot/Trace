@@ -15,7 +15,7 @@ module.exports = {
         if (!message.guild) return
 
         let member = message.member
-        let userPermLevel = 0
+        let userPermLevel = 99999
         if (member)
             userPermLevel = getPermissionLevel(member)
 
