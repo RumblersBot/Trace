@@ -48,7 +48,7 @@ async function showPingList(message) {
     buttons.push(new Discord.MessageButton().setCustomId(`ping-unsub`).setStyle("DANGER").setLabel('Unsubscribe'))
 
     if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
-        let pl = await removeTimedOutAndGetUserPings()
+        let pl = await removeTimedOutAndGetUserPings(message.guild.id)
         if (!!pl)
             await message.channel.send(pl)
 
