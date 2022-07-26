@@ -97,7 +97,7 @@ function getPrefix(guildID) {
         return fs.readFileSync('.dev').toString()
     }
 
-    let guildSettings = getGuildSettings(guildID)
+    let guildSettings = await getGuildSettings(guildID)
     return guildSettings.prefix
 }
 
