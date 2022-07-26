@@ -32,7 +32,7 @@ async function checkNewBattle(message) {
     let embedContent = message.embeds[0].description
     if (!embedContent) return
 
-    if (embedContent.includes("Click the emoji below to join!"))
+    if (embedContent.includes("Click the emoji below to join"))
         showPingList(message);
 
 }
