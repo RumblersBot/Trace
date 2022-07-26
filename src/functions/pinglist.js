@@ -42,7 +42,9 @@ async function removeTimedOutAndGetUserPings() {
     let removeTrigger = Math.round(Date.now() / 1000)
     await PingList.deleteMany({entryTimeStamp: {$lte: removeTrigger}})
 
-    let pingUsers = await PingList.find();
+    let pingUsers = await PingList.find({
+        guildID: member.guild.id
+    });
 
     let users = []
     await pingUsers.forEach(async user => {
