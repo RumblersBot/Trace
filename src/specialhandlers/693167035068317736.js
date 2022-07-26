@@ -29,6 +29,11 @@ async function checkMentions(message) {
 
 async function checkNewBattle(message) {
 
+    let embeds = message.embeds
+
+    if (!embeds) return
+    if (!message.embeds[0]) return
+
     let embedContent = message.embeds[0].description
     if (!embedContent) return
 
