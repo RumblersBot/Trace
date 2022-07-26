@@ -51,7 +51,7 @@ async function showPingList(message) {
         let pl = await removeTimedOutAndGetUserPings(message.guild.id)
         if (!!pl) {
             let pingmsg = await message.channel.send(pl.join(" "))
-            await pingmsg.delete
+            await pingmsg.delete()
 
             await message.channel.send(`Notified **${pl.length}** users.`)
         }
