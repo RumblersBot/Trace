@@ -20,6 +20,7 @@ module.exports = {
             return await message.reply("Role ID not supplied")
 
         const role = await message.guild.roles.fetch(roleID)
+        const channel = await message.guild.channels.fetch(channelID)
 
         if (!role)
             return await message.reply("Role not found")
@@ -31,7 +32,7 @@ module.exports = {
         })
 
         if (bw) {
-            return await message.reply(`Role \`${role.name}\` already added for this channel`)
+            return await message.reply(`Role \`${role.name}\` already added for \`${channel.name}\``)
         }
 
         bw = await new BattleWinner({
@@ -43,7 +44,7 @@ module.exports = {
 
         try {
             await bw.save()
-            await message.reply(`\`${role.name}\` added as Battle Winner Role.`)
+            await message.reply(`\`${role.name}\` added as Battle Winner Role for \`${channel.name}\`.`)
         } catch (error) {
             addLog(error, error.stack)
         }        

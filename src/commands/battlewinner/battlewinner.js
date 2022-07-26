@@ -23,7 +23,7 @@ module.exports = {
         })
 
         if (bw.length === 0) {
-            return //await message.reply("No Battle Winner Roles set for this channel.")
+            return //await message.reply("No Battle Winner Roles set for \`${channel.name}\`.")
         }
 
         message.delete()
