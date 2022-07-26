@@ -15,9 +15,7 @@ module.exports = {
         if (!message.guild) return
 
         let member = message.member
-        let userPermLevel = 99999
-        if (member)
-            userPermLevel = getPermissionLevel(member)
+        let userPermLevel = getPermissionLevel(member)
 
         if (client.functions.get("functions").isDevMode()) {
             if (message.guild.id !== '968886418883637278') // exclude test server

@@ -5,28 +5,31 @@ const {permissionLevels} = require("../data/permission_config")
  * @returns permission level
  */
 const getPermissionLevel = (member) => {
-    for (let permlvl of permissionLevels) {
-        // check if there is matching userID
-        if (permlvl.user_ids.includes(member.id))
-            return permlvl.level
 
-        // check all guild permissions
-        let hasPerms = false
-        for (let perm of permlvl.guild_perms){
-            hasPerms = member.permissions.has(perm)
-            if (!hasPerms) break
-        }
-        if (hasPerms)
-            return permlvl.level
-
-        // check if there is matching roles
-        for (let role of member._roles){
-            if (permlvl.role_ids.includes(role))
+    try {
+        for (let permlvl of permissionLevels) {
+            // check if there is matching userID
+            if (permlvl.user_ids.includes(member.id))
                 return permlvl.level
-        }
-
+    
+            // check all guild permissions
+            let hasPerms = false
+            for (let perm of permlvl.guild_perms){
+                hasPerms = member.permissions.has(perm)
+                if (!hasPerms) break
+            }
+            if (hasPerms)
+                return permlvl.level
+    
+            // check if there is matching roles
+            for (let role of member._roles){
+                if (permlvl.role_ids.includes(role))
+                    return permlvl.level
+            }    
+        }        
+    } catch (error) {
+        return 99
     }
-
 }
 /**
  *

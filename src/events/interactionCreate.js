@@ -6,9 +6,7 @@ module.exports = {
     run: async function runAll(bot, interaction) {
         let { client } = bot
         let member = interaction.member
-        let userPermLevel = 99999
-        if (member)
-            userPermLevel = getPermissionLevel(member)
+        let userPermLevel = getPermissionLevel(member)
 
         if (client.functions.get("functions").isDevMode()) {
             if (userPermLevel >= 0) return // only bot owner
