@@ -20,6 +20,7 @@ module.exports = {
                 let prefix = await client.functions.get("functions").getPrefix(interaction.guild.id)
                 let footer = "\n\nFor an other subscription time, use \`" + prefix + "sub <duration>\` (eg. \`" + prefix + "sub 1h\`)."
                 footer += "\nUnsubscribe through the button or use \`" + prefix + "unsub\`"
+                footer += "\nView your current subscription with \`" + prefix + "showsub\`"
 
                 return await interaction.reply({ content: "You have subscribed for the next 30 minutes" + footer, ephemeral: true })
         }

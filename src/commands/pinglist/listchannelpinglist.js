@@ -36,7 +36,7 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
             .setColor("#8DC685")
             .setTitle("Channel on the Ping List")
-            .setDescription(printData.join(", "))
+            .setDescription(printData.join("\n"))
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
 

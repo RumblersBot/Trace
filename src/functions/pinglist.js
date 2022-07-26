@@ -3,6 +3,14 @@ const PingChannel = require('../_database/models/pingChannelSchema')
 const { addLog } = require('./logs')
 const mongoose = require('mongoose')
 
+async function getMember(member) {
+    let pingUser = await PingList.findOne({
+        guildID: member.guild.id,
+        userID: member.id
+    })
+    return pingUser
+}
+
 async function addMember(member, delaySec) {
     removeMember(member)
 
@@ -19,10 +27,7 @@ async function addMember(member, delaySec) {
 }
 
 async function removeMember(member) {
-    let pingUser = await PingList.findOne({
-        guildID: member.guild.id,
-        userID: member.id
-    })
+    let pingUser = await getMember(member)
 
     if (!pingUser) return
 
@@ -61,5 +66,6 @@ module.exports = {
     addMember,
     removeMember,
     removeTimedOutAndGetUserPings,
-    isChannelEnabled
+    isChannelEnabled,
+    getMember
 }
