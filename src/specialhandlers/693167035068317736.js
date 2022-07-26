@@ -49,9 +49,12 @@ async function showPingList(message) {
 
     if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
         let pl = await removeTimedOutAndGetUserPings(message.guild.id)
-        if (!!pl)
-            await message.channel.send(pl)
+        if (!!pl) {
+            let pingmsg = await message.channel.send(pl.join(" "))
+            await pingmsg.delete
 
+            await message.channel.send(`Notified **${pl.length}** users.`)
+        }
         await message.channel.send({
             embeds: [
                 new Discord.MessageEmbed().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor("BLUE")

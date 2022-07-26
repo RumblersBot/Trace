@@ -51,7 +51,7 @@ async function removeTimedOutAndGetUserPings(guildID) {
         users.push(`<@${user.userID}>`)
     })
 
-    return users.join(" ")
+    return users
 }
 
 async function isChannelEnabled(guildID, channelID) {
