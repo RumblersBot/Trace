@@ -9,7 +9,7 @@ module.exports = {
     name: "messageCreate",
     run: async function runAll(bot, message) {
         const { client } = bot
-        let prefix = await client.functions.get("functions").getPrefix()
+        let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
         const args = message.content.slice(prefix.length).trim().split(/ +/g)
 
         if (!message.guild) return
@@ -20,7 +20,8 @@ module.exports = {
             userPermLevel = getPermissionLevel(member)
 
         if (client.functions.get("functions").isDevMode()) {
-            if (userPermLevel >= 0) return // only bot owner
+            if (message.guild.id !== '968886418883637278') // exclude test server
+                if (userPermLevel >= 0) return // only bot owner
         }
 
         if (fs.existsSync(`./src/specialhandlers/${message.author.id}.js`)) {

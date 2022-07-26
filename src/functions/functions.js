@@ -38,6 +38,29 @@ function autoAlign(align, char, lock) {
     return str;
 }
 
+async function getGuildSettings(guildID) {
+    let guildSettings
+    let newSettings
+    try {
+        newSettings = await new Guild({
+            _id: mongoose.Types.ObjectId(),
+            guildID: guildID
+        })
+        guildSettings = await Guild.findOne({ guildID: guildID })
+    } catch (error) {
+        addLog(error, error.stack)
+        return newSettings
+    }
+    if (!guildSettings) {
+        guildSettings = newSettings
+        await guildSettings.save().catch(error => {
+            addLog(error, error.stack)
+        })
+    }
+
+    return guildSettings
+}
+
 /**
  * Returns a rounded time value as a string 
  * @param {number} time in ms
@@ -68,16 +91,18 @@ function isDevMode() {
     return fs.existsSync(".dev")
 }
 
-function getPrefix() {
+function getPrefix(guildID) {
 
     if (isDevMode()) {
         return fs.readFileSync('.dev').toString()
     }
 
-    return "-"
+    let guildSettings = getGuildSettings(guildID)
+    return guildSettings.prefix
 }
 
 const mongoose = require('mongoose')
+const Guild = require('../_database/models/guildSchema')
 const { addLog } = require('./logs')
 
 module.exports = {
@@ -89,5 +114,6 @@ module.exports = {
     formatTime,
     getPrefix,
     setEmbedFooter,
-    isDevMode
+    isDevMode,
+    getGuildSettings
 }

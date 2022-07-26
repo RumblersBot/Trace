@@ -11,7 +11,7 @@ module.exports = {
         let { client, message, args } = bot;
 
         let embed = null
-        let prefix = await client.functions.get("functions").getPrefix()
+        let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
 
         if (args[0]) 
             embed = getCMD(client, message, args[0], prefix);
