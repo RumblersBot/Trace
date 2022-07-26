@@ -1,7 +1,7 @@
 //RumbleBot
 const RumbleNotification = require('../_database/models/rumbleNotificationSchema')
 const Discord = require("discord.js")
-const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/PingList')
+const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
 
 module.exports = {
     run: async ({ message }) => {
