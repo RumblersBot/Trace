@@ -33,9 +33,18 @@ module.exports = {
             level: 20,
             user_ids:[],
             role_ids:[
-                "995786988470931508" // Helpers
+                "995786988470931508" // The Rumblers Helpers
             ],
             guild_perms:["MANAGE_MESSAGES"]
+        },
+        {
+            name: "Rumblers Server Booster",
+            level: 30,
+            user_ids: [],
+            role_ids:[
+                "977260788110749757" // The Rumblers Server Booster
+            ],
+            guild_perms:[]
         },
         {
             name: "Member",
