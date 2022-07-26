@@ -91,7 +91,7 @@ function isDevMode() {
     return fs.existsSync(".dev")
 }
 
-function getPrefix(guildID) {
+async function getPrefix(guildID) {
 
     if (isDevMode()) {
         return fs.readFileSync('.dev').toString()
