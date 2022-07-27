@@ -1,3 +1,5 @@
+const { addLog } = require('../../functions/logs');
+
 module.exports = {
     name: "gitupdate",
     category: "hidden",
@@ -15,7 +17,7 @@ module.exports = {
                     result += 'stderr: ' + stderr + '\n'
                 message.reply(result)
         if (error !== null) {
-            console.log('exec error: ' + error);
+            addLog('exec error: ' + error);
         }
     })
 }
