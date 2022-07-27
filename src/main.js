@@ -8,7 +8,7 @@ keepAlive()
 let dev = ''
 if (fs.existsSync(".dev"))
     dev = "dev_"
-const connString = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_URL}${dev}${process.env.MONGODB_DB}`
+const connString = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_URL}/${dev}${process.env.MONGODB_DB}?retryWrites=true&w=majority`
 
 const Bot = require("./classes/bot")
 let bot
