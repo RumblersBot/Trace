@@ -40,18 +40,31 @@ async function removeMember(member) {
 
 async function removeTimedOutAndGetUserPings(guildID) {
     let removeTrigger = Math.round(Date.now() / 1000)
-    await PingList.deleteMany({entryTimeStamp: {$lte: removeTrigger}})
+    let toRemove = await PingList.find({
+        guildID: guildID,
+        entryTimeStamp: {$lte: removeTrigger}
+    })
+
+    await PingList.deleteMany({
+        guildID: guildID,
+        entryTimeStamp: {$lte: removeTrigger}
+    })
 
     let pingUsers = await PingList.find({
         guildID: guildID
     });
+
+    let usersToRemove = []
+    await toRemove.forEach(async user => {
+        usersToRemove.push(`<@${user.userID}>`)
+    })
 
     let users = []
     await pingUsers.forEach(async user => {
         users.push(`<@${user.userID}>`)
     })
 
-    return users
+    return [usersToRemove, users]
 }
 
 async function isChannelEnabled(guildID, channelID) {

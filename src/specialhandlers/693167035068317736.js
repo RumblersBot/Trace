@@ -7,7 +7,10 @@ module.exports = {
     run: async ({ message }) => {
         checkMentions(message)
         checkNewBattle(message)
-    }
+    },
+    checkMentions,
+    checkNewBattle,
+    showPingList
 }
 
 async function checkMentions(message) {
@@ -48,9 +51,11 @@ async function showPingList(message) {
     buttons.push(new Discord.MessageButton().setCustomId(`ping-unsub`).setStyle("DANGER").setLabel('Unsubscribe'))
 
     if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
-        let pl = await removeTimedOutAndGetUserPings(message.guild.id)
-        if (!!pl) {
-            let pingmsg = await message.channel.send(pl.join(" "))
+        let result = await removeTimedOutAndGetUserPings(message.guild.id)
+        let tr = result[0]
+        let pl = result[1]
+        if (!!pl && pl.length !== 0) {
+            let pingmsg = await message.channel.send('Notify list: ' + pl.join(" "))
             await pingmsg.delete()
 
             await message.channel.send(`Notified **${pl.length}** users.`)
@@ -63,5 +68,13 @@ async function showPingList(message) {
                 new Discord.MessageActionRow().addComponents(buttons)
             ]
         })
+        if (!!tr && tr.length !== 0) {
+            await message.channel.send({
+                content: tr.join(" "),
+                embeds: [
+                    new Discord.MessageEmbed().setTitle("Subscription expired").setDescription(`Your subscription timer has expired. You can resubscribe using the buttons above.`).setColor("RED")
+                ]
+            })
+        }
     }
 }
