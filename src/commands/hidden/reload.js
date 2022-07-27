@@ -7,6 +7,9 @@ module.exports = {
     Permissions: 0,
     description: "reloads the bot",
     run: async (bot) => {
+
+        Object.keys(require.cache).forEach(function(key) { delete require.cache[key] })
+        
         var { client, message } = bot;
         await client.loadCommands(bot, true);
         await client.loadEvents(bot, true);
