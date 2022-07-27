@@ -2,8 +2,8 @@ require("dotenv").config()
 const fs = require("fs")
 
 const mongoose = require("./_database/mongoose")
-const keepAlive = require('./server')
-keepAlive()
+//const keepAlive = require('./server')
+//keepAlive()
 
 let dev = ''
 if (fs.existsSync(".dev"))
