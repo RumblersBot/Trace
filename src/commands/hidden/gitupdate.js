@@ -8,7 +8,7 @@ module.exports = {
 
         exec("git pull",
             function (error, stdout, stderr) {
-                let result
+                let result = ""
                 if (stdout)
                     result += 'stdout: ' + stdout + '\n'
                 if (stderr)
