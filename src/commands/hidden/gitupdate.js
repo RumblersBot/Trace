@@ -8,14 +8,16 @@ module.exports = {
 
         exec("git pull",
             function (error, stdout, stderr) {
-                message.reply(
-                    'stdout: ' + stdout + '\n' +
-                    'stderr: ' + stderr + '\n'
-                )
-                if (error !== null) {
-                    console.log('exec error: ' + error);
-                }
-            })
-    }
+                let result
+                if (stdout)
+                    result += 'stdout: ' + stdout + '\n'
+                if (stderr)
+                    result += 'stderr: ' + stderr + '\n'
+                message.reply(result)
+        if (error !== null) {
+            console.log('exec error: ' + error);
+        }
+    })
+}
 }
 
