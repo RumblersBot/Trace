@@ -6,3 +6,4 @@ node_modules/
 .secret
 src/commands/hidden/test.js
 src/daemon/
+.testcommands
