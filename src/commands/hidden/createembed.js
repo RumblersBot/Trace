@@ -13,7 +13,7 @@ module.exports = {
             .setTitle(param[1])
             .setDescription(param[2])
 
-        embed = client.functions.get("functions").setEmbedFooter(embed, client)
+        //embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
         await message.delete()
         message.channel.send({
