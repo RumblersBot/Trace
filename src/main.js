@@ -31,5 +31,6 @@ const start = ((reboot) => {
 })
 
 start(false)
+console.log("Started at " + new Date().toJSON())
 
 module.exports = bot, start
