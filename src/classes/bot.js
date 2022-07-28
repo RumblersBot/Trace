@@ -42,9 +42,9 @@ class Bot {
         this.client.aliases = new Discord.Collection()
         this.client.functions = new Discord.Collection()
         this.client.slashcommands = new Discord.Collection()
-        this.client.snipes = new Discord.Collection()
         this.client.categories = fs.readdirSync("./src/commands/");
         this.client.slashcategories = fs.readdirSync("./src/slashcommands/");
+        this.client.pinglistsLastSent = new Discord.Collection()
 
         this.client.loadEvents = (bot, reload) => require("../handlers/events")(bot, reload)
         this.client.loadEvents(this, false)

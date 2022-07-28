@@ -48,6 +48,13 @@ async function checkNewBattle(client, message) {
 async function showPingList(client, message) {
     let buttons = []
     await client.functions.get("functions").delay(2000)
+
+    const lastPingSent = client.pinglistsLastSent.get(message.channel.id)
+    if (!!lastPingSent) {
+        const checkTime = Math.round(Date.now() / 1000) - 20
+        if (lastPingSent.lastSent >= checkTime) return
+    }
+
     buttons.push(new Discord.MessageButton().setCustomId(`ping-sub`).setStyle("SUCCESS").setLabel('Subscribe'))
     buttons.push(new Discord.MessageButton().setCustomId(`ping-unsub`).setStyle("DANGER").setLabel('Unsubscribe'))
 
@@ -80,5 +87,9 @@ async function showPingList(client, message) {
                 ]
             })
         }
+
+        client.pinglistsLastSent.set(message.channel.id, {
+            lastSent: Math.round(Date.now() / 1000)
+        })
     }
 }
