@@ -10,7 +10,7 @@ module.exports = {
     run: async ({message, args}) => {
 
         let number = args[0]
-        if (!number) number = 10
+        if (!number) number = 15
 
         const path = './src/daemon/trace.out.log'
         if (fs.existsSync(path)) {
