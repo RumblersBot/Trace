@@ -8,7 +8,6 @@ module.exports = {
     description: 'Get the console logs',
     usage: "[Quantity]",
     run: async ({message, args}) => {
-
         let number = args[0]
         if (!number) number = 15
 
