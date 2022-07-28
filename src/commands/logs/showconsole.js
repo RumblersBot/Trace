@@ -15,7 +15,9 @@ module.exports = {
         const path = './src/daemon/trace.out.log'
         if (fs.existsSync(path)) {
             let console = await readLastLines.read(path, number)
-            await message.reply(`**Last __*${number}*__ Console Lines:**\n` + console)
+            await message.reply({
+                content: `**Last __*${number}*__ Console Lines:**\n` + console
+            })
         }
     }
 }
