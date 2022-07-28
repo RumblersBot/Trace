@@ -58,20 +58,24 @@ module.exports = {
         }
 
         try {
-            await command.run({ ...bot, message, args })
+            command.run({ ...bot, message, args }).catch(async (err) => { handleError(message, err) })
         } catch (error) {
-            let errMsg = error.toString()
-
-            if (errMsg.startsWith("?")) {
-                errMsg = errMsg.slice(1)
-                await message.reply(errMsg)
-            }
-            else {
-                try {
-                    await message.reply(`Something went wrong: ${error.message}`)
-                } catch { }
-                addLog(errMsg, error.stack)
-            }
+            handleError(message, error)
         }
+    }
+}
+
+async function handleError(message, error) {
+    let errMsg = error.toString()
+
+    if (errMsg.startsWith("?")) {
+        errMsg = errMsg.slice(1)
+        await message.reply(errMsg)
+    }
+    else {
+        try {
+            await message.reply(`Something went wrong: ${error.message}`)
+        } catch { }
+        addLog(errMsg, error.stack)
     }
 }
