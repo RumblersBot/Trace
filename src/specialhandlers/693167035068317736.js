@@ -4,9 +4,9 @@ const Discord = require("discord.js")
 const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
 
 module.exports = {
-    run: async ({ message }) => {
+    run: async ({ client, message }) => {
         checkMentions(message)
-        checkNewBattle(message)
+        checkNewBattle(client, message)
     },
     checkMentions,
     checkNewBattle,
@@ -30,7 +30,7 @@ async function checkMentions(message) {
     })
 }
 
-async function checkNewBattle(message) {
+async function checkNewBattle(client, message) {
 
     let embeds = message.embeds
 
@@ -41,12 +41,13 @@ async function checkNewBattle(message) {
     if (!embedContent) return
 
     if (embedContent.includes("Click the emoji below to join"))
-        showPingList(message);
+        showPingList(client, message);
 
 }
 
-async function showPingList(message) {
+async function showPingList(client, message) {
     let buttons = []
+    await client.functions.get("functions").delay(2000)
     buttons.push(new Discord.MessageButton().setCustomId(`ping-sub`).setStyle("SUCCESS").setLabel('Subscribe'))
     buttons.push(new Discord.MessageButton().setCustomId(`ping-unsub`).setStyle("DANGER").setLabel('Unsubscribe'))
 
@@ -54,13 +55,16 @@ async function showPingList(message) {
         let result = await removeTimedOutAndGetUserPings(message.guild.id)
         let tr = result[0]
         let pl = result[1]
+        let count = 0
         if (!!pl && pl.length !== 0) {
             let pingmsg = await message.channel.send('Notify list: ' + pl.join(" "))
             await pingmsg.delete()
 
-            await message.channel.send(`Notified **${pl.length}** users.`)
+            count = pl.length
+
         }
         await message.channel.send({
+            content: `Notified **${count}** users.`,
             embeds: [
                 new Discord.MessageEmbed().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor("BLUE")
             ],
