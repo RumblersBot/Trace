@@ -15,11 +15,14 @@ module.exports = {
                     result += 'stdout: ' + stdout + '\n'
                 if (stderr)
                     result += 'stderr: ' + stderr + '\n'
-                message.reply(result)
-        if (error !== null) {
-            addLog('exec error: ' + error);
-        }
-    })
-}
+                message.reply({
+                    content: result,
+                    flags: [Discord.MessageFlags.FLAGS.SUPPRESS_EMBEDS]
+                })
+                if (error !== null) {
+                    addLog('exec error: ' + error);
+                }
+            })
+    }
 }
 
