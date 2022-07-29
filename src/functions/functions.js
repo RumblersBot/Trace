@@ -58,7 +58,34 @@ async function getGuildSettings(guildID) {
         })
     }
 
-    return guildSettings
+    return guildSettings    
+}
+
+async function getUser(guildID, memberID) {
+    let newUser
+    let userObj
+    try {
+        newUser = await new User({
+            _id: mongoose.Types.ObjectId(),
+            guildID: guildID,
+            userID: memberID
+        })
+        userObj = await User.findOne({ 
+            guildID: guildID, 
+            userID: memberID 
+        })
+    } catch (error) {
+        addLog(error, error.stack)
+        return newUser
+    }
+    if (!userObj) {
+        userObj = newUser
+        await userObj.save().catch(error => {
+            addLog(error, error.stack)
+        })
+    }
+
+    return userObj
 }
 
 /**
@@ -103,6 +130,7 @@ async function getPrefix(guildID) {
 
 const mongoose = require('mongoose')
 const Guild = require('../_database/models/guildSchema')
+const User = require('../_database/models/userSchema')
 const { addLog } = require('./logs')
 
 module.exports = {
@@ -115,5 +143,6 @@ module.exports = {
     getPrefix,
     setEmbedFooter,
     isDevMode,
-    getGuildSettings
+    getGuildSettings,
+    getUser
 }
