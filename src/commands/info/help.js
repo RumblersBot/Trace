@@ -13,14 +13,14 @@ module.exports = {
         let embed = null
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
 
-        if (args[0]) 
+        if (args[0])
             embed = getCMD(client, message, args[0], prefix);
-        else 
+        else
             embed = getAll(client, message, prefix);
 
         if (!embed) return
 
-        return message.channel.send({embeds: [embed]})
+        return message.channel.send({ embeds: [embed] })
     },
     getCMD,
     getAll
@@ -33,20 +33,25 @@ function getAll(client, message, prefix) {
     let embedfields = [];
     client.categories.forEach(c => {
         if (c == "hidden") return;
-        embedfields.push([
-            c,
-            client.commands
-                .filter(cmd => cmd.category === c)
-                .map(cmd => `\`${cmd.name}\``)
-                .join(", "),
-        ]);
+        var cmds = client.commands
+            .filter(cmd => cmd.category === c)
+            .filter(cmd => !cmd.guilds || cmd.guilds.includes(message.guild.id))
+            .map(cmd => `\`${cmd.name}\``)
+            .join(", ")
+
+        if (!!cmds) {
+            embedfields.push([
+                c,
+                cmds,
+            ]);
+        }
     });
     // for (var i = 0; i < embedfields.length; i++) {
     //     embedfields[i][0] = `${reacts[i]} ${embedfields[i][0][0].toUpperCase() +
     //         embedfields[i][0].substring(1)}`;
     // }
 
-    
+
 
     //FIX change image to bot pfp auto link
     var em = new Discord.MessageEmbed()
@@ -57,7 +62,7 @@ function getAll(client, message, prefix) {
         })
 
     embedfields.forEach(b => {
-        em.addFields({name: b[0], value: b[1], inline: true});
+        em.addFields({ name: b[0], value: b[1], inline: true });
     });
 
     em.setFooter({

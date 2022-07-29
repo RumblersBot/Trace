@@ -1,7 +1,6 @@
 const Discord = require("discord.js")
 const fs = require("fs")
 const { addLog } = require('../functions/logs')
-const { getFiles } = require("../functions/functions")
 
 const { getPermissionLevel } = require("../handlers/permissions")
 
@@ -50,7 +49,9 @@ module.exports = {
 
         const cmdstr = args.shift().toLowerCase()
 
-        let command = client.commands.get(cmdstr) || client.commands.get(client.aliases.get(cmdstr))
+        let cmds = client.commands.filter(cmd => !cmd.guilds || cmd.guilds.includes(message.guild.id))
+
+        let command = cmds.get(cmdstr) || cmds.get(client.aliases.get(cmdstr))
         if (!command) return // undefined command                 
 
         if (command.permissions !== undefined && userPermLevel > command.permissions) {
