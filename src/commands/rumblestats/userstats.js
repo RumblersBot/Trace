@@ -21,11 +21,13 @@ module.exports = {
             .addFields([
                 {
                     name: "Wins:",
-                    value: user.winCount + " games"
+                    value: user.winCount + " games",
+                    inline: true
                 },
                 {
                     name: "Hosted:",
-                    value: user.hostCount + " games"
+                    value: user.hostCount + " games",
+                    inline: true                    
                 }
             ])
 
