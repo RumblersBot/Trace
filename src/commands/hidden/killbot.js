@@ -11,6 +11,8 @@ module.exports = {
         const os = require("os")
         let killBot = true
 
+        console.log("bot killed by " + message.member.displayName)
+
         if (!!request) {
             killBot = (request.toLowerCase() === os.hostname().toLowerCase())
         }
