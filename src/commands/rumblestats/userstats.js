@@ -8,8 +8,8 @@ module.exports = {
     description: 'Shows the user rumble stats',
     run: async ({ client, message, args }) => {
         let member
-        if (args[0])
-            message.mentions.users.first() || await message.guild.members.fetch(args[0])
+        if (!!args[0])
+            member = message.mentions.users.first() || await message.guild.members.fetch(args[0])
         if (!member)
             member = message.member
         else
