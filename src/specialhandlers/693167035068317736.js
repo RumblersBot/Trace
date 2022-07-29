@@ -21,7 +21,7 @@ async function checkMentions(client, message) {
     if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
         let userData = await client.functions.get("functions").getUser(message.guild.id, member.id)
         userData.winCount += 1
-        await user.save().then(error => addLog(error, error.stack))
+        await userData.save().then(error => addLog(error, error.stack))
     }
 
     let notifications = await RumbleNotification.find({
@@ -59,7 +59,7 @@ async function checkNewBattle(client, message) {
             if (!!foundUser) {
                 let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
                 userData.hostCount += 1
-                await user.save().then(error => addLog(error, error.stack))
+                await userData.save().then(error => addLog(error, error.stack))
             }
         }
     }
