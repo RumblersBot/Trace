@@ -58,7 +58,7 @@ async function checkNewBattle(client, message) {
             let foundUser = message.guild.members.cache.find(entry => entry.user.username === userName)
             if (!!foundUser) {
                 let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
-                userData.winCount += 1
+                userData.hostCount += 1
                 await user.save().then(error => addLog(error, error.stack))
             }
         }
