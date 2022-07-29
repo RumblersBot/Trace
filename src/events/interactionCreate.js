@@ -37,7 +37,7 @@ const handleButton = async (bot, interaction) => {
 const handleSlashCommand = async (bot, interaction) => {
     const { client } = bot
 
-    if (!interaction.inGuild()) return await interaction.reply("This command can only be used in a server")
+    if (!interaction.inGuild()) return await interaction.reply({content: "This command can only be used in a server", ephemeral: true})
 
     const slashcmd = client.slashcommands.get(interaction.commandName)
 
@@ -46,8 +46,17 @@ const handleSlashCommand = async (bot, interaction) => {
     let member = interaction.member
     let userPermLevel = getPermissionLevel(member)
 
+    if (client.functions.get("functions").isDevMode()) {
+        if (interaction.guild.id !== '968886418883637278') // exclude test server
+            if (userPermLevel >= 0) return // only bot owner
+    }
+
+    if (slashcmd.guilds !== undefined && !slashcmd.guilds.includes(interaction.guild.id)) {
+        return await interaction.reply({content: "Command not available in this guild.", ephemeral: true})
+    }    
+
     if (slashcmd.permissions !== undefined && userPermLevel > slashcmd.permissions) {
-        return await interaction.reply("You do not have permission to run this slashcommand.")
+        return await interaction.reply({content: "You do not have permission to run this slashcommand.", ephemeral: true})
     }
 
     try {
