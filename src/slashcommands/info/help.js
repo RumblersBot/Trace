@@ -88,7 +88,7 @@ function getCMD(client, input) {
 
 module.exports = {
     name: "help",
-    description: "Trace help, returns all commands, or one specific command's info",
+    description: "Trace help, returns all slash commands, or one specific slash command's info",
     category: "info",
     options: [
         {
