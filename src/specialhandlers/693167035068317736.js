@@ -6,7 +6,7 @@ const { addLog } = require('../functions/logs')
 
 module.exports = {
     run: async ({ client, message }) => {
-        checkMentions(message)
+        checkMentions(client, message)
         checkNewBattle(client, message)
     },
     checkMentions,
@@ -14,7 +14,7 @@ module.exports = {
     showPingList
 }
 
-async function checkMentions(message) {
+async function checkMentions(client, message) {
     if (message.mentions.members.size == 0) return
     const member = await message.guild.members.fetch(message.mentions.members.first())
 
