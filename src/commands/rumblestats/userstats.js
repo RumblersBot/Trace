@@ -9,17 +9,15 @@ module.exports = {
     run: async ({ client, message, args }) => {
         let member
         if (!!args[0])
-            member = message.mentions.users.first() || await message.guild.members.fetch(args[0])
+            member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
         if (!member)
             member = message.member
-        else
-            member = message.guild.members.fetch(member.id)
 
         let user = await client.functions.get("functions").getUser(message.guild.id, member.id)
 
         let embed = new Discord.MessageEmbed()
             .setColor("PURPLE")
-            .setTitle(`${member.displayName} Rumble Stats`)
+            .setTitle(`${member.displayName}'s Rumble Stats`)
             .addFields([
                 {
                     name: "Wins:",
