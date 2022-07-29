@@ -11,7 +11,7 @@ module.exports = {
         if (!member)
             member = message.member
         else
-            member = message.guild.members.cache.get(member.id)
+            member = message.guild.members.fetch(member.id)
 
         let user = await client.functions.get("functions").getUser(message.guild.id, member.id)
 
