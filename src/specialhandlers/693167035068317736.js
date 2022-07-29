@@ -44,24 +44,25 @@ async function checkNewBattle(client, message) {
     if (!embeds) return
     if (!message.embeds[0]) return
 
-    let embedContent = message.embeds[0].description
-    if (!embedContent) return
+    let embedFound = message.embeds[0]
 
-    if (embedContent.includes("Click the emoji below to join"))
-        showPingList(client, message);
+    if (embedFound.description)
+        if (embedFound.description.includes("Click the emoji below to join"))
+            showPingList(client, message);
 
 
     if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
         const searchString = "started a new Rumble Royale session"
-        if (embedContent.includes(searchString)) {
-            let userName = embedContent.substring(0, embedContent.indexOf(searchString) - 1)
-            let foundUser = message.guild.members.cache.find(entry => entry.user.username === userName)
-            if (!!foundUser) {
-                let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
-                userData.hostCount += 1
-                await userData.save().then(error => addLog(error, error.stack))
+        if (embedFound.title)
+            if (embedFound.title.includes(searchString)) {
+                let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
+                let foundUser = message.guild.members.cache.find(entry => entry.user.username === userNameMentioned)
+                if (!!foundUser) {
+                    let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
+                    userData.hostCount += 1
+                    await userData.save().then(error => addLog(error, error.stack))
+                }
             }
-        }
     }
 }
 
