@@ -7,7 +7,7 @@ module.exports = {
     guilds: ["968176372944109709", "968886418883637278"],
     description: 'Shows the user rumble stats',
     run: async ({ client, message, args }) => {
-        let member = message.mentions.users.first() ||  message.guild.members.cache.find(entry => entry.id === args[0])
+        let member = message.mentions.users.first() ||  await message.guild.members.fetch(args[0])
         if (!member)
             member = message.member
         else
