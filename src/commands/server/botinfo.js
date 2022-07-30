@@ -20,7 +20,6 @@ module.exports = {
             .addFields({ name: "Created on", value: `${client.user.createdAt}`, inline: true })
             .addFields({ name: "On the server since:", value: `${botMember.joinedAt}`, inline: true })
             .addFields({ name: "Guilds Using this bot: ", value: `\`${client.guilds.cache.size}\``, inline: true })
-            .addFields({ name: "Server: ", value: `\`${os.hostname()}\``, inline: true })
             .addFields({ name: "Uptime: ", value: client.functions.get("functions").formatTime(client.uptime), inline: true })
 
         botembed = client.functions.get("functions").setEmbedFooter(botembed, client)
