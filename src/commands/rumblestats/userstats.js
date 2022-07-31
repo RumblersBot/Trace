@@ -33,6 +33,7 @@ module.exports = {
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
-        message.reply({ embeds: [embed] })
+        await message.reply({ embeds: [embed] })
+        await client.functions.get("autoroles").checkAutoRoles(client, message, user, member)
     }
 }
