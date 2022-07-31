@@ -11,7 +11,7 @@ module.exports = {
         let printData = await client.functions.get("autoroles").getAutoRoles(client, message, 2)
 
         if (printData.length === 0) {
-            return await message.reply('No Hoster Roles set up on server.')
+            return await message.reply('No Winner Roles set up on server.')
         }
 
         let embed = new Discord.MessageEmbed()
