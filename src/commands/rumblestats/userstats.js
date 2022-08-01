@@ -16,8 +16,8 @@ module.exports = {
         let user = await client.functions.get("functions").getUser(message.guild.id, member.id)
 
         let embed = new Discord.MessageEmbed()
+            .setAuthor({name: `${member.displayName}'s Rumble Stats`, iconURL: member.displayAvatarURL({ format: 'png', size: 512 })})
             .setColor("PURPLE")
-            .setTitle(`${member.displayName}'s Rumble Stats`)
             .addFields([
                 {
                     name: "Wins:",
@@ -27,11 +27,11 @@ module.exports = {
                 {
                     name: "Hosted:",
                     value: user.hostCount + " games",
-                    inline: true                    
+                    inline: true
                 }
             ])
 
-        embed = client.functions.get("functions").setEmbedFooter(embed, client)
+        //embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
         await message.reply({ embeds: [embed] })
         await client.functions.get("autoroles").checkAutoRoles(client, message, user, member)
