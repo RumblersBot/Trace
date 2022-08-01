@@ -4,7 +4,7 @@ const User = require("../../_database/models/userSchema")
 module.exports = {
     name: "leaderboard",
     aliases: ["lb"],
-    category: "rumblestats",
+    category: "stats",
     guilds: ["968176372944109709", "968886418883637278"],
     description: 'Shows the server leaderboard',
     run: async ({ client, message, args }) => {
