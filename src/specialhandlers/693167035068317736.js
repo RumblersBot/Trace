@@ -59,7 +59,7 @@ async function checkNewBattle(client, message) {
                 let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
                 let foundUser = message.guild.members.cache.find(entry => entry.user.username === userNameMentioned)
                 if (!foundUser) {
-                    foundUser = await message.guild.members.search({ query: tmp })?.first()
+                    foundUser = await message.guild.members.search({ query: userNameMentioned })?.first()
                 } 
 
                 if (!!foundUser) {
