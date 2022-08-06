@@ -56,7 +56,7 @@ async function checkNewBattle(client, message) {
         const searchString = "started a new Rumble Royale session"
         if (embedFound.title)
             if (embedFound.title.includes(searchString)) {
-                const { resolveMember } = require('../../functions/parameters');
+                const { resolveMember } = require('../functions/parameters');
 
                 let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
                 let foundUser = await resolveMember(message, userNameMentioned, false)
