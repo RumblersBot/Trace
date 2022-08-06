@@ -20,6 +20,6 @@ async function resolveMember(message, argument, defaultToAuthor) {
 }
 
 module.exports = {
-    name: "logs",
+    name: "parameters",
     resolveMember
 }
