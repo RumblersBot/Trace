@@ -8,13 +8,19 @@ async function resolveMember(message, argument, defaultToAuthor) {
         if (!!foundMember) return foundMember
 
         foundMember = await message.guild.members.search({ query: argument })
-        if (foundMember.size !== 0) return foundMember.first()
+        if (foundMember.size !== 0) {
+            foundMember = foundMember.filter(entry => entry.user.username === argument)
+            if (foundMember.size !== 0) return foundMember.first()
+        }
 
-        foundMember = await message.guild.members.cache.get(argument)
-        if (!!foundMember) return foundMember
+        if (!isNaN(argument)) {
 
-        foundMember = await message.guild.members.fetch(argument)
-        if (!!foundMember) return foundMember
+            foundMember = await message.guild.members.cache.get(argument)
+            if (!!foundMember) return foundMember
+
+            foundMember = await message.guild.members.fetch(argument)
+            if (!!foundMember) return foundMember
+        }
     }
     if (defaultToAuthor) return message.member
 }
