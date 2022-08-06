@@ -14,7 +14,7 @@ module.exports = {
 
             let changelog = await readLastLines.read(path, number)
             await message.reply({
-                content: `**Last __*${number}*__ changelog Lines:**\n\`\`\`` + changelog + "\`\`\`"
+                content: `**Last __*${number}*__ changelog Lines:**\n\`\`\` ` + changelog + "\`\`\`"
             })
         }
     }
