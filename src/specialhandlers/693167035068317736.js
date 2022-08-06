@@ -56,12 +56,10 @@ async function checkNewBattle(client, message) {
         const searchString = "started a new Rumble Royale session"
         if (embedFound.title)
             if (embedFound.title.includes(searchString)) {
-                let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
-                let foundUser = message.guild.members.cache.find(entry => entry.user.username === userNameMentioned)
-                if (!foundUser) {
-                    foundUser = await message.guild.members.search({ query: userNameMentioned })?.first()
-                } 
+                const { resolveMember } = require('../../functions/parameters');
 
+                let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
+                let foundUser = await resolveMember(message, userNameMentioned, false)
                 if (!!foundUser) {
                     let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
                     userData.hostCount += 1

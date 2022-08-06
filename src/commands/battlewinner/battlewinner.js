@@ -1,4 +1,5 @@
 const BattleWinner = require('../../_database/models/battleWinnerSchema')
+const { resolveMember } = require('../../functions/parameters');
 
 module.exports = {
     name: "battlewinner",
@@ -12,7 +13,7 @@ module.exports = {
             return await message.reply("No user supplied.")
         }        
 
-        let target = message.mentions.members.first() || await message.guild.members.fetch(args[0])        
+        let target = await resolveMember(message, args[0], false)       
         if (!target) {
             return await message.reply("No valid user supplied.")
         }        

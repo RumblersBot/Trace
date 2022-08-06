@@ -1,5 +1,6 @@
 const Discord = require("discord.js")
 const { getMember } = require('../../functions/pinglist')
+const { resolveMember } = require('../../functions/parameters');
 
 module.exports = {
     name: "userstats",
@@ -8,11 +9,7 @@ module.exports = {
     guilds: ["968176372944109709", "968886418883637278"],
     description: 'Shows the user stats',
     run: async ({ client, message, args }) => {
-        let member
-        if (!!args[0])
-            member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
-        if (!member)
-            member = message.member
+        let member = await resolveMember(message, args[0], true)
 
         let user = await client.functions.get("functions").getUser(message.guild.id, member.id)
 

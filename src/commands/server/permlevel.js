@@ -1,4 +1,5 @@
 const { getPermissionLevel, getPermissionName } = require("../../handlers/permissions")
+const { resolveMember } = require('../../functions/parameters');
 
 module.exports = {
     name: "permlevel",
@@ -6,12 +7,8 @@ module.exports = {
     description: "Show your permission level within this server",
     usage: "[User]",
     run: async ({ message, args }) => {
-        let target
-        if (!args[0])
-            target = message.mentions.members.first() || await message.guild.members.fetch(args[0])
-        if (!target) {
-            target = message.member
-        }
+        let target = await resolveMember(message, args[0], true)
+
         await message.reply(`\`${target.user.username}\` is \`${getPermissionName(getPermissionLevel(target))}\``)
     }
 }
