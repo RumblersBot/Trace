@@ -15,7 +15,7 @@ module.exports = {
         if (fs.existsSync(path)) {
             let console = await readLastLines.read(path, number)
             await message.reply({
-                content: `**Last __*${number}*__ Console Lines:**\n` + console
+                content: `**Last __*${number}*__ Console Lines:**\n\`\`\`` + console + "\`\`\`"
             })
         }
     }
