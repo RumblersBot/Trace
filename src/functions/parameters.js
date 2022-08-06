@@ -7,7 +7,7 @@ async function resolveMember(message, argument, defaultToAuthor) {
         foundMember = message.guild.members.cache.find(entry => entry.user.username === argument)
         if (!!foundMember) return foundMember
 
-        foundMember = await message.guild.members.search({ query: argument })
+        foundMember = await message.guild.members.search({ query: argument, limit: 5 })
         if (foundMember.size !== 0) {
             foundMember = foundMember.filter(entry => entry.user.username === argument)
             if (foundMember.size !== 0) return foundMember.first()
