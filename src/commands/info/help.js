@@ -87,7 +87,7 @@ function getCMD(client, message, input, prefix) {
     if (cmd.aliases)
         info += `\n**Aliases**: ${cmd.aliases.map(a => `\`${a}\``).join(", ")}`;
     if (cmd.description) info += `\n**Description**: ${cmd.description}`;
-    if (!!cmd.permissions) info += `\n**Min. Permission**: ${getPermissionName(cmd.permissions)}`;
+    if (cmd.permissions !== undefined) info += `\n**Min. Permission**: ${getPermissionName(cmd.permissions)}`;
     if (cmd.usage) {
         info += `\n**Usage**: ${prefix}${cmd.name} ${cmd.usage}`;
         embed.setFooter({ text: `Syntax: <> = required, [] = optional` });
