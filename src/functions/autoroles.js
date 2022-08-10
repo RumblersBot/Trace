@@ -89,7 +89,7 @@ async function checkAutoRoles(client, message, userDBObj, member) {
 
     if (assignedRoles.length === 0) return
 
-    let msg = `Congratulations <@${member.id}>, you have received the following roles: ${assignedRoles.join(", ")}`
+    let msg = `Congratulations <@${member.id}> :tada:, you have received the following roles: ${assignedRoles.join(", ")}`
     await message.channel.send(msg)
 }
 
