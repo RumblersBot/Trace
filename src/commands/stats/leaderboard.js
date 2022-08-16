@@ -8,23 +8,27 @@ module.exports = {
     guilds: ["968176372944109709", "968886418883637278"],
     description: 'Shows the server leaderboard',
     run: async ({ client, message, args }) => {
-        let topWinners = await User.find({}).sort('-winCount').limit(10).exec()
-        let topHosters = await User.find({}).sort('-hostCount').limit(10).exec()
+        let topWinners = await User.find({ guildID: message.guild.id }).sort('-winCount').limit(10).exec()
+        let topHosters = await User.find({ guildID: message.guild.id }).sort('-hostCount').limit(10).exec()
 
-        const imgArr = [":first_place:",":second_place:",":third_place:","","","","","","",""]
+        const imgArr = [":first_place:", ":second_place:", ":third_place:", "", "", "", "", "", "", ""]
 
         winString = ""
         for (let index = 1; index <= 10; index++) {
             let winner = topWinners[index - 1]
-            let member = await getMember(message, winner.userID)
-                winString += `\`${index.toString().padStart(2, " ")}.\` ${imgArr[index-1]}**${member.displayName}**\n${winner.winCount.toLocaleString()} wins\n`
+            if (!!winner) {
+                let member = await getMember(message, winner.userID)
+                winString += `\`${index.toString().padStart(2, " ")}.\` ${imgArr[index - 1]}**${member.displayName}**\n${winner.winCount.toLocaleString()} wins\n`
+            }
         }
 
         hostString = ""
         for (let index = 1; index <= 10; index++) {
             let hoster = topHosters[index - 1]
-            let member = await getMember(message, hoster.userID)
-            hostString += `\`${index.toString().padStart(2, " ")}.\` ${imgArr[index-1]}**${member.displayName}**\n${hoster.hostCount.toLocaleString()} hosted\n`
+            if (!!hoster) {
+                let member = await getMember(message, hoster.userID)
+                hostString += `\`${index.toString().padStart(2, " ")}.\` ${imgArr[index - 1]}**${member.displayName}**\n${hoster.hostCount.toLocaleString()} hosted\n`
+            }
         }
 
         let embed = new Discord.MessageEmbed()
