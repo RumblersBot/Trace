@@ -1,5 +1,11 @@
 async function resolveMember(message, argument, defaultToAuthor) {
-    let foundMember = message.mentions.members.first()
+    let foundMember
+
+    argument = argument.trim()
+
+    if (argument.startsWith('<@') && argument.endsWith('>')) {
+        argument = argument.slice(2,-1)
+    }
     if (foundMember) return foundMember
 
     if (!!argument) {
