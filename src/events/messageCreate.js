@@ -13,6 +13,8 @@ module.exports = {
 
         if (!message.guild) return
 
+        let mentionedBot = (message.mentions.members.first()?.id === client.user.id)
+
         let member = message.member
         let userPermLevel = getPermissionLevel(member)
 
@@ -45,7 +47,13 @@ module.exports = {
 
         if (message.author.bot) return //ignore bots      
 
-        if (!message.content.startsWith(prefix)) return
+        if (!message.content.startsWith(prefix) && !mentionedBot) return
+        if (mentionedBot) {
+            args.shift()
+            if (args.length === 0)
+                return message.reply(`Prefix for this server is set to \`${prefix}\``)
+            //message.mentions.members.slice()
+        }
 
         const cmdstr = args.shift().toLowerCase()
 
