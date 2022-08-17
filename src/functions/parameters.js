@@ -1,14 +1,13 @@
 async function resolveMember(message, argument, defaultToAuthor) {
     let foundMember
 
-    argument = argument.trim()
-
-    if (argument.startsWith('<@') && argument.endsWith('>')) {
-        argument = argument.slice(2,-1)
-    }
-    if (foundMember) return foundMember
-
     if (!!argument) {
+
+        argument = argument.trim()
+
+        if (argument.startsWith('<@') && argument.endsWith('>')) {
+            argument = argument.slice(2,-1)
+        }
 
         foundMember = message.guild.members.cache.find(entry => entry.user.username.toLowerCase() === argument.toLowerCase())
         if (!!foundMember) return foundMember
@@ -34,15 +33,15 @@ async function resolveMember(message, argument, defaultToAuthor) {
 async function resolveChannel(message, argument, defaultToSourceChannel) {
     // let foundChannel = message.mentions.channels.first()
     let foundChannel
-    argument = argument.trim()
 
-    if (argument.startsWith('<#') && argument.endsWith('>')) {
-        argument = argument.slice(2,-1)
-    }
-    if (foundChannel) return foundChannel
+    if (!!argument) {     
 
-    if (!!argument) {        
-        
+        argument = argument.trim()
+
+        if (argument.startsWith('<#') && argument.endsWith('>')) {
+            argument = argument.slice(2,-1)
+        }
+
         foundChannel = message.guild.channels.cache.find(entry => entry.name.toLowerCase() === argument.toLowerCase())
         if (!!foundChannel) return foundChannel
 
@@ -61,14 +60,14 @@ async function resolveChannel(message, argument, defaultToSourceChannel) {
 async function resolveRole(message, argument) {
     // let foundRole = message.mentions.roles.first()
     let foundRole
-    argument = argument.trim()
 
-    if (argument.startsWith('<@&') && argument.endsWith('>')) {
-        argument = argument.slice(3,-1)
-    }
-    if (foundRole) return foundRole
+    if (!!argument) {    
+        
+        argument = argument.trim()
 
-    if (!!argument) {        
+        if (argument.startsWith('<@&') && argument.endsWith('>')) {
+            argument = argument.slice(3,-1)
+        }
 
         foundRole = message.guild.roles.cache.find(entry => entry.name.toLowerCase() === argument.toLowerCase())
         if (!!foundRole) return foundRole
