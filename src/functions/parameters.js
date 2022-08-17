@@ -32,7 +32,13 @@ async function resolveMember(message, argument, defaultToAuthor) {
 }
 
 async function resolveChannel(message, argument, defaultToSourceChannel) {
-    let foundChannel = message.mentions.channels.first()
+    // let foundChannel = message.mentions.channels.first()
+    let foundChannel
+    argument = argument.trim()
+
+    if (argument.startsWith('<#') && argument.endsWith('>')) {
+        argument = argument.slice(2,-1)
+    }
     if (foundChannel) return foundChannel
 
     if (!!argument) {        
@@ -53,7 +59,13 @@ async function resolveChannel(message, argument, defaultToSourceChannel) {
 }
 
 async function resolveRole(message, argument) {
-    let foundRole = message.mentions.roles.first()
+    // let foundRole = message.mentions.roles.first()
+    let foundRole
+    argument = argument.trim()
+
+    if (argument.startsWith('<@&') && argument.endsWith('>')) {
+        argument = argument.slice(3,-1)
+    }
     if (foundRole) return foundRole
 
     if (!!argument) {        
