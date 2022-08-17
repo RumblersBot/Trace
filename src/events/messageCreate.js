@@ -11,9 +11,9 @@ module.exports = {
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
         const args = message.content.slice(prefix.length).trim().split(/ +/g)
 
-        if (!message.guild) return
+        if (!message.guild) return        
 
-        let mentionedBot = (message.mentions.members.first()?.id === client.user.id)
+        let mentionedBot = (message.content.trim().startsWith(`<@${client.user.id}>`))
 
         let member = message.member
         let userPermLevel = getPermissionLevel(member)
