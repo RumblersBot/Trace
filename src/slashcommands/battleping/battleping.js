@@ -7,8 +7,8 @@ module.exports = {
     description: "Runs a Battle Ping",
     category: "battleping",
     guilds: ["968176372944109709", "968886418883637278"],
-    cmdpermissions: 10,
-    default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
+    cmdpermissions: 20,
+    //default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
     options: [
         {
             name: "era",
