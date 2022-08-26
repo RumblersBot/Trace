@@ -12,3 +12,7 @@
 - Better user resolve on mentions
 - Allow bot mention to run commands
 - Better channel / role resolve on mentions
+
+2022-08-26: v1.3.0
+- better incorporation of slash command (guild filter + permissions)
+- battle ping (replacement for carl tag)
