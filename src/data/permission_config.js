@@ -18,7 +18,7 @@ module.exports = {
             name: "Administrator",
             level: 0,
             user_ids:[],
-            role_ids:[],
+                role_ids:[],
             guild_perms:["ADMINISTRATOR"]
         },
         {
