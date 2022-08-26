@@ -62,10 +62,11 @@ module.exports = {
         let title = interaction.options.getString("title")
         let countDown = interaction.options.getInteger("countdown") || 0
         let defaultMessage = interaction.options.getString("defaultmessage")
+        let footerMessage = interaction.options.getString("footermessage")
 
         const { addBattlePing } = require('../../functions/battleping')
 
-        await addBattlePing(channel, pingrole, reward, title, countDown, defaultMessage)
+        await addBattlePing(channel, pingrole, reward, title, countDown, defaultMessage, footerMessage)
 
         await interaction.editReply({ content: `Battle ping for channel \`${channel.name}\` updated` })
     }
