@@ -37,7 +37,7 @@ module.exports = {
                 },
                 {
                     name: "samurai",
-                    value: "<:samurai:911649572974116874> Samurai"
+                    value: "<:Samurai:976607652052340757> Samurai"
                 },
                 {
                     name: "zombie",
