@@ -75,9 +75,9 @@ module.exports = {
         }
 
         description += '\n\n'
-        description += `\`Era:\` ${era}\n`
-        description += `\`Reward:\` ${bp.reward}\n`
-        description += `\`Message from Host:\` `
+        description += `\`__Era__:\` ${era}\n`
+        description += `\`__Reward__:\` ${bp.reward}\n`
+        description += `\`__Message from Host__:\` `
         if (!!message) description += message
         else description += bp.defaultMessage
         if (!!bp.footerMessage) description += `\n\n${bp.footerMessage}`
