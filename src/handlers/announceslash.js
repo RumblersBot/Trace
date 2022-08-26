@@ -8,5 +8,5 @@ module.exports = async (bot) => {
         const toAnnounce = client.slashcommands.filter(sc => !sc.guilds || sc.guilds.includes(guild.id))
         guild.commands.set([...toAnnounce.values()])
     });
-    console.log("Finished announcing slash command")        
+    console.log("Finished announcing slash command")
 }
