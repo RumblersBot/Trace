@@ -8,7 +8,8 @@ const battlePingSchema = new mongoose.Schema({
     title: String,
     countDown: { type: Number, default: 0 },
     reward: String,
-    defaultMessage: String
+    defaultMessage: String,
+    footerMessage: String
 })
 
 module.exports = new mongoose.model('BattlePingSchema', battlePingSchema, 'battlePings')

@@ -27,6 +27,12 @@ module.exports = {
             required: true
         },
         {
+            name: "footermessage",
+            description: "The footer message (always shown).",
+            type: "STRING",
+            required: false
+        },
+        {
             name: "title",
             description: "The title.",
             type: "STRING",

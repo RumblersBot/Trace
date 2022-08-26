@@ -76,6 +76,7 @@ module.exports = {
         description += `\`Message from Host:\``
         if (!!message) description += message
         else description += bp.defaultMessage
+        if (!!bp.footerMessage) description += `\n\n${bp.footerMessage}`
 
         let embed = new Discord.MessageEmbed()
             .setThumbnail("https://cdn.discordapp.com/avatars/693167035068317736/07a5a2e976c581ffb9074f8180070880.png?size=1024")

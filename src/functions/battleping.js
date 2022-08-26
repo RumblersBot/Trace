@@ -10,7 +10,7 @@ async function getBattlePing(channel) {
     return battlePing
 }
 
-async function addBattlePing(channel, pingRole, reward, title, countDown, defaultMessage) {
+async function addBattlePing(channel, pingRole, reward, title, countDown, defaultMessage, footerMessage) {
     removeBattlePing(channel)
 
     let battlePing = await new BattlePingSchema({
@@ -21,7 +21,8 @@ async function addBattlePing(channel, pingRole, reward, title, countDown, defaul
         title: title,
         reward: reward,
         countDown: countDown,
-        defaultMessage: defaultMessage
+        defaultMessage: defaultMessage,
+        footerMessage: footerMessage
     })
     await battlePing.save().catch(error => addLog(error))
 }
