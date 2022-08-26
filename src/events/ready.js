@@ -7,6 +7,6 @@ module.exports = {
         console.log("")
         console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        bot.client.announceSlashCommands(bot)
+        //bot.client.announceSlashCommands(bot)
     }
 }
