@@ -15,7 +15,7 @@ module.exports = {
         if (!secs) secs = 30 * 60
         if (secs === 0) secs = 30 * 60
 
-        addMember(message.member, secs)
+        await addMember(message.member, secs)
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
 
         let footer = "\nUnsubscribe with \`" + prefix + "unsub\`"
