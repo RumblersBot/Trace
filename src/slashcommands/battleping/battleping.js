@@ -43,6 +43,10 @@ module.exports = {
                     name: "zombie",
                     value: "<:Zombie:1000690492679397406> Zombie"
                 },
+                {
+                    name: "pirate",
+                    value: "<:Pirate:975370834770272256> Pirate"
+                }
             ],
             required: true
         },
