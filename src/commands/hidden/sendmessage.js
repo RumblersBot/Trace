@@ -2,7 +2,7 @@ module.exports = {
     name: "sendmessage",
     category: "hidden",
     description: 'Sends a message',
-    permissions: 0,
+    cmdpermissions: 0,
     usage: "<channelID>|<message>",
     run: async ({ client, message, args }) => {
         let param = args.join(" ").split("|")

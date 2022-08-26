@@ -5,7 +5,7 @@ module.exports = {
     name: "listbattlewinner",
     aliases: ["lbw"],
     category: "battlewinner",
-    permissions: 20,
+    cmdpermissions: 20,
     description: 'Lists all battle winner roles',
     usage: "[channelID]",
     run: async ({ client, message, args }) => {

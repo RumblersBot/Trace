@@ -3,7 +3,7 @@ module.exports = {
     name: "settings",
     aliases: [],
     category: "server",
-    permissions: 0,
+    cmdpermissions: 0,
     description: 'Guild bot server settings',
     usage: "[prefix <value>]",
     run: async ({ client, message, args }) => {

@@ -4,7 +4,7 @@ module.exports = {
     name: "updateembed",
     category: "hidden",
     description: 'Update an embed',
-    permissions: 0,
+    cmdpermissions: 0,
     usage: "<channel>|<messageID>|<color>|<title>|<message>",
     run: async ({ client, message, args }) => {
         let param = args.join(" ").split("|")

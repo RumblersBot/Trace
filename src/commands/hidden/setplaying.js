@@ -1,7 +1,7 @@
 module.exports = {
     name: "setplaying",
     category: "hidden",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Set the bot "IsPlaying" status',
     usage: "[Status]",
     run: async ({ client, message, args }) => {

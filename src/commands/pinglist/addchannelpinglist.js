@@ -5,7 +5,7 @@ module.exports = {
     name: "addchannelpinglist",
     aliases: ["acp"],
     category: "pinglist",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Enable the pinglist on a channel',
     usage: "[Channel ID]",
     run: async ({ client, message, args }) => {

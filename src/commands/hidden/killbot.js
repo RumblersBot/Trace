@@ -1,7 +1,7 @@
 module.exports = {
     name: "killbot",
     category: "hidden",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Kill bot process.',
     usage: "[hostname]",
     run: async (bot) => {

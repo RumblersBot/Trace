@@ -4,7 +4,7 @@ module.exports = {
     name: "createembed",
     category: "hidden",
     description: 'Create an embed',
-    permissions: 0,
+    cmdpermissions: 0,
     usage: "<color>|<title>|<message>",
     run: async ({ client, message, args }) => {
         let param = args.join(" ").split("|")

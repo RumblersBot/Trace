@@ -4,7 +4,7 @@ const Discord = require("discord.js")
 module.exports = {
     name: "gitupdate",
     category: "hidden",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Update bot from git latest',
     run: async ({ client, message, args }) => {
         var exec = require('child_process').exec;

@@ -4,7 +4,7 @@ const fs = require("fs")
 module.exports = {
     name: "reload",
     category: "hidden",
-    Permissions: 0,
+    cmdpermissions: 0,
     description: "reloads the bot",
     run: async (bot) => {
 

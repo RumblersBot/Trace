@@ -5,7 +5,7 @@ module.exports = {
     name: "listchannelpinglist",
     aliases: ["lcp"],
     category: "pinglist",
-    permissions: 20,
+    cmdpermissions: 20,
     description: 'Lists all channels where ping list is enabled',
     usage: "[channelID]",
     run: async ({ client, message, args }) => {

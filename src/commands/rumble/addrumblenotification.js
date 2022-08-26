@@ -5,7 +5,7 @@ module.exports = {
     name: "addrumblenotification",
     aliases: ["arn"],
     category: "rumble",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Add a Rumble Royale mention notification for a specific role to the current channel',
     usage: "[Channel ID] <Role ID>",
     run: async ({ client, message, args }) => {

@@ -1,7 +1,7 @@
 module.exports = {
     name: "clearlogs",
     category: "logs",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Clear the botlogs',
     run: async ({ client, message }) => {
 

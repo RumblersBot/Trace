@@ -2,7 +2,7 @@ const fs = require("fs")
 module.exports = {
     name: "eval",
     category: "hidden",
-    permissions: -1,
+    cmdpermissions: -1,
     description: "evaluates javascript code",
     usage: "<scriptblock>",
     run: async (bot) => {

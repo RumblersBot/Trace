@@ -3,7 +3,7 @@ module.exports = {
     name: "listHosterRoles",
     aliases: ["lhr"],
     category: "autorole",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Lists Hoster Auto Roles',
     guilds: ["968176372944109709", "968886418883637278"],
     run: async ({ client, message, args }) => {

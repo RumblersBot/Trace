@@ -1,7 +1,7 @@
 module.exports = {
     name: "restartbot",
     category: "hidden",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Restart bot',
     usage: "[hostname]",
     run: async (bot) => {

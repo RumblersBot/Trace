@@ -4,7 +4,7 @@ module.exports = {
     name: "removechannelpinglist",
     aliases: ["rcp"],
     category: "pinglist",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Removes a channel from the ping list',
     usage: "[Channel ID]",
     run: async ({ client, message, args }) => {

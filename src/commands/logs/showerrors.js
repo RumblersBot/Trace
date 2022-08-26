@@ -4,7 +4,7 @@ const readLastLines = require('read-last-lines');
 module.exports = {
     name: "showerrors",
     category: "logs",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Get the error logs',
     usage: "[Quantity]",
     run: async ({message, args}) => {

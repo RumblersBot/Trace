@@ -1,7 +1,7 @@
 module.exports = {
     name: "botlogs",
     category: "logs",
-    permissions: -1,
+    cmdpermissions: -1,
     description: 'Get the bot logs',
     usage: "[quantity]",
     run: async (bot) => {

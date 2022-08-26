@@ -2,7 +2,7 @@ module.exports = {
     name: "addWinnerRole",
     aliases: ["awr"],
     category: "autorole",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Add a Winner Auto Role',
     usage: "<fromCount> <roleID>",
     guilds: ["968176372944109709", "968886418883637278"],

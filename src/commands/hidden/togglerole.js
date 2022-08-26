@@ -3,7 +3,7 @@ module.exports = {
     name: "togglerole",
     aliases: ["tr"],
     category: "hidden",
-    permissions: 0,
+    cmdpermissions: 0,
     description: 'Toggle a role for a user',
     usage: "<role>|[user]",
     run: async ({ client, message, args }) => {

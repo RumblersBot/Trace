@@ -56,7 +56,7 @@ const handleSlashCommand = async (bot, interaction) => {
         return await interaction.reply({ content: "Command not available in this guild.", ephemeral: true })
     }
 
-    if (slashcmd.permissions !== undefined && userPermLevel > slashcmd.permissions) {
+    if (slashcmd.cmdpermissions !== undefined && userPermLevel > slashcmd.cmdpermissions) {
         return await interaction.reply({ content: "You do not have permission to run this slashcommand.", ephemeral: true })
     }
 

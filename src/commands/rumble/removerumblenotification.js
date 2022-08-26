@@ -4,7 +4,7 @@ module.exports = {
     name: "removerumblenotification",
     aliases: ["rrn"],
     category: "rumble",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Removes a Rumble Royale mention notification for a specific role',
     usage: "[Channel ID] <Role ID>",
     run: async ({ client, message, args }) => {

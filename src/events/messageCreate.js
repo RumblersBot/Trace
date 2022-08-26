@@ -62,7 +62,7 @@ module.exports = {
         let command = cmds.get(cmdstr) || cmds.get(client.aliases.get(cmdstr))
         if (!command) return // undefined command                 
 
-        if (command.permissions !== undefined && userPermLevel > command.permissions) {
+        if (command.cmdpermissions !== undefined && userPermLevel > command.cmdpermissions) {
             return //message.reply("You do not have permission to run this command.")
         }
 

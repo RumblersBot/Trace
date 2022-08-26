@@ -4,7 +4,7 @@ module.exports = {
     name: "removebattlewinner",
     aliases: ["rbw"],
     category: "battlewinner",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Removes a Battle winner role',
     usage: "[Channel ID] <Role ID>",
     run: async ({ client, message, args }) => {

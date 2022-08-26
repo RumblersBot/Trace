@@ -2,7 +2,7 @@ module.exports = {
     name: "removeWinnerRole",
     aliases: ["rwr"],
     category: "autorole",
-    permissions: 10,
+    cmdpermissions: 10,
     description: 'Removes a Winner Auto Role',
     usage: "<fromCount> <roleID>",
     guilds: ["968176372944109709", "968886418883637278"],
