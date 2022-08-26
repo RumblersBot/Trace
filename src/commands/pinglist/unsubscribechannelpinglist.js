@@ -5,7 +5,7 @@ module.exports = {
     category: "pinglist",
     description: 'Unsubscribe to the channel ping list',
     run: async ({ client, message, args }) => {
-        removeMember(message.member)
+        await removeMember(message.member)
 
         await message.reply("Any pending subscriptions have been removed.")
     }
