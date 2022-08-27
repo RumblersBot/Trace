@@ -67,7 +67,7 @@ module.exports = {
 
         let noping = interaction.options.getChannel("channeltest")
         let targetChannel = interaction.channel
-        if (!!noping) targetChannel = noping        
+        if (!!noping) targetChannel = noping
 
         await interaction.deferReply({ ephemeral: true })
 
@@ -86,7 +86,8 @@ module.exports = {
 
         description += '\n\n'
         description += `__\`Era:\`__ ${era}\n`
-        description += `__\`Reward:\`__ ${bp.reward}\n`
+        if (!!bp.reward)
+            description += `__\`Reward:\`__ ${bp.reward}\n`
         description += `__\`Message from Host:\`__ `
         if (!!message) description += message
         else description += bp.defaultMessage

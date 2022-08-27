@@ -15,17 +15,17 @@ module.exports = {
             required: true
         },
         {
-            name: "reward",
-            description: "The win reward.",
-            type: "STRING",
-            required: true
-        },
-        {
             name: "defaultmessage",
             description: "The Default message.",
             type: "STRING",
             required: true
         },
+        {
+            name: "reward",
+            description: "The win reward.",
+            type: "STRING",
+            required: false
+        },        
         {
             name: "footermessage",
             description: "The footer message (always shown).",
