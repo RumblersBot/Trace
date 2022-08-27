@@ -100,11 +100,13 @@ module.exports = {
             .setColor("BLUE")
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
+        let contentMsg = `<@&${bp.pingRole}> started by ${interaction.member}`
 
         if (!!noping) {
-            await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed], allowedMentions: { parse: [] } })
+            contentMsg += `\nChannel test for: \`${targetChannel.name}\``
+            await interaction.channel.send({ content: contentMsg, embeds: [embed], allowedMentions: { parse: [] } })
         } else {
-            await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed] })
+            await interaction.channel.send({ content: contentMsg, embeds: [embed] })
         }
 
         await interaction.editReply({ content: "Battle ping sent." })
