@@ -90,7 +90,7 @@ module.exports = {
             description += `__\`Reward:\`__ ${bp.reward}\n`
         description += `__\`Message from Host:\`__ `
         if (!!message) description += message
-        else description += bp.defaultMessage        
+        else description += bp.defaultMessage
 
         let embed = new Discord.MessageEmbed()
             .setThumbnail("https://cdn.discordapp.com/avatars/693167035068317736/07a5a2e976c581ffb9074f8180070880.png?size=1024")
@@ -99,7 +99,7 @@ module.exports = {
             .setDescription(description)
             .setColor("BLUE")
 
-        if (!!bp.footerMessage) embed.setFooter({text: bp.footerMessage})
+        if (!!bp.footerMessage) embed.setFooter({ text: bp.footerMessage })
 
         let contentMsg = `<@&${bp.pingRole}> started by ${interaction.member}`
 
