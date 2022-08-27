@@ -104,7 +104,7 @@ module.exports = {
         let contentMsg = `<@&${bp.pingRole}> started by ${interaction.member}`
 
         if (!!noping) {
-            contentMsg += `\nChannel test for: \`${targetChannel.name}\``
+            contentMsg = `Channel test for: \`${targetChannel.name}\`\n` + contentMsg
             await interaction.channel.send({ content: contentMsg, embeds: [embed], allowedMentions: { parse: [] } })
         } else {
             await interaction.channel.send({ content: contentMsg, embeds: [embed] })
