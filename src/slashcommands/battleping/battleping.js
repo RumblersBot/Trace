@@ -57,17 +57,21 @@ module.exports = {
             required: false
         },
         {
-            name: "noping",
-            description: "no ping.",
-            type: "BOOLEAN",
+            name: "channeltest",
+            description: "Test how it would look, doesn't ping",
+            type: "CHANNEL",
             required: false
         },
     ],
     run: async ({ client, interaction }) => {
 
+        let noping = interaction.options.getChannel("channeltest")
+        let targetChannel = interaction.channel
+        if (!!noping) targetChannel = noping        
+
         await interaction.deferReply({ ephemeral: true })
 
-        const bp = await getBattlePing(interaction.channel)
+        const bp = await getBattlePing(targetChannel)
         if (!bp) return interaction.editReply({ content: "No battleping set up for this channel" })
 
         let era = interaction.options.getString("era")
@@ -96,8 +100,6 @@ module.exports = {
             .setColor("BLUE")
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
-
-        let noping = interaction.options.getBoolean("noping")
 
         if (!!noping) {
             await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed], allowedMentions: { parse: [] } })
