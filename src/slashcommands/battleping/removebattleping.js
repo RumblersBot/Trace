@@ -4,7 +4,7 @@ module.exports = {
     name: "removebattleping",
     description: "Removes a Battle Ping",
     category: "battleping",
-    guilds: ["968176372944109709", "968886418883637278"],
+    guilds: ["968176372944109709", "968886418883637278","841882715585904650"],
     cmdpermissions: 10,
     default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
     options: [
