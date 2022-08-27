@@ -6,7 +6,7 @@ module.exports = {
     name: "battleping",
     description: "Runs a Battle Ping",
     category: "battleping",
-    guilds: ["968176372944109709", "968886418883637278","841882715585904650"],
+    guilds: ["968176372944109709", "968886418883637278", "841882715585904650"],
     cmdpermissions: 20,
     //default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
     options: [
@@ -56,6 +56,12 @@ module.exports = {
             type: "STRING",
             required: false
         },
+        {
+            name: "noping",
+            description: "no ping.",
+            type: "BOOLEAN",
+            required: false
+        },
     ],
     run: async ({ client, interaction }) => {
 
@@ -91,7 +97,14 @@ module.exports = {
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
-        await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed] })
+        let noping = interaction.options.getBoolean("noping")
+
+        if (!!noping) {
+            await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed], allowedMentions: { parse: [] } })
+        } else {
+            await interaction.channel.send({ content: `<@&${bp.pingRole}> started by ${interaction.member}`, embeds: [embed] })
+        }
+
         await interaction.editReply({ content: "Battle ping sent." })
     }
 }
