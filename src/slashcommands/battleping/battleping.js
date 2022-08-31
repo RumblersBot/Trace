@@ -56,26 +56,16 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
             required: false
         },
-        {
-            name: "previewforchannel",
-            description: "Preview how it would look, doesn't ping",
-            type: ApplicationCommandOptionType.Channel,
-            required: false
-        },
     ],
-    run: async ({ client, interaction }) => {
+    showPing: async (client, interaction, era, message, testchannel) => {
 
-        let noping = interaction.options.getChannel("previewforchannel")
         let targetChannel = interaction.channel
-        if (!!noping) targetChannel = noping
+        if (!!testchannel) targetChannel = testchannel
 
         await interaction.deferReply({ ephemeral: true })
 
         const bp = await getBattlePing(targetChannel)
         if (!bp) return interaction.editReply({ content: "No battleping set up for this channel" })
-
-        let era = interaction.options.getString("era")
-        let message = interaction.options.getString("message")
 
         let title = `<a:fight:1012725282366562406> __**A new ${bp.title || ""} Battle has begun!**__`
         let description = "React with <:Swords:976587202387673200> to the message above to compete in this battle!"
@@ -105,7 +95,7 @@ module.exports = {
 
         let contentMsg = `<@&${bp.pingRole}> started by ${interaction.member}`
 
-        if (!!noping) {
+        if (!!testchannel) {
             contentMsg = `Channel test for: \`${targetChannel.name}\`\n` + contentMsg
             await interaction.channel.send({ content: contentMsg, embeds: [embed], allowedMentions: { parse: [] } })
         } else {
@@ -113,5 +103,8 @@ module.exports = {
         }
 
         await interaction.editReply({ content: "Battle ping sent." })
+    },
+    run: async ({ client, interaction }) => {
+        module.exports.showPing(client, interaction, interaction.options.getString("era"), interaction.options.getString("message"), null)
     }
 }
