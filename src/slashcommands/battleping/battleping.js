@@ -57,15 +57,15 @@ module.exports = {
             required: false
         },
         {
-            name: "channeltest",
-            description: "Test how it would look, doesn't ping",
+            name: "previewforchannel",
+            description: "Preview how it would look, doesn't ping",
             type: ApplicationCommandOptionType.Channel,
             required: false
         },
     ],
     run: async ({ client, interaction }) => {
 
-        let noping = interaction.options.getChannel("channeltest")
+        let noping = interaction.options.getChannel("previewforchannel")
         let targetChannel = interaction.channel
         if (!!noping) targetChannel = noping
 
