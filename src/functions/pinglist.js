@@ -12,7 +12,7 @@ async function getMember(member) {
 }
 
 async function addMember(member, delaySec) {
-    removeMember(member)
+    await removeMember(member)
 
     if (!delaySec)
         delaySec = 30 * 60
