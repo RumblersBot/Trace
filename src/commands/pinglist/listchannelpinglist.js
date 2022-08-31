@@ -33,7 +33,7 @@ module.exports = {
             return await message.reply('No channels set up for the ping list.')
         }
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setColor("#8DC685")
             .setTitle("Channel on the Ping List")
             .setDescription(printData.join("\n"))

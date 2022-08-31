@@ -8,7 +8,7 @@ module.exports = {
     description: 'Displays bot info',
     run: async ({ client, message }) => {
         const botMember = await message.guild.members.fetch(client.user.id)
-        let botembed = new Discord.MessageEmbed()
+        let botembed = new Discord.EmbedBuilder()
             .setThumbnail(client.user.displayAvatarURL)
             .setTitle("About this bot:")
             .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })

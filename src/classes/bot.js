@@ -1,6 +1,7 @@
 const fs = require("fs")
 const Discord = require("discord.js")
 const EventEmitter = require('node:events');
+
 class Bot {
     constructor() {
 
@@ -21,18 +22,15 @@ class Bot {
 
     start = function() {
         this.client = new Discord.Client({
-            intents: [
-               "GUILDS",
-               "GUILD_MEMBERS",
-               "GUILD_MESSAGES",
-               "GUILD_MESSAGE_REACTIONS"
+            intents: [     
+                Discord.GatewayIntentBits.Guilds,
+                Discord.GatewayIntentBits.GuildMembers,
+                Discord.GatewayIntentBits.MessageContent,
+                Discord.GatewayIntentBits.GuildMessages,
+                Discord.GatewayIntentBits.GuildMessageReactions
             ],
             partials: [
-                // "MESSAGE",
-                // "CHANNEL",
-                // "GUILD_MEMBER",
-                // "USER",
-                "REACTION"
+                Discord.Partials.Reaction
             ]
         })
 

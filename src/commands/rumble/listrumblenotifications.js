@@ -37,7 +37,7 @@ module.exports = {
             return await message.reply('No Rumble notifications set up on server.')
         }
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setColor("#8DC685")
             .setTitle("Rumble Royale Notifications")
             .setDescription(client.functions.get("functions").autoAlign(printData))

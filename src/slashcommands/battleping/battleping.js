@@ -1,5 +1,5 @@
-const { Permissions } = require("discord.js")
 const Discord = require("discord.js")
+const { PermissionFlagsBits, ApplicationCommandOptionType } = require("discord.js")
 const { getBattlePing } = require('../../functions/battleping')
 
 module.exports = {
@@ -8,12 +8,12 @@ module.exports = {
     category: "battleping",
     guilds: ["968176372944109709", "968886418883637278", "841882715585904650"],
     cmdpermissions: 20,
-    //default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
+    //default_member_permissions: PermissionFlagsBits.ManageChannels,
     options: [
         {
             name: "era",
             description: "Rumble Era.",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             choices: [
                 {
                     name: "classic",
@@ -53,13 +53,13 @@ module.exports = {
         {
             name: "message",
             description: "Custom message.",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: false
         },
         {
             name: "channeltest",
             description: "Test how it would look, doesn't ping",
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
             required: false
         },
     ],
@@ -94,12 +94,12 @@ module.exports = {
 
         if (!!bp.footerMessage) description += `\n\n${bp.footerMessage}`
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setThumbnail("https://cdn.discordapp.com/avatars/693167035068317736/07a5a2e976c581ffb9074f8180070880.png?size=1024")
             .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL({ dynamic: true }) })
             .setTitle(title)
             .setDescription(description)
-            .setColor("BLUE")
+            .setColor(Discord.Colors.Blue)
 
         //if (!!bp.footerMessage) embed.setFooter({ text: bp.footerMessage })
 

@@ -37,7 +37,7 @@ module.exports = {
             return await message.reply('No Battle Winners set up on server.')
         }
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setColor("#8DC685")
             .setTitle("Battle Winner Roles")
             .setDescription(client.functions.get("functions").autoAlign(printData))

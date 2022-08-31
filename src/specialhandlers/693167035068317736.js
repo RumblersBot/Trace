@@ -3,6 +3,7 @@ const RumbleNotification = require('../_database/models/rumbleNotificationSchema
 const Discord = require("discord.js")
 const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
 const { addLog } = require('../functions/logs')
+const { ButtonStyle } = require('discord.js')
 
 module.exports = {
     run: async ({ client, message }) => {
@@ -39,7 +40,9 @@ async function checkMentions(client, message) {
 }
 
 async function checkNewBattle(client, message) {
-    
+
+    await client.functions.get("functions").delay(2000)
+    message = await message.fetch(true)
     let embeds = message.embeds
 
     if (!embeds) return
@@ -56,15 +59,21 @@ async function checkNewBattle(client, message) {
         const searchString = "Rumble Royale hosted by"
         if (embedFound.title)
             if (embedFound.title.includes(searchString)) {
-                const { resolveMember } = require('../functions/parameters');
 
-                let userNameMentioned = embedFound.title.substring(searchString.length + 1)
-                let foundUser = await resolveMember(message, userNameMentioned, false)
-                if (!!foundUser) {
-                    let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
-                    userData.hostCount += 1
-                    await userData.save().catch(error => addLog(error, error.stack))
-                    await client.functions.get("autoroles").checkAutoRoles(client, message, userData, foundUser)
+                let isStaffBattle = false
+                if (embedFound.footer) isStaffBattle = embedFound.footer.text.includes("Staff")
+
+                if (!isStaffBattle) {
+                    const { resolveMember } = require('../functions/parameters');
+
+                    let userNameMentioned = embedFound.title.substring(searchString.length + 1)
+                    let foundUser = await resolveMember(message, userNameMentioned, false)
+                    if (!!foundUser) {
+                        let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
+                        userData.hostCount += 1
+                        await userData.save().catch(error => addLog(error, error.stack))
+                        await client.functions.get("autoroles").checkAutoRoles(client, message, userData, foundUser)
+                    }
                 }
             }
     }
@@ -72,7 +81,6 @@ async function checkNewBattle(client, message) {
 
 async function showPingList(client, message) {
     let buttons = []
-    await client.functions.get("functions").delay(2000)
 
     const lastPingSent = client.pinglistsLastSent.get(message.channel.id)
     if (!!lastPingSent) {
@@ -80,8 +88,8 @@ async function showPingList(client, message) {
         if (lastPingSent.lastSent >= checkTime) return
     }
 
-    buttons.push(new Discord.MessageButton().setCustomId(`ping-sub`).setStyle("SUCCESS").setLabel('Subscribe'))
-    buttons.push(new Discord.MessageButton().setCustomId(`ping-unsub`).setStyle("DANGER").setLabel('Unsubscribe'))
+    buttons.push(new Discord.ButtonBuilder().setCustomId(`ping-sub`).setStyle(ButtonStyle.Success).setLabel('Subscribe'))
+    buttons.push(new Discord.ButtonBuilder().setCustomId(`ping-unsub`).setStyle(ButtonStyle.Danger).setLabel('Unsubscribe'))
 
     if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
         let result = await removeTimedOutAndGetUserPings(message.guild.id)
@@ -98,17 +106,17 @@ async function showPingList(client, message) {
         await message.channel.send({
             content: `Notified **${count}** users.`,
             embeds: [
-                new Discord.MessageEmbed().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor("BLUE")
+                new Discord.EmbedBuilder().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor(Discord.Colors.Blue)
             ],
             components: [
-                new Discord.MessageActionRow().addComponents(buttons)
+                new Discord.ActionRowBuilder().addComponents(buttons)
             ]
         })
         if (!!tr && tr.length !== 0) {
             await message.channel.send({
                 content: tr.join(" "),
                 embeds: [
-                    new Discord.MessageEmbed().setTitle("Subscription expired").setDescription(`Your subscription timer has expired. You can resubscribe using the buttons above.`).setColor("RED")
+                    new Discord.EmbedBuilder().setTitle("Subscription expired").setDescription(`Your subscription timer has expired. You can resubscribe using the buttons above.`).setColor(Discord.Colors.Red)
                 ]
             })
         }

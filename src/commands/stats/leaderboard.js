@@ -31,8 +31,8 @@ module.exports = {
             }
         }
 
-        let embed = new Discord.MessageEmbed()
-            .setColor("GOLD")
+        let embed = new Discord.EmbedBuilder()
+            .setColor(Discord.Colors.Gold)
             .setTitle(`Rumble Stats Leaderboard`)
             .addFields([
                 {

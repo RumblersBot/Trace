@@ -16,3 +16,7 @@
 2022-08-26: v1.3.0
 - better incorporation of slash command (guild filter + permissions)
 - battle ping (replacement for carl tag)
+
+2022-08-31: v2.0.0
+- complete overhaul to discordjs v14
+- fixes for rumble slash

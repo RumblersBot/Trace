@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js")
+const { PermissionFlagsBits, ApplicationCommandOptionType } = require("discord.js")
 
 module.exports = {
     name: "addbattleping",
@@ -6,48 +6,48 @@ module.exports = {
     category: "battleping",
     guilds: ["968176372944109709", "968886418883637278","841882715585904650"],
     cmdpermissions: 10,
-    default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
+    default_member_permissions: PermissionFlagsBits.ManageChannels,
     options: [
         {
             name: "pingrole",
             description: "The role to ping.",
-            type: "ROLE",
+            type: ApplicationCommandOptionType.Role,
             required: true
         },
         {
             name: "defaultmessage",
             description: "The Default message.",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: true
         },
         {
             name: "reward",
             description: "The win reward.",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: false
         },        
         {
             name: "footermessage",
             description: "The footer message (always shown).",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: false
         },
         {
             name: "title",
             description: "The title.",
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
             required: false
         },
         {
             name: "channel",
             description: "The channel on which you want to set it up.",
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
             required: false
         },
         {
             name: "countdown",
             description: "Countdown in minutes. Don't supply if not needed",
-            type: "INTEGER",
+            type: ApplicationCommandOptionType.Integer,
             required: false
         },
     ],

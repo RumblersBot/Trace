@@ -23,7 +23,7 @@ module.exports = {
 
         const os = require("os")
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setColor("#8DC685")
             .setTitle(`Bot Reload Complete on \`${os.hostname()}\``)
             .setDescription(client.functions.get("functions").autoAlign([

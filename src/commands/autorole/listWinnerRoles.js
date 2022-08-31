@@ -14,8 +14,8 @@ module.exports = {
             return await message.reply('No Winner Roles set up on server.')
         }
 
-        let embed = new Discord.MessageEmbed()
-            .setColor("YELLOW")
+        let embed = new Discord.EmbedBuilder()
+            .setColor(Discord.Colors.Yellow)
             .setTitle("Winner Roles")
             .setDescription(client.functions.get("functions").autoAlign(printData))
 

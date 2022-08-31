@@ -1,4 +1,4 @@
-const { Permissions } = require("discord.js")
+const { PermissionFlagsBits, ApplicationCommandOptionType } = require("discord.js")
 
 module.exports = {
     name: "removebattleping",
@@ -6,12 +6,12 @@ module.exports = {
     category: "battleping",
     guilds: ["968176372944109709", "968886418883637278","841882715585904650"],
     cmdpermissions: 10,
-    default_member_permissions: Permissions.FLAGS.MANAGE_CHANNELS,
+    default_member_permissions: PermissionFlagsBits.ManageChannels,
     options: [
         {
             name: "channel",
             description: "The channel on which you want to set it up.",
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
             required: false
         },
     ],

@@ -12,9 +12,9 @@ module.exports = {
         const properties = ["prefix"]
 
         if (!args.length) {
-            let embed = new Discord.MessageEmbed()
+            let embed = new Discord.EmbedBuilder()
                 .setTitle(`Trace Server Settings: ${message.guild.name}`)
-                .setColor('RED')
+                .setColor(Discord.Colors.Red)
                 .setDescription(`If nothing is shown, there are no properties assigned\nProperties: ${properties.join(", ")}`)
 
             if (guildSettings.prefix) embed.addFields({name: "Prefix", value: guildSettings.prefix})

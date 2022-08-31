@@ -24,9 +24,9 @@ module.exports = {
         else
             subValue = 'No active subscription'
 
-        let embed = new Discord.MessageEmbed()
+        let embed = new Discord.EmbedBuilder()
             .setAuthor({ name: `${member.displayName}'s Stats`, iconURL: member.displayAvatarURL({ format: 'png', size: 512 }) })
-            .setColor("PURPLE")
+            .setColor(Discord.Colors.Purple)
             .addFields([
                 {
                     name: "Rumble Wins:",

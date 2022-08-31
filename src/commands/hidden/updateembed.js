@@ -8,8 +8,10 @@ module.exports = {
     usage: "<channel>|<messageID>|<color>|<title>|<message>",
     run: async ({ client, message, args }) => {
         let param = args.join(" ").split("|")
-        let embed = new Discord.MessageEmbed()
-            .setColor(param[2])
+        const color = param[2].replace(/\w+/g,
+            function (w) { return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
+        let embed = new Discord.EmbedBuilder()
+            .setColor(color)
             .setTitle(param[3])
             .setDescription(param[4])
 
