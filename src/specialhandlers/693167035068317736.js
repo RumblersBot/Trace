@@ -39,7 +39,7 @@ async function checkMentions(client, message) {
 }
 
 async function checkNewBattle(client, message) {
-
+    
     let embeds = message.embeds
 
     if (!embeds) return
@@ -53,12 +53,12 @@ async function checkNewBattle(client, message) {
 
 
     if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
-        const searchString = "started a new Rumble Royale session"
+        const searchString = "Rumble Royale hosted by"
         if (embedFound.title)
             if (embedFound.title.includes(searchString)) {
                 const { resolveMember } = require('../functions/parameters');
 
-                let userNameMentioned = embedFound.title.substring(0, embedFound.title.indexOf(searchString) - 1)
+                let userNameMentioned = embedFound.title.substring(searchString.length + 1)
                 let foundUser = await resolveMember(message, userNameMentioned, false)
                 if (!!foundUser) {
                     let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
