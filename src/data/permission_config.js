@@ -2,6 +2,8 @@
 // role_ids     match any
 // guild_perms  match all
 
+const { PermissionFlagsBits } = require("discord.js");
+
 
 module.exports = {
     permissionLevels: [
@@ -19,23 +21,23 @@ module.exports = {
             level: 0,
             user_ids:[],
                 role_ids:[],
-            guild_perms:["ADMINISTRATOR"]
+            guild_perms:[PermissionFlagsBits.Administrator]
         },
         {
             name: "Moderator",
             level: 10,
             user_ids:[],
             role_ids:[],
-            guild_perms:["MANAGE_CHANNELS"]
+            guild_perms:[PermissionFlagsBits.ManageChannels]
         },        
         {
             name: "Helper",
             level: 20,
-            user_ids:[],
+            user_ids:["989126431114149909"],
             role_ids:[
                 "995786988470931508" // The Rumblers Helpers
             ],
-            guild_perms:["MANAGE_MESSAGES"]
+            guild_perms:[PermissionFlagsBits.ManageMessages]
         },
         {
             name: "Rumblers Server Booster",
@@ -51,7 +53,7 @@ module.exports = {
             level: 99,
             user_ids: [],
             role_ids: [],
-            guild_perms: ["SEND_MESSAGES"]
+            guild_perms: [PermissionFlagsBits.SendMessages]
         }
     ]
 }
