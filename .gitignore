@@ -1,5 +1,6 @@
 .env
 .dev
+..dev
 .vscode/
 package-lock.json
 node_modules/
