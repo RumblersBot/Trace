@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const RumbleNotification = require('../../_database/models/rumbleNotificationSchema')
+const { addLog } = require('../../functions/logs')
 
 module.exports = {
     name: "addrumblenotification",

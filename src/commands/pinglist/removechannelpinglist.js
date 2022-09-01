@@ -1,4 +1,5 @@
 const PingChannel = require('../../_database/models/pingChannelSchema')
+const { addLog } = require("../../functions/logs")
 
 module.exports = {
     name: "removechannelpinglist",

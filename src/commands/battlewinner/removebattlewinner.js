@@ -1,4 +1,5 @@
 const BattleWinner = require('../../_database/models/battleWinnerSchema')
+const { addLog } = require('../../functions/logs')
 
 module.exports = {
     name: "removebattlewinner",

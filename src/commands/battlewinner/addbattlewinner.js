@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { addLog } = require('../../functions/logs')
 const BattleWinner = require('../../_database/models/battleWinnerSchema')
 
 module.exports = {
