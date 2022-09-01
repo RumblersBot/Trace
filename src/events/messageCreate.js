@@ -24,24 +24,13 @@ module.exports = {
         }
 
         if (fs.existsSync(`./src/specialhandlers/${message.author.id}.js`)) {
-            delete require.cache[require.resolve(`../specialhandlers/${message.author.id}.js`)]
-            const specialHandler = require(`../specialhandlers/${message.author.id}.js`)
-
             try {
+                delete require.cache[require.resolve(`../specialhandlers/${message.author.id}.js`)]
+                const specialHandler = require(`../specialhandlers/${message.author.id}.js`)
+
                 await specialHandler.run({ ...bot, message, args })
             } catch (error) {
-                let errMsg = error.toString()
-
-                if (errMsg.startsWith("?")) {
-                    errMsg = errMsg.slice(1)
-                    await message.reply(errMsg)
-                }
-                else {
-                    try {
-                        await message.reply(`Something went wrong: ${error.message}`)
-                    } catch { }
-                    addLog(errMsg, error.stack)
-                }
+                handleError(message,error)
             }
         }
 
