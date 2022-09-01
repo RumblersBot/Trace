@@ -20,3 +20,7 @@
 2022-08-31: v2.0.0
 - complete overhaul to discordjs v14
 - fixes for rumble slash
+
+2022-09-01: v2.0.0
+- change addLog to save guild/channel
+- extra try catches

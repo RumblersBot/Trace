@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 async function addLog(channel, content, stacktrace) {
     let ctnt = content
     if (!!channel) {
-        ctnt = `${channel.guild.name} - ${channel.name}: ${ctnt}`
+        ctnt = `${channel.guild.name}(\`${channel.guild.id}\`) - #${channel.name}(\`${channel.id}\`): ${ctnt}`
     }
     console.log(ctnt)
     let log = await new Log({
