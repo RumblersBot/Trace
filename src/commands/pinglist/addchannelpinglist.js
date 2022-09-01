@@ -35,7 +35,7 @@ module.exports = {
             await pc.save()
             await message.reply(`\`${channel.name}\` enabled for the pinglist.`)
         } catch (error) {
-            addLog(error, error.stack)
+            addLog(message.channel, error, error.stack)
         }        
     }
 }

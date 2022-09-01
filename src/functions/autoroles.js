@@ -25,7 +25,7 @@ async function addAutoRole(client, message, type, fromCount, role) {
         fromCount: fromCount,
         roleID: role.id
     })
-    await autoRole.save().catch(error => addLog(error))
+    await autoRole.save().catch(error => addLog(message.channel, error))
 }
 
 async function removeAutoRole(client, message, type, fromCount, role) {
@@ -36,7 +36,7 @@ async function removeAutoRole(client, message, type, fromCount, role) {
     try {
         await autoRole.delete()
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(message.channel, error, error.stack)
     }
 }
 

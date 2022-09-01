@@ -34,7 +34,7 @@ module.exports = {
             await bw.delete()
             await message.reply(`\`${roleID}\` removed from Battle Winner Roles for channel \`${channelID}\`.`)
         } catch (error) {
-            addLog(error, error.stack)
-        }        
+            addLog(message.channel, error, error.stack)
+        }
     }
 }

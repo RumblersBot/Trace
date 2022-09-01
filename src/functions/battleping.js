@@ -24,7 +24,7 @@ async function addBattlePing(channel, pingRole, reward, title, countDown, defaul
         defaultMessage: defaultMessage,
         footerMessage: footerMessage
     })
-    await battlePing.save().catch(error => addLog(error))
+    await battlePing.save().catch(error => addLog(null, error, error.stack))
 }
 
 async function removeBattlePing(channel) {
@@ -35,7 +35,7 @@ async function removeBattlePing(channel) {
     try {
         await battlePing.delete()
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(null, error, error.stack)
     }
 }
 

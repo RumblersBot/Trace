@@ -33,7 +33,7 @@ function triggerEventHandler(bot, event, ...args) {
         else
             throw new Error(`Event ${event} does not exist`)
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(null, error, error.stack)
     }
 }
 

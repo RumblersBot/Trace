@@ -1,11 +1,15 @@
 const Log = require('../_database/models/logSchema')
 const mongoose = require('mongoose')
 
-async function addLog(content, stacktrace) {
-    console.log(content)
+async function addLog(channel, content, stacktrace) {
+    let ctnt = content
+    if (!!channel) {
+        ctnt = `${channel.guild.name} - ${channel.name}: ${ctnt}`
+    }
+    console.log(ctnt)
     let log = await new Log({
         _id: mongoose.Types.ObjectId(),
-        content: content,
+        content: ctnt,
         stacktrace: stacktrace
     })
     await log.save().catch(error => console.log(error))

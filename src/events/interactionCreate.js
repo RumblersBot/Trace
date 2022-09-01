@@ -31,7 +31,7 @@ const handleButton = async (bot, interaction) => {
     try {
         await button.run(client, interaction, params)
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(interaction.channel, error, error.stack)
     }
 }
 
@@ -81,6 +81,6 @@ const handleSlashCommand = async (bot, interaction) => {
                 isSend = true
             } catch { }
         }
-        addLog(error, error.stack)
+        addLog(interaction.guild, interaction.channel, error, error.stack)
     }
 }

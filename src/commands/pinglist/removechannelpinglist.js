@@ -27,7 +27,7 @@ module.exports = {
             await pc.delete()
             await message.reply(`\`${channel.name}\` removed from Ping List.`)
         } catch (error) {
-            addLog(error, error.stack)
+            addLog(message.channel, error, error.stack)
         }        
     }
 }

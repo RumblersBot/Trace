@@ -46,7 +46,7 @@ module.exports = {
             await notification.save()
             await message.reply(`\`${role.name}\` added to Rumble Royale mention notifications for \`${channel.name}\`.`)
         } catch (error) {
-            addLog(error, error.stack)
+            addLog(message.channel, error, error.stack)
         }        
     }
 }

@@ -48,13 +48,13 @@ async function getGuildSettings(guildID) {
         })
         guildSettings = await Guild.findOne({ guildID: guildID })
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(null, error, error.stack)
         return newSettings
     }
     if (!guildSettings) {
         guildSettings = newSettings
         await guildSettings.save().catch(error => {
-            addLog(error, error.stack)
+            addLog(null, error, error.stack)
         })
     }
 
@@ -75,13 +75,13 @@ async function getUser(guildID, memberID) {
             userID: memberID 
         })
     } catch (error) {
-        addLog(error, error.stack)
+        addLog(null, error, error.stack)
         return newUser
     }
     if (!userObj) {
         userObj = newUser
         await userObj.save().catch(error => {
-            addLog(error, error.stack)
+            addLog(null, error, error.stack)
         })
     }
 

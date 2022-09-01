@@ -17,11 +17,11 @@ module.exports = {
                 if (stderr)
                     result += 'stderr: ' + stderr + '\n'
                 message.reply({
-                    content: result,                    
+                    content: result,
                     flags: [Discord.MessageFlags.SuppressEmbeds]
                 })
                 if (error !== null) {
-                    addLog('exec error: ' + error);
+                    addLog(message.channel, 'exec error: ' + error);
                 }
             })
     }

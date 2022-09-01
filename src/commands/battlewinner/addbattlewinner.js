@@ -46,7 +46,7 @@ module.exports = {
             await bw.save()
             await message.reply(`\`${role.name}\` added as Battle Winner Role for \`${channel.name}\`.`)
         } catch (error) {
-            addLog(error, error.stack)
-        }        
+            addLog(message.channel, error, error.stack)
+        }
     }
 }

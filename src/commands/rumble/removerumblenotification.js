@@ -34,7 +34,7 @@ module.exports = {
             await notification.delete()
             await message.reply(`\`${roleID}\` removed from Rumble Royale mention notifications for channel \`${channelID}\`.`)
         } catch (error) {
-            addLog(error, error.stack)
+            addLog(message.channel, error, error.stack)
         }        
     }
 }

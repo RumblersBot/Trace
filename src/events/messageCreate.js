@@ -74,6 +74,6 @@ async function handleError(message, error) {
         try {
             await message.reply(`Something went wrong: ${error.message}`)
         } catch { }
-        addLog(errMsg, error.stack)
+        addLog(message.channel, errMsg, error.stack)
     }
 }
