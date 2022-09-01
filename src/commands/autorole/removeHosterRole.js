@@ -22,7 +22,6 @@ module.exports = {
         if (!role)
             return await message.reply("Role not found")
 
-
         await client.functions.get("autoroles").removeAutoRole(client, message, 1, fromCount, role)
         
         await message.reply(`The Hoster role \`${role.name}\` for a minimum count of \`${fromCount.toLocaleString()}\` has been removed.`)

@@ -3,7 +3,7 @@ const RumbleNotification = require('../_database/models/rumbleNotificationSchema
 const Discord = require("discord.js")
 const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
 const { addLog } = require('../functions/logs')
-const { ButtonStyle } = require('discord.js')
+const { ButtonStyle, PermissionFlagsBits } = require('discord.js')
 
 module.exports = {
     run: async ({ client, message }) => {
@@ -40,12 +40,18 @@ async function checkMentions(client, message) {
 }
 
 async function checkNewBattle(client, message) {
-
-    try {
-        await client.functions.get("functions").delay(2000)
-        message = await message.fetch(true)
-    } catch (error) {
-        addLog(message.channel, error, error.stack)
+    if (!message.embeds || message.embeds.size == 0) {
+        const botPerms = await message.guild.me.permissions.has(PermissionFlagsBits.ReadMessageHistory)
+        if (!botPerms) {
+            if (!(await isChannelEnabled(message.guild.id, message.channel.id))) return;
+        }
+                
+        try {
+            await client.functions.get("functions").delay(2000)
+            message = await message.fetch(true)
+        } catch (error) {
+            addLog(message.channel, error, error.stack)
+        }
     }
     let embeds = message.embeds
 

@@ -19,8 +19,6 @@ module.exports = {
         if (!roleID)
             return await message.reply("Role ID not supplied")
 
-        const role = await message.guild.roles.fetch(roleID)
-
         let notification = await RumbleNotification.findOne({
             guildID: message.guild.id,
             channelID: channelID,

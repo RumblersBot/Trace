@@ -14,21 +14,26 @@ module.exports = {
             channelID = message.channel.id
         }
 
-        const channel = await message.guild.channels.fetch(channelID)
+        let channelName = channelID
+
+        try {
+            const channel = await message.guild.channels.fetch(channelID)
+            channelName = channel.name
+        } catch (error) { }
 
         let pc = await PingChannel.findOne({
             guildID: message.guild.id,
             channelID: channelID
         })
 
-        if (!pc) 
+        if (!pc)
             return await message.reply("No channels set up for the ping list within the parameters.")
 
         try {
             await pc.delete()
-            await message.reply(`\`${channel.name}\` removed from Ping List.`)
+            await message.reply(`\`${channelName}\` removed from Ping List.`)
         } catch (error) {
             addLog(message.channel, error, error.stack)
-        }        
+        }
     }
 }
