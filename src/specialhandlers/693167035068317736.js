@@ -41,11 +41,11 @@ async function checkMentions(client, message) {
 
 async function checkNewBattle(client, message) {
     if (!message.embeds || message.embeds.size == 0) {
-        const botPerms = await message.guild.me.permissions.has(PermissionFlagsBits.ReadMessageHistory)
-        if (!botPerms) {
-            if (!(await isChannelEnabled(message.guild.id, message.channel.id))) return;
-        }
-                
+        // const botPerms = await message.guild.me.permissions.has(PermissionFlagsBits.ReadMessageHistory)
+        // if (!botPerms) {
+        //     if (!(await isChannelEnabled(message.guild.id, message.channel.id))) return;
+        // }
+
         try {
             await client.functions.get("functions").delay(2000)
             message = await message.fetch(true)
