@@ -41,8 +41,12 @@ async function checkMentions(client, message) {
 
 async function checkNewBattle(client, message) {
 
-    await client.functions.get("functions").delay(2000)
-    message = await message.fetch(true)
+    try {
+        await client.functions.get("functions").delay(2000)
+        message = await message.fetch(true)
+    } catch (error) {
+        addLog(error, error.stack)
+    }
     let embeds = message.embeds
 
     if (!embeds) return
