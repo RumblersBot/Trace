@@ -40,7 +40,7 @@ async function checkMentions(client, message) {
 }
 
 async function checkNewBattle(client, message) {
-    if (!message.embeds || message.embeds.size == 0) {
+    // if (!message.embeds || message.embeds.size == 0) {
         // const botPerms = await message.guild.me.permissions.has(PermissionFlagsBits.ReadMessageHistory)
         // if (!botPerms) {
         //     if (!(await isChannelEnabled(message.guild.id, message.channel.id))) return;
@@ -52,7 +52,7 @@ async function checkNewBattle(client, message) {
         } catch (error) {
             addLog(message.channel, error, error.stack)
         }
-    }
+    // }
     let embeds = message.embeds
 
     if (!embeds) return
