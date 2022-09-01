@@ -40,8 +40,12 @@ module.exports = {
         if (mentionedBot) {
             args.shift()
             if (args.length === 0)
-                return message.reply(`Prefix for this server is set to \`${prefix}\``)
-            //message.mentions.members.slice()
+                try {
+                    return message.reply(`Prefix for this server is set to \`${prefix}\``)
+                } catch (error) {
+                    // probably no permissions to send messages in channel... Don't crash
+                    addLog(message.channel, error, error.stack)
+                }
         }
 
         const cmdstr = args.shift().toLowerCase()
