@@ -31,6 +31,20 @@ async function getLogs(number) {
     return logs    
 }
 
+async function addUsage(guild, author, description) {
+    try {
+        let logData = `${(new Date).toJSON()}\t`
+        logData += `${guild.name}\t`               
+        logData += "".padEnd(24-(guild.name.length), " ")
+        logData += `${author.tag}\t`
+        logData += "".padEnd(24-(author.tag.length), " ")
+        logData += `${description}\n`
+        fs.appendFile("./usage.log", logData, (err) => { if (err) console.log(`error occurred: ${err}`) })
+    } catch (error) {
+        console.log("usage logging failed.")
+    }
+}
+
 async function clearLogs() {
     await Log.deleteMany({})
 }
@@ -39,5 +53,6 @@ module.exports = {
     name: "logs",
     addLog,
     getLogs,
-    clearLogs
+    clearLogs,
+    addUsage
 }

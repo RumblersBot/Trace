@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const fs = require("fs")
-const { addLog } = require('../functions/logs')
+const { addLog, addUsage } = require('../functions/logs')
 
 const { getPermissionLevel } = require("../handlers/permissions")
 
@@ -60,17 +60,7 @@ module.exports = {
         }
 
         try {
-            try {
-                let logData = `${(new Date).toJSON()}\t`
-                logData += `${message.guild.name}\t`               
-                logData += "".padEnd(24-(message.guild.name.length), " ")
-                logData += `${message.author.tag}\t`
-                logData += "".padEnd(24-(message.author.tag.length), " ")
-                logData += `${command.name} ${args.join(" ")}\n`
-                fs.appendFile("./usage.log", logData, (err) => { if (err) console.log(`error occurred: ${err}`) })
-            } catch (error) {
-                console.log("usage logging failed.")
-            }
+            addUsage(message.guild, message.author, `${command.name} ${args.join(" ")}`)
             command.run({ ...bot, message, args }).catch(async (err) => { handleError(message, err) })
         } catch (error) {
             handleError(message, error)

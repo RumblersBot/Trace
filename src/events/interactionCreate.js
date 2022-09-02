@@ -1,4 +1,4 @@
-const { addLog } = require('../functions/logs')
+const { addLog, addUsage } = require('../functions/logs')
 const { getPermissionLevel } = require("../handlers/permissions")
 
 module.exports = {
@@ -29,6 +29,7 @@ const handleButton = async (bot, interaction) => {
 
     if (!button) return
     try {
+        addUsage(interaction.guild, interaction.member.user, `${button.name} ${params.join("-")}`)
         await button.run(client, interaction, params)
     } catch (error) {
         addLog(interaction.channel, error, error.stack)
@@ -61,6 +62,7 @@ const handleSlashCommand = async (bot, interaction) => {
     }
 
     try {
+        addUsage(interaction.guild, interaction.member.user, `${slashcmd.name}`)
         await slashcmd.run({ ...bot, interaction })
     } catch (error) {
         var isSend = false
