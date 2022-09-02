@@ -62,8 +62,8 @@ module.exports = {
         try {
             try {
                 let logData = `${(new Date).toJSON()}\t`
-                logData += `${message.guild.name}\t`
-                if (message.guild.name.length < 20) logData += "\t"
+                logData += `${message.guild.name}\t`               
+                logData += "".padEnd(6-(message.guild.name.length/4), "\t")
                 logData += `${message.author.tag}\t`
                 logData += `${command.name} ${args.join(" ")}\n`
                 fs.appendFile("./usage.log", logData, (err) => { if (err) console.log(`error occurred: ${err}`) })
