@@ -11,7 +11,7 @@ module.exports = {
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
         const args = message.content.slice(prefix.length).trim().split(/ +/g)
 
-        if (!message.guild) return        
+        if (!message.guild) return
 
         let mentionedBot = (message.content.trim().startsWith(`<@${client.user.id}>`))
 
@@ -30,7 +30,7 @@ module.exports = {
 
                 await specialHandler.run({ ...bot, message, args })
             } catch (error) {
-                handleError(message,error)
+                handleError(message, error)
             }
         }
 
@@ -61,7 +61,12 @@ module.exports = {
 
         try {
             try {
-                fs.appendFile("./usage.log", `${(new Date).toJSON()}\t${message.guild.name}\t${message.author.tag}\t${command.name} ${args.join(" ")}\n`, (err) => {if (err) console.log(`error occurred: ${err}`)})
+                let logData = `${(new Date).toJSON()}\t`
+                logData += `${message.guild.name}\t`
+                if (message.guild.name.length < 20) logData += "\t"
+                logData += `${message.author.tag}\t`
+                logData += `${command.name} ${args.join(" ")}\n`
+                fs.appendFile("./usage.log", logData, (err) => { if (err) console.log(`error occurred: ${err}`) })
             } catch (error) {
                 console.log("usage logging failed.")
             }
