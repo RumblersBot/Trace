@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const fs = require("fs")
-const { addLog } = require('../functions/logs')
+const { addLog, addUsage } = require('../functions/logs')
 
 const { getPermissionLevel } = require("../handlers/permissions")
 
@@ -60,7 +60,7 @@ module.exports = {
         }
 
         try {
-            const { addUsage } = require('../functions/logs')
+            //const { addUsage } = require('../functions/logs')
             addUsage(message.guild, message.author, `${command.name} ${args.join(" ")}`)
             command.run({ ...bot, message, args }).catch(async (err) => { handleError(message, err) })
         } catch (error) {
