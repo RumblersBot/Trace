@@ -60,6 +60,11 @@ module.exports = {
         }
 
         try {
+            try {
+                fs.appendFile("./usage.log", `${(new Date).toJSON()}\t${message.guild.name}\t${message.author.tag}\t${command.name} ${args.join(" ")}\n`, (err) => {if (err) console.log(`error occurred: ${err}`)})
+            } catch (error) {
+                console.log("usage logging failed.")
+            }
             command.run({ ...bot, message, args }).catch(async (err) => { handleError(message, err) })
         } catch (error) {
             handleError(message, error)
