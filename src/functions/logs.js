@@ -1,5 +1,6 @@
 const Log = require('../_database/models/logSchema')
 const mongoose = require('mongoose')
+const fs = require("fs")
 
 async function addLog(channel, content, stacktrace) {
     let ctnt = content
