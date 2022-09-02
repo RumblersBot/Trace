@@ -65,6 +65,7 @@ module.exports = {
                 logData += `${message.guild.name}\t`               
                 logData += "".padEnd(6-(message.guild.name.length/4), "\t")
                 logData += `${message.author.tag}\t`
+                logData += "".padEnd(6-(message.author.tag.length/4), "\t")
                 logData += `${command.name} ${args.join(" ")}\n`
                 fs.appendFile("./usage.log", logData, (err) => { if (err) console.log(`error occurred: ${err}`) })
             } catch (error) {
