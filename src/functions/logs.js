@@ -31,7 +31,7 @@ async function getLogs(number) {
     return logs    
 }
 
-async function addUsage(guild, author, description) {
+function addUsage(guild, author, description) {
     try {
         let logData = `${(new Date).toJSON()}\t`
         logData += `${guild.name}\t`               
