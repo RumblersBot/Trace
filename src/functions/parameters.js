@@ -4,7 +4,7 @@ async function resolveMember(message, argument, defaultToAuthor) {
     if (!!argument) {
 
         argument = argument.trim()
-        argument = argument.replace("\\","")
+        argument = argument.replaceAll("\\","")
 
         if (argument.startsWith('<@') && argument.endsWith('>')) {
             argument = argument.slice(2,-1)
