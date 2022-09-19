@@ -157,7 +157,7 @@ async function checkShopOutput(client, message) {
 
         let embed = message.embeds[0]
         let weaponInfo = embed.fields[2].value.split('\n')
-        let msg = `> **🛒 __Shop reset__. Next reset is <t:${nextReset}:F>**\n`
+        let msg = `> **🛒 __Shop reset__. Next reset is <t:${nextReset}:F>**\n\n`
         for (let index = 0; index < weaponInfo.length; index++) {
             const weapon = weaponInfo[index];
             let entryNo = weapon.split('\`')[1].trim()
