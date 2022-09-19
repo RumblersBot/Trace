@@ -145,7 +145,7 @@ async function checkShopOutput(client, message) {
 
         let nextReset = message.content.split('<t:')[1].split(':F>')[0]
         let currReset = await getLastRefresh()
-        //if (currReset === nextReset) return
+        if (currReset === nextReset) return
 
         await setLastRefresh(nextReset)
 
