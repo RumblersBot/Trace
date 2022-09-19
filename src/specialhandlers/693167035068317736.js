@@ -139,13 +139,13 @@ async function showPingList(client, message) {
     }
 }
 
-async function checkShopOutput(client, message) {    
+async function checkShopOutput(client, message) {
     if (message.content?.includes("The shop resets")) {
-        const { getRumbleShopItem, setItemRefresh, setLastRefresh, getLastRefresh } = require('../functions/rumbleshop')
+        const { getRumbleShopItem, getRumbleShopGuildItem, setItemRefresh, setLastRefresh, getLastRefresh } = require('../functions/rumbleshop')
 
         let nextReset = message.content.split('<t:')[1].split(':F>')[0]
         let currReset = await getLastRefresh()
-        if (currReset === nextReset) return        
+        //if (currReset === nextReset) return
 
         await setLastRefresh(nextReset)
 
@@ -154,6 +154,7 @@ async function checkShopOutput(client, message) {
         let currency = {}
         currency['gold'] = '<:gold:1021404281464684695>'
         currency['gems'] = '<:gems:1021404341267091577>'
+        let weaponHash = {}
 
         let embed = message.embeds[0]
         let weaponInfo = embed.fields[2].value.split('\n')
@@ -171,17 +172,32 @@ async function checkShopOutput(client, message) {
             const costImg = currency[costType]
             let lastSeen = 'Not yet seen'
             if (!!item.lastSeen) lastSeen = `<t:${item.lastSeen}:R>`
-                
+
             let era = ''
             if (!!item.era) era = ` | ${item.era}`
-            msg += `\`${entryNo}\` | ${item.image}**${item.name}** - ${cost} ${costImg}\n`
+            msg += `\`${entryNo}\` | ${item.image}**${item.name}** - ${cost} ${costImg}%PING${entryNo}%\n`
             msg += `<:reply:1021406614391095390> Last seen: ${lastSeen}${era}\n`
+
+            weaponHash[entryNo] = entryName
         }
 
-        let channel = client.guilds.cache.get("968886418883637278").channels.cache.get("1019175212970950666")
-        await channel.send(msg)
-
-        channel = client.guilds.cache.get("968176372944109709").channels.cache.get("1001169473186828361")
-        await channel.send(msg)        
+        const { getGuildSettings } = require("../functions/functions")
+        for (let guild of client.guilds.cache) {
+            guild = guild[1]
+            const settings = await getGuildSettings(guild.id)
+            if (!!settings.shopResetChannelID) {
+                let newMsg = msg
+                let channel = guild.channels.cache.get(settings.shopResetChannelID)
+                for (const key in weaponHash) {
+                    let guildItem = await getRumbleShopGuildItem(guild.id, weaponHash[key])
+                    if (!guildItem || !guildItem.pingRoleID) {
+                        newMsg = newMsg.replace(`%PING${key}%`, "")
+                    } else {
+                        newMsg = newMsg.replace(`%PING${key}%`, ` - <@&${guildItem.pingRoleID}>`)
+                    }                    
+                }
+                await channel.send(newMsg)
+            }
+        }
     }
 }

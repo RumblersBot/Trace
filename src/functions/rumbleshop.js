@@ -1,4 +1,5 @@
 const RumbleShopItem = require('../_database/models/rumbleShopItemSchema')
+const RumbleShopGuildItem = require('../_database/models/rumbleShopGuildItemSchema')
 const RumbleShop = require('../_database/models/rumbleShopSchema')
 const { addLog } = require('./logs')
 const mongoose = require('mongoose')
@@ -48,6 +49,14 @@ async function getRumbleShopItem(name) {
     return rumbleShopItem
 }
 
+async function getRumbleShopGuildItem(guildID, name) {
+    let rumbleShopGuildItem = await RumbleShopGuildItem.findOne({
+        guildID: guildID,
+        name: name
+    })
+    return rumbleShopGuildItem
+}
+
 async function getRumbleShopItems() {
     let rumbleShopItems = await RumbleShopItem.find()
     return rumbleShopItems
@@ -70,6 +79,23 @@ async function addRumbleShopItem(name, image, era) {
     return rumbleShopItem
 }
 
+async function addRumbleShopGuildItem(guildID, name, pingRoleID) {
+    let rumbleShopGuildItem = await getRumbleShopGuildItem(guildID, name)
+
+    if (!rumbleShopGuildItem) {
+        rumbleShopGuildItem = await new RumbleShopGuildItem({
+            _id: mongoose.Types.ObjectId(),
+            guildID: guildID,
+            name: name,           
+        })
+    }
+
+    rumbleShopGuildItem.pingRoleID = pingRoleID
+
+    await rumbleShopGuildItem.save().catch(error => addLog(null, error, error.stack))
+    return rumbleShopGuildItem
+}
+
 async function removeRumbleShopItem(name) {
     let rumbleShopItem = await getRumbleShopItem(name)
 
@@ -82,11 +108,26 @@ async function removeRumbleShopItem(name) {
     }
 }
 
+async function removeRumbleShopGuildItem(guildID, name) {
+    let rumbleShopGuildItem = await getRumbleShopGuildItem(guildID, name)
+
+    if (!rumbleShopGuildItem) return
+
+    try {
+        await rumbleShopGuildItem.delete()
+    } catch (error) {
+        addLog(null, error, error.stack)
+    }
+}
+
 module.exports = {
     name: "rumbleshop",
     addRumbleShopItem,
+    addRumbleShopGuildItem,
     removeRumbleShopItem,
+    removeRumbleShopGuildItem,
     getRumbleShopItem,
+    getRumbleShopGuildItem,
     getLastRefresh,
     setLastRefresh,
     setItemRefresh,

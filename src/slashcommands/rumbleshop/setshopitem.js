@@ -13,7 +13,7 @@ module.exports = {
             description: "Item Name",
             type: ApplicationCommandOptionType.String,
             required: true
-        },  
+        },
         {
             name: "era",
             description: "Item era",
