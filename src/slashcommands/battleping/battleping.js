@@ -17,35 +17,35 @@ module.exports = {
             choices: [
                 {
                     name: "classic",
-                    value: "<:Classic:975042325610913812> Classic"
+                    value: "<:Classic:1021411565179764807> Classic"
                 },
                 {
                     name: "steampunk",
-                    value: "<:Steampunk:994691835027001364> Steampunk"
+                    value: "<:Steampunk:1021411912740786226> Steampunk"
                 },
                 {
                     name: "modern",
-                    value: "<:Modern:975043124856492132> Modern"
+                    value: "<:Modern:1021412074733174865> Modern"
                 },
                 {
                     name: "futuristic",
-                    value: "<:Futuristic:975063325715083264> Futuristic"
+                    value: "<:Futuristic:1021412144882909224> Futuristic"
                 },
                 {
                     name: "medieval",
-                    value: "<:Medieval:975069348798558318> Medieval"
+                    value: "<:Medieval:1021412303956086886> Medieval"
                 },
                 {
                     name: "samurai",
-                    value: "<:Samurai:976607652052340757> Samurai"
+                    value: "<:Samurai:1021412376228135012> Samurai"
                 },
                 {
                     name: "zombie",
-                    value: "<:Zombie:1000690492679397406> Zombie"
+                    value: "<:Zombie:1021412460885983362> Zombie"
                 },
                 {
                     name: "pirate",
-                    value: "<:Pirate:975370834770272256> Pirate"
+                    value: "<:Pirate:1021407309617971231> Pirate"
                 }
             ],
             required: true
