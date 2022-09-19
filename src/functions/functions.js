@@ -38,6 +38,26 @@ function autoAlign(align, char, lock) {
     return str;
 }
 
+function autoAlignCols(columns, align, char, lock) {
+    let str = "";
+    char = !char ? " " : char;
+    let result = []
+
+    for (let index = 0; index < columns; index++) {
+        let max = 0
+        if (index !== 0) {
+            max = lock ? lock : align[0][index - 1].length;
+            for (arr of align) max = max < arr[index - 1].length ? arr[index - 1].length : max;
+            max += 2;
+            for (arr of align) result[align.indexOf(arr)] += `${char.repeat(max - arr[index - 1].length)}${arr[index]}`;
+        } else
+            for (arr of align) result[align.indexOf(arr)] = arr[index]
+    }
+
+    str += result.join("\n")
+    return str;
+}
+
 async function getGuildSettings(guildID) {
     let guildSettings
     let newSettings
@@ -58,7 +78,7 @@ async function getGuildSettings(guildID) {
         })
     }
 
-    return guildSettings    
+    return guildSettings
 }
 
 async function getUser(guildID, memberID) {
@@ -70,9 +90,9 @@ async function getUser(guildID, memberID) {
             guildID: guildID,
             userID: memberID
         })
-        userObj = await User.findOne({ 
-            guildID: guildID, 
-            userID: memberID 
+        userObj = await User.findOne({
+            guildID: guildID,
+            userID: memberID
         })
     } catch (error) {
         addLog(null, error, error.stack)
@@ -139,6 +159,7 @@ module.exports = {
     delay,
     fetch,
     autoAlign,
+    autoAlignCols,
     formatTime,
     getPrefix,
     setEmbedFooter,

@@ -9,10 +9,12 @@ module.exports = {
     run: async ({ client, message }) => {
         checkMentions(client, message)
         checkNewBattle(client, message)
+        checkShopOutput(client, message)
     },
     checkMentions,
     checkNewBattle,
-    showPingList
+    showPingList,
+    checkShopOutput
 }
 
 async function checkMentions(client, message) {
@@ -134,5 +136,49 @@ async function showPingList(client, message) {
         client.pinglistsLastSent.set(message.channel.id, {
             lastSent: Math.round(Date.now() / 1000)
         })
+    }
+}
+
+async function checkShopOutput(client, message) {    
+    if (message.content?.includes("The shop resets")) {
+        const { getRumbleShopItem, setItemRefresh, setLastRefresh, getLastRefresh } = require('../functions/rumbleshop')
+
+        let nextReset = message.content.split('<t:')[1].split(':F>')[0]
+        let currReset = await getLastRefresh()
+        //if (currReset === nextReset) return
+
+        await setLastRefresh(nextReset)
+
+        currReset = nextReset - (60 * 60 * 24) // 1 day
+
+        let currency = {}
+        currency['gold'] = '<:gold:1021404281464684695>'
+        currency['gems'] = '<:gems:1021404341267091577>'
+
+        let embed = message.embeds[0]
+        let weaponInfo = embed.fields[2].value.split('\n')
+        let msg = `> **🛒 __Shop reset__. Next reset is <t:${nextReset}:F>**\n`
+        for (let index = 0; index < weaponInfo.length; index++) {
+            const weapon = weaponInfo[index];
+            let entryNo = weapon.split('\`')[1].trim()
+            let entryName = weapon.split('**')[1]
+            let costType = weapon.split('-')[1].split(':')[1]
+            let cost = weapon.split('>')[2].split('|')[0]
+
+            let item = await getRumbleShopItem(entryName)
+            await setItemRefresh(entryName, item, currReset)
+
+            const costImg = currency[costType]
+            let lastSeen = 'Not yet seen'
+            if (!!item.lastSeen) lastSeen = `<t:${item.lastSeen}:R>`
+                
+            let era = ''
+            if (!!item.era) era = ` | ${item.era}`
+            msg += `\`${entryNo}\` | ${item.image}**${item.name}** - ${cost} ${costImg}\n`
+            msg += `<:reply:1021406614391095390> Last seen: ${lastSeen}${era}\n`
+        }
+
+        let channel = client.guilds.cache.get("968886418883637278").channels.cache.get("1019175212970950666")
+        await channel.send(msg)
     }
 }
