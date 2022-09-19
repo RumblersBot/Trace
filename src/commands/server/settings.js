@@ -9,7 +9,9 @@ module.exports = {
     run: async ({ client, message, args }) => {
         let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
 
-        const properties = ["prefix"]
+        let properties = ["prefix"]
+
+        if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) properties += "shopresetchannel"
 
         if (!args.length) {
             let embed = new Discord.EmbedBuilder()
@@ -17,8 +19,8 @@ module.exports = {
                 .setColor(Discord.Colors.Red)
                 .setDescription(`If nothing is shown, there are no properties assigned\nProperties: ${properties.join(", ")}`)
 
-            if (guildSettings.prefix) embed.addFields({name: "Prefix", value: guildSettings.prefix})
-
+            if (guildSettings.prefix) embed.addFields({ name: "Prefix", value: guildSettings.prefix })
+            if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) if (guildSettings.shopResetChannelID) embed.addFields({ name: "ShopResetChannelID", value: `<#${guildSettings.shopResetChannelID}>` })
 
             embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
@@ -29,6 +31,11 @@ module.exports = {
 
             if ("prefix" === args[0]) {
                 guildSettings.prefix = args[1]
+                await guildSettings.save()
+                message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
+            }
+            if ("shopresetchannel" === args[0]) {
+                guildSettings.shopResetChannelID = args[1]
                 await guildSettings.save()
                 message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
             }
