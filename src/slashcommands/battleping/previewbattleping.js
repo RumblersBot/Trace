@@ -18,6 +18,6 @@ module.exports = {
         },
     ],
     run: async ({ client, interaction }) => {
-        showPing(client, interaction, "<:Classic:975042325610913812> Classic", '', interaction.options.getChannel("channel") || interaction.channel)
+        showPing(client, interaction, "<:Classic:1021411565179764807> Classic", '', interaction.options.getChannel("channel") || interaction.channel)
     }
 }

@@ -68,7 +68,7 @@ module.exports = {
         if (!bp) return interaction.editReply({ content: "No battleping set up for this channel" })
 
         let title = `<a:fight:1012725282366562406> __**A new ${bp.title || ""} Battle has begun!**__`
-        let description = "React with <:Swords:976587202387673200> to the message above to compete in this battle!"
+        let description = "React with <:Swords:1021412800431669350> to the message above to compete in this battle!"
         if (bp.countDown > 0) {
             let start = Math.round(Date.now() / 1000 + (bp.countDown * 60))
             description += `\nThis battle will start roughly <t:${start}:R>`
