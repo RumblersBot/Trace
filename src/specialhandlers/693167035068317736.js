@@ -145,7 +145,7 @@ async function checkShopOutput(client, message) {
 
         let nextReset = message.content.split('<t:')[1].split(':F>')[0]
         let currReset = await getLastRefresh()
-        if (currReset === nextReset) return
+        //if (currReset === nextReset) return        
 
         await setLastRefresh(nextReset)
 
@@ -180,5 +180,8 @@ async function checkShopOutput(client, message) {
 
         let channel = client.guilds.cache.get("968886418883637278").channels.cache.get("1019175212970950666")
         await channel.send(msg)
+
+        channel = client.guilds.cache.get("968176372944109709").channels.cache.get("1001169473186828361")
+        await channel.send(msg)        
     }
 }
