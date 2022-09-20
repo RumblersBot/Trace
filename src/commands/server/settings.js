@@ -10,8 +10,9 @@ module.exports = {
         let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
 
         let properties = ["prefix"]
+        properties.push("")
 
-        if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) properties += "shopresetchannel"
+        if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) properties.push("shopresetchannel")
 
         if (!args.length) {
             let embed = new Discord.EmbedBuilder()
