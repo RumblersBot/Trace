@@ -22,7 +22,7 @@ module.exports = {
             if (guildSettings.prefix) embed.addFields({ name: "Prefix", value: guildSettings.prefix })
             if (["968176372944109709", "968886418883637278"].includes(message.guild.id))
                 if (!!guildSettings.shopResetChannelID)
-                    embed.addFields({ name: "ShopResetChannelID", value: `<#${guildSettings.shopResetChannelID}>` })
+                    embed.addFields({ name: "Shop Reset Channel", value: `<#${guildSettings.shopResetChannelID}>` })
 
             embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
