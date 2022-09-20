@@ -166,12 +166,12 @@ async function checkShopOutput(client, message) {
             let costType = weapon.split('-')[1].split(':')[1]
             let cost = weapon.split('>')[2].split('|')[0]
 
-            let item = await getRumbleShopItem(entryName)
-            await setItemRefresh(entryName, item, currReset)
+            let item = await getRumbleShopItem(entryName)            
 
             const costImg = currency[costType]
             let lastSeen = 'Not yet seen'
             if (!!item.lastSeen) lastSeen = `<t:${item.lastSeen}:R>`
+            await setItemRefresh(entryName, item, currReset)
 
             let era = ''
             if (!!item.era) era = ` | ${item.era}`
