@@ -11,7 +11,7 @@ module.exports = {
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
         const args = message.content.slice(prefix.length).trim().split(/ +/g)
 
-        if (message.guild.id === '968176372944109709') {
+        if (message.guild.id === '968176372944109709' && message.channel.id === '976534275824439326') {
             if (!!message.webhookId) {
                 let channel = message.guild.channels.cache.get("1001169473186828361")
                 if (!!channel) {
