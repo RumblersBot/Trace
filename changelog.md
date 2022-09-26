@@ -24,3 +24,6 @@
 2022-09-01: v2.0.0
 - change addLog to save guild/channel
 - extra try catches
+
+2022-09-19 v2.1.0:
+- Rumble Royale Shop parsing
