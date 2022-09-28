@@ -37,7 +37,7 @@ module.exports = {
                 [`\`${client.buttons.size}\``, `Buttons`],
                 [`\`${client.slashcommands.size}\``, `SlashCommands`],
                 [`\`${client.functions.size}\``, `Functions`],
-                [`Forced`, `\`${force}\``],
+                [`\`${force}\``, `Forced`],
             ]))
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)
