@@ -15,11 +15,10 @@ module.exports = async (bot) => {
     const { addLog } = require('../functions/logs')
     if (toAnnounce.size !== 0) {
 
-        try {
-            await client.rest.put(Routes.applicationCommands(client.user.id), {body: [...toAnnounce.values()]})
-        } catch (error) {
-            addLog(null, error, error.stack)
-        }        
+        client.rest.put(Routes.applicationCommands(client.user.id), { body: [...toAnnounce.values()] })
+            .then((data) => console.log(`Successfully registered ${data.length} global application commands.`))
+            .catch((err) => addLog(null, err, err.stack));
+
     }
     console.log("Finished announcing slash command")
 }
