@@ -59,7 +59,7 @@ class Bot {
         this.client.loadSlashCommands = (bot, reload) => require("../handlers/slashcommands")(bot, reload)
         this.client.loadSlashCommands(this, false)
 
-        this.client.announceSlashCommands = (bot, reload) => require("../handlers/announceslash")(bot, forceGlobal)
+        this.client.announceSlashCommands = (bot, reload) => require("../handlers/announceslash")(bot, false)
 
         this.client.login(process.env.DISCORD_TOKEN)
     }
