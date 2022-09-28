@@ -39,7 +39,7 @@ const handleButton = async (bot, interaction) => {
 const handleSlashCommand = async (bot, interaction) => {
     const { client } = bot
 
-    if (!interaction.inGuild()) return await interaction.reply({ content: "This command can only be used in a server", ephemeral: true })
+    if (!interaction.inGuild()) return await interaction.reply({ content: "This command can only be used in a server" })
 
     const slashcmd = client.slashcommands.get(interaction.commandName)
 
