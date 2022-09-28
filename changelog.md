@@ -27,3 +27,7 @@
 
 2022-09-19 v2.1.0:
 - Rumble Royale Shop parsing
+
+2022-29-28 v2.1.0:
+- Support for global commands instead of creating them per guild
+  (Nice benefit of having the "Supports Commands" Badge)
