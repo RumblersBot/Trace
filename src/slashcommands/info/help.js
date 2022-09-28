@@ -91,6 +91,7 @@ module.exports = {
     name: "help",
     description: "Trace help, returns all slash commands, or one specific slash command's info",
     category: "info",
+    global: true,
     options: [
         {
             name: "command",
