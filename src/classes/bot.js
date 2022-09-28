@@ -14,15 +14,15 @@ class Bot {
         this.eventEmitter = new EventEmitter()
     }
 
-    killBot = function() {
+    killBot = function () {
         this.client.destroy()
         this.client = null
         process.exit(-1)
     }
 
-    start = function() {
+    start = function () {
         this.client = new Discord.Client({
-            intents: [     
+            intents: [
                 Discord.GatewayIntentBits.Guilds,
                 Discord.GatewayIntentBits.GuildMembers,
                 Discord.GatewayIntentBits.MessageContent,
@@ -59,17 +59,17 @@ class Bot {
         this.client.loadSlashCommands = (bot, reload) => require("../handlers/slashcommands")(bot, reload)
         this.client.loadSlashCommands(this, false)
 
-        this.client.announceSlashCommands = (bot, reload) => require("../handlers/announceslash")(bot)
+        this.client.announceSlashCommands = (bot, reload) => require("../handlers/announceslash")(bot, forceGlobal)
 
         this.client.login(process.env.DISCORD_TOKEN)
     }
 
-    restart = function() {
+    restart = function () {
         this.client.destroy()
         this.client = null
 
         // delete require cache
-        Object.keys(require.cache).forEach(function(key) { delete require.cache[key] })
+        Object.keys(require.cache).forEach(function (key) { delete require.cache[key] })
 
         this.eventEmitter.emit("botrestart")
     }

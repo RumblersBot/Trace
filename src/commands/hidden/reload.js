@@ -6,7 +6,10 @@ module.exports = {
     category: "hidden",
     cmdpermissions: 0,
     description: "reloads the bot",
+    usage: "[force]",
     run: async (bot) => {
+
+        const force = args.join(" ") === "1"
 
         //Object.keys(require.cache).forEach(function(key) { delete require.cache[key] })
 
@@ -19,7 +22,7 @@ module.exports = {
         client.categories = fs.readdirSync("./src/commands/");
         client.slashcategories = fs.readdirSync("./src/slashcommands/");
 
-        await client.announceSlashCommands(bot)
+        await client.announceSlashCommands(bot, force)
 
         const os = require("os")
 
@@ -33,6 +36,7 @@ module.exports = {
                 [`\`${client.buttons.size}\``, `Buttons`],
                 [`\`${client.slashcommands.size}\``, `SlashCommands`],
                 [`\`${client.functions.size}\``, `Functions`],
+                [`Forced`, `\`${force}\``],
             ]))
 
         embed = client.functions.get("functions").setEmbedFooter(embed, client)

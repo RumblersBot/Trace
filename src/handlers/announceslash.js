@@ -1,4 +1,4 @@
-module.exports = async (bot) => {
+module.exports = async (bot, forceGlobal) => {
     const { client } = bot
 
     console.log(`Announcing ${client.slashcommands.size} slash commands`)
@@ -10,15 +10,17 @@ module.exports = async (bot) => {
         guild.commands.set([...toAnnounce.values()])
     });
 
-    let toAnnounce = client.slashcommands.filter(sc => !!sc.global)
-    const { Routes } = require('discord.js');
-    const { addLog } = require('../functions/logs')
-    if (toAnnounce.size !== 0) {
+    if (forceGlobal) {
+        let toAnnounce = client.slashcommands.filter(sc => !!sc.global)
+        const { Routes } = require('discord.js');
+        const { addLog } = require('../functions/logs')
+        if (toAnnounce.size !== 0) {
 
-        client.rest.put(Routes.applicationCommands(client.user.id), { body: [...toAnnounce.values()] })
-            .then((data) => console.log(`Successfully registered ${data.length} global application commands.`))
-            .catch((err) => addLog(null, err, err.stack));
+            client.rest.put(Routes.applicationCommands(client.user.id), { body: [...toAnnounce.values()] })
+                .then((data) => console.log(`Successfully registered ${data.length} global application commands.`))
+                .catch((err) => addLog(null, err, err.stack));
 
+        }
     }
     console.log("Finished announcing slash command")
 }
