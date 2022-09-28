@@ -9,6 +9,7 @@ module.exports = {
     usage: "[force]",
     run: async (bot) => {
 
+        const {args} = bot
         const force = args.join(" ") === "1"
 
         //Object.keys(require.cache).forEach(function(key) { delete require.cache[key] })
