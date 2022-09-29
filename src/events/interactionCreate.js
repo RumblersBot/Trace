@@ -83,6 +83,6 @@ const handleSlashCommand = async (bot, interaction) => {
                 isSend = true
             } catch { }
         }
-        addLog(interaction.guild, interaction.channel, error, error.stack)
+        addLog(interaction.channel, error, error.stack)
     }
 }
