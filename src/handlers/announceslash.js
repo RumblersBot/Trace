@@ -1,13 +1,49 @@
-module.exports = async (bot, forceGlobal) => {
+const _ = require("lodash")
+const TeamUser = require('../_database/models/teamUserSchema')
+
+module.exports = async (bot, guildID, forceGlobal) => {
     const { client } = bot
 
     console.log(`Announcing ${client.slashcommands.size} slash commands`)
     if (client.slashcommands.size === 0) return
-    client.guilds.cache.forEach(guild => {
-        console.log(`*** Announcing in [${guild.id}]: [${guild.name}]`)
-        let toAnnounce = client.slashcommands.filter(sc => !sc.guilds || sc.guilds.includes(guild.id))
-        toAnnounce = toAnnounce.filter(sc => !sc.global)
-        guild.commands.set([...toAnnounce.values()])
+    await client.guilds.cache.forEach(async guild => {
+        if (!guildID || guild.id === guildID) {
+            console.log(`*** Announcing in [${guild.id}]: [${guild.name}]`)
+
+            let teams = await TeamUser.aggregate(
+                [
+                    {
+                        $match: { guildID: guild.id }
+                    },
+                    {
+                        $group: {
+                            _id: "$teamName",
+                        }
+                    },
+                    {
+                        $sort: { _id: 1 }
+                    }
+                ]
+            )
+            let toAnnounce = _.cloneDeep(client.slashcommands.filter(sc => !sc.guilds || sc.guilds.includes(guild.id)))
+            toAnnounce = toAnnounce.filter(sc => !sc.global)
+
+            if (teams.length !== 0) {
+                let choices = teams.map(t => ({ name: t._id, value: t._id }))
+                toAnnounce.forEach(cmd => {
+                    if (['team', 'points', 'tournament'].includes(cmd.name)) {
+                        cmd.options.forEach(opt => {
+                            if (opt.name === "teamname") opt.choices = choices
+                            opt.options?.forEach(subopt => {
+                                if (subopt.name === "teamname") subopt.choices = choices
+                            })
+                        })
+                    }
+                })
+            }
+
+            guild.commands.set([...toAnnounce.values()])
+        }
     });
 
     if (forceGlobal) {

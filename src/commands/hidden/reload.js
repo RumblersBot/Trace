@@ -23,7 +23,7 @@ module.exports = {
         client.categories = fs.readdirSync("./src/commands/");
         client.slashcategories = fs.readdirSync("./src/slashcommands/");
 
-        await client.announceSlashCommands(bot, force)
+        await client.announceSlashCommands(bot, null, force)
 
         const os = require("os")
 
