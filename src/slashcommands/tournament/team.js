@@ -81,11 +81,11 @@ module.exports = {
                 }
             ]
         },
-        {
-            name: "reset",
-            description: "resets all teams",
-            type: Discord.ApplicationCommandOptionType.Subcommand
-        }
+        // {
+        //     name: "reset",
+        //     description: "resets all teams",
+        //     type: Discord.ApplicationCommandOptionType.Subcommand
+        // }
     ],
     run: async (bot) => {
         var { interaction } = bot;
@@ -106,9 +106,9 @@ module.exports = {
                 const { viewTeam } = require('./tournament')
                 await viewTeam(bot)
                 break;
-            case 'reset':
-                await resetTeams(bot)
-                break;
+            // case 'reset':
+            //     await resetTeams(bot)
+            //     break;
         }
     }
 }
