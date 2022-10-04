@@ -10,7 +10,7 @@ module.exports = {
     options: [
         {
             name: "team",
-            description: "Views a team points",
+            description: "Views a team members / points",
             type: Discord.ApplicationCommandOptionType.Subcommand,
             options: [
                 {
