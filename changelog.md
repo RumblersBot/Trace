@@ -28,6 +28,12 @@
 2022-09-19 v2.1.0:
 - Rumble Royale Shop parsing
 
-2022-29-28 v2.1.0:
+2022-09-28 v2.1.0:
 - Support for global commands instead of creating them per guild
   (Nice benefit of having the "Supports Commands" Badge)
+
+2022-10-04 v2.2.0:
+- Creation of teams to add tournament points
+  * /team [add|remove|adduser|removeuser|view]
+  * /points [add|leaderboard|view]
+  * /tournament [leaderboard|team]
