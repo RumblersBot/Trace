@@ -25,6 +25,25 @@ module.exports = {
             ]
         },
         {
+            name: "rename",
+            description: "Rename a team",
+            type: Discord.ApplicationCommandOptionType.Subcommand,
+            options: [
+                {
+                    name: "teamname",
+                    description: 'Current Team name',
+                    type: Discord.ApplicationCommandOptionType.String,
+                    required: true
+                },
+                {
+                    name: "newteamname",
+                    description: 'New team name',
+                    type: Discord.ApplicationCommandOptionType.String,
+                    required: true
+                }
+            ]
+        },
+        {
             name: "remove",
             description: "Removes a team",
             type: Discord.ApplicationCommandOptionType.Subcommand,
@@ -106,6 +125,9 @@ module.exports = {
                 const { viewTeam } = require('./tournament')
                 await viewTeam(bot)
                 break;
+            case 'rename':
+                await renameTeam(bot);
+                break;
             // case 'reset':
             //     await resetTeams(bot)
             //     break;
@@ -122,6 +144,26 @@ async function resetTeams(bot) {
     })
 
     interaction.editReply({ content: `All teams / points removed.` })
+    await client.announceSlashCommands(bot, interaction.guild.id, false)
+}
+
+async function renameTeam(bot) {
+    var { client, interaction } = bot;
+    await interaction.deferReply()
+
+    const teamName = interaction.options.getString('teamname')
+    const newTeamName = interaction.options.getString('newteamname')
+
+    await TeamUser.updateMany({
+        guildID: interaction.guild.id,
+        teamName: teamName
+    },{
+        $set : {
+            teamName: newTeamName
+        }
+    })
+
+    await interaction.editReply({ content: `Team \`${teamName}\` renamed to \`${newTeamName}\`` })
     await client.announceSlashCommands(bot, interaction.guild.id, false)
 }
 
