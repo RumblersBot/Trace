@@ -103,9 +103,9 @@ async function addPoints(bot) {
     try {
         await target.save()
         if (!!targetUser)
-            return await interaction.editReply(`\`${points}\` points added to Team \`${teamName}\` - \`${targetUser.username}\`.`)
+            return await interaction.editReply(`\`${points}\` points added to Team \`${target.teamName}\` - \`${targetUser.username}\`.`)
 
-        return await interaction.editReply(`\`${points}\` points added to Team \`${teamName}\`.`)
+        return await interaction.editReply(`\`${points}\` points added to Team \`${target.teamName}\`.`)
     } catch (error) {
         addLog(interaction.channel, error, error.stack)
     }
