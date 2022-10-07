@@ -15,16 +15,15 @@ module.exports = {
             type: Discord.ApplicationCommandOptionType.Subcommand,
             options: [
                 {
-                    name: "teamname",
-                    description: 'Team name',
-                    type: Discord.ApplicationCommandOptionType.String,
-                    required: true
-                },
-                {
                     name: "points",
                     description: 'Points to update',
                     type: Discord.ApplicationCommandOptionType.Integer,
                     required: true
+                },                
+                {
+                    name: "teamname",
+                    description: 'Team name',
+                    type: Discord.ApplicationCommandOptionType.String,
                 },
                 {
                     name: "user",
@@ -77,10 +76,17 @@ async function addPoints(bot) {
     const points = interaction.options.getInteger("points")
     const targetUser = interaction.options.getUser("user")
 
+    if (!teamName && !targetUser) {
+        return await interaction.editReply("No team or user supplied.")
+    }
+
     let filter = {
         guildID: interaction.guild.id,
-        teamName: teamName,
         userID: null
+    }
+
+    if (!!teamName) {
+        filter.teamName = teamName
     }
 
     if (!!targetUser) {
@@ -88,7 +94,8 @@ async function addPoints(bot) {
     }
     let target = await TeamUser.findOne(filter)
 
-    if (!target && !!targetUser) return await interaction.editReply(`\`${targetUser.username}\` is not found on Team \`${teamName}\`.`)
+    if (!target && !!targetUser && !!teamName) return await interaction.editReply(`\`${targetUser.username}\` is not found on Team \`${teamName}\`.`)
+    if (!target && !!targetUser) return await interaction.editReply(`\`${targetUser.username}\` is not found on any team.`)
     if (!target) return await interaction.editReply(`Team \`${teamName}\` is not found.`)
 
     target.points += points
