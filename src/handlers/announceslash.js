@@ -18,13 +18,18 @@ module.exports = async (bot, guildID, forceGlobal) => {
                     {
                         $group: {
                             _id: "$teamName",
+                            normalized: {
+                                $first: {
+                                    $toLower: "$teamName"
+                                }
+                            }
                         }
                     },
                     {
-                        $sort: { _id: 1 }
+                        $sort: { normalized: 1 }
                     }
                 ]
-            )
+            ).sort("-teamName")
             let toAnnounce = _.cloneDeep(client.slashcommands.filter(sc => !sc.guilds || sc.guilds.includes(guild.id)))
             toAnnounce = toAnnounce.filter(sc => !sc.global)
 

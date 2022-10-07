@@ -154,7 +154,7 @@ async function viewTeam(bot) {
 
         return await interaction.editReply({ embeds: [embed] })
     } else {
-        const teams = await TeamUser.aggregate([{ $match: filter }, { $group: { _id: "$teamName", members: { $push: { $concat: ["<@", "$userID", ">"] } } } }, { $sort: { _id: 1 } }])
+        const teams = await TeamUser.aggregate([{ $match: filter }, { $group: { _id: "$teamName", normalized: { $first: { $toLower: "$teamName"}}, members: { $push: { $concat: ["<@", "$userID", ">"] } } } }, { $sort: { normalized: 1 } }])
         let printData = []
         await teams.forEach(async team => {
             printData.push([team._id, team.members.join(", ")])
