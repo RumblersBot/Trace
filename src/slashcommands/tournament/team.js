@@ -144,7 +144,7 @@ async function resetTeams(bot) {
     })
 
     interaction.editReply({ content: `All teams / points removed.` })
-    await client.announceSlashCommands(bot, interaction.guild.id, false)
+    // await client.announceSlashCommands(bot, interaction.guild.id, false)
 }
 
 async function renameTeam(bot) {
@@ -164,7 +164,7 @@ async function renameTeam(bot) {
     })
 
     await interaction.editReply({ content: `Team \`${teamName}\` renamed to \`${newTeamName}\`` })
-    await client.announceSlashCommands(bot, interaction.guild.id, false)
+    // await client.announceSlashCommands(bot, interaction.guild.id, false)
 }
 
 async function addTeam(bot) {
@@ -194,7 +194,7 @@ async function addTeam(bot) {
         await teamUser.save()
         await interaction.editReply({ content: `Team \`${teamName}\` created` })
 
-        await client.announceSlashCommands(bot, interaction.guild.id, false)
+        // await client.announceSlashCommands(bot, interaction.guild.id, false)
     } catch (error) {
         addLog(interaction.channel, error, error.stack)
     }
@@ -244,7 +244,7 @@ async function removeTeam(bot) {
 
     interaction.editReply({ content: `\`${teamName}\` was removed.` })
 
-    await client.announceSlashCommands(bot, interaction.guild.id, false)
+    // await client.announceSlashCommands(bot, interaction.guild.id, false)
 }
 
 async function removeUser(bot) {
@@ -280,5 +280,5 @@ async function resetTeams(bot) {
 
     interaction.editReply({ content: `All teams removed.` })
 
-    await client.announceSlashCommands(bot, interaction.guild.id, false)
+    // await client.announceSlashCommands(bot, interaction.guild.id, false)
 }

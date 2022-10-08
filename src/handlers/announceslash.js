@@ -10,42 +10,42 @@ module.exports = async (bot, guildID, forceGlobal) => {
         if (!guildID || guild.id === guildID) {
             console.log(`*** Announcing in [${guild.id}]: [${guild.name}]`)
 
-            let teams = await TeamUser.aggregate(
-                [
-                    {
-                        $match: { guildID: guild.id }
-                    },
-                    {
-                        $group: {
-                            _id: "$teamName",
-                            normalized: {
-                                $first: {
-                                    $toLower: "$teamName"
-                                }
-                            }
-                        }
-                    },
-                    {
-                        $sort: { normalized: 1 }
-                    }
-                ]
-            ).sort("-teamName")
+            // let teams = await TeamUser.aggregate(
+            //     [
+            //         {
+            //             $match: { guildID: guild.id }
+            //         },
+            //         {
+            //             $group: {
+            //                 _id: "$teamName",
+            //                 normalized: {
+            //                     $first: {
+            //                         $toLower: "$teamName"
+            //                     }
+            //                 }
+            //             }
+            //         },
+            //         {
+            //             $sort: { normalized: 1 }
+            //         }
+            //     ]
+            // ).sort("-teamName")
             let toAnnounce = _.cloneDeep(client.slashcommands.filter(sc => !sc.guilds || sc.guilds.includes(guild.id)))
             toAnnounce = toAnnounce.filter(sc => !sc.global)
 
-            if (teams.length !== 0) {
-                let choices = teams.map(t => ({ name: t._id, value: t._id }))
-                toAnnounce.forEach(cmd => {
-                    if (['team', 'points', 'tournament'].includes(cmd.name)) {
-                        cmd.options.forEach(opt => {
-                            if (opt.name === "teamname") opt.choices = choices
-                            opt.options?.forEach(subopt => {
-                                if (subopt.name === "teamname") subopt.choices = choices
-                            })
-                        })
-                    }
-                })
-            }
+            // if (teams.length !== 0) {
+            //     let choices = teams.map(t => ({ name: t._id, value: t._id }))
+            //     toAnnounce.forEach(cmd => {
+            //         if (['team', 'points', 'tournament'].includes(cmd.name)) {
+            //             cmd.options.forEach(opt => {
+            //                 if (opt.name === "teamname") opt.choices = choices
+            //                 opt.options?.forEach(subopt => {
+            //                     if (subopt.name === "teamname") subopt.choices = choices
+            //                 })
+            //             })
+            //         }
+            //     })
+            // }
 
             guild.commands.set([...toAnnounce.values()])
         }
