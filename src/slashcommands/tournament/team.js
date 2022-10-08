@@ -205,7 +205,7 @@ async function addUser(bot) {
     let targetUser = interaction.options.getUser('user')
 
     let foundTeam = await getTeam(interaction.guild.id, teamName)
-    if (!!foundTeam) {
+    if (!foundTeam) {
         return await interaction.editReply(`Team \`${teamName}\` not found.`)
     }
 
