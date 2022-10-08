@@ -146,7 +146,7 @@ async function viewTeam(bot) {
         )
         let embed = new Discord.EmbedBuilder()
             .setColor(Discord.Colors.Blue)
-            .setTitle(`Team: \`${teamName}\``)
+            .setTitle(`Team: \`${teamPoints[0]._id}\``)
             .addFields({ name: 'Total Points', value: `\`${teamPoints[0].points}\`` })
             .addFields({ name: 'Members', value: result.join("\n") })
 
