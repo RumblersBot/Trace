@@ -293,5 +293,5 @@ async function getTeam(guildID, teamName) {
     }
 
     let foundTeam = await TeamUser.findOne(filter)
-    return foundTeam.teamName
+    return foundTeam?.teamName
 }
