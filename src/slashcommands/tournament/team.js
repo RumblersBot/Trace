@@ -132,7 +132,8 @@ module.exports = {
             //     await resetTeams(bot)
             //     break;
         }
-    }
+    },
+    getTeam
 }
 
 async function resetTeams(bot) {
@@ -173,11 +174,7 @@ async function addTeam(bot) {
 
     const teamName = interaction.options.getString('newteamname')
 
-    let teamUser = await TeamUser.findOne({
-        guildID: interaction.guild.id,
-        userID: null,
-        teamName: teamName
-    })
+    let teamUser = await getTeam(interaction.guild.id, teamName)
 
     if (!!teamUser) {
         return await interaction.editReply(`Team \`${teamName}\` already exists.`)
@@ -207,25 +204,30 @@ async function addUser(bot) {
     const teamName = interaction.options.getString('teamname')
     let targetUser = interaction.options.getUser('user')
 
+    let foundTeam = await getTeam(interaction.guild.id, teamName)
+    if (!!foundTeam) {
+        return await interaction.editReply(`Team \`${teamName}\` not found.`)
+    }
+
     let teamUser = await TeamUser.findOne({
         guildID: interaction.guild.id,
         userID: targetUser.id
     })
 
     if (!!teamUser) {
-        return await interaction.editReply(`User \`${targetUser.username}\` is already a member of Team \`${teamUser.teamName}\`.`)
+        return await interaction.editReply(`User \`${targetUser.username}\` is already a member of Team \`${foundTeam}\`.`)
     }
 
     teamUser = await new TeamUser({
         _id: mongoose.Types.ObjectId(),
         guildID: interaction.guild.id,
         userID: targetUser.id,
-        teamName: teamName
+        teamName: foundTeam
     })
 
     try {
         await teamUser.save()
-        await interaction.editReply({ content: `User \`${targetUser.username}\` added to Team \`${teamName}\`.` })
+        await interaction.editReply({ content: `User \`${targetUser.username}\` added to Team \`${foundTeam}\`.` })
     } catch (error) {
         addLog(interaction.channel, error, error.stack)
     }
@@ -281,4 +283,15 @@ async function resetTeams(bot) {
     interaction.editReply({ content: `All teams removed.` })
 
     // await client.announceSlashCommands(bot, interaction.guild.id, false)
+}
+
+async function getTeam(guildID, teamName) {
+    const filter = {
+        guildID: guildID,
+        userID: null,
+        teamName: {'$regex' : `^${teamName}$`, '$options' : 'i'}
+    }
+
+    let foundTeam = await TeamUser.findOne(filter)
+    return foundTeam.teamName
 }
