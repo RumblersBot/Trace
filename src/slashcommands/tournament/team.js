@@ -157,7 +157,7 @@ async function renameTeam(bot) {
 
     await TeamUser.updateMany({
         guildID: interaction.guild.id,
-        teamName: teamName
+        teamName: {'$regex' : `^${teamName}$`, '$options' : 'i'}
     },{
         $set : {
             teamName: newTeamName
