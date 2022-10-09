@@ -145,7 +145,7 @@ async function viewTeam(bot) {
             ]
         )
 
-        if (!teamPoints) {
+        if (!teamPoints || teamPoints.length == 0) {
             return await interaction.editReply(`Team \`${teamName}\` not found.`)
         }
 
