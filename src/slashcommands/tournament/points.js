@@ -19,7 +19,7 @@ module.exports = {
                     description: 'Points to update',
                     type: Discord.ApplicationCommandOptionType.Integer,
                     required: true
-                },                
+                },
                 {
                     name: "teamname",
                     description: 'Team name',
@@ -86,7 +86,7 @@ async function addPoints(bot) {
     }
 
     if (!!teamName) {
-        filter.teamName = {'$regex' : `^${teamName}$`, '$options' : 'i'}
+        filter.teamName = { '$regex': teamName, '$options': 'i' }
     }
 
     if (!!targetUser) {

@@ -157,9 +157,9 @@ async function renameTeam(bot) {
 
     await TeamUser.updateMany({
         guildID: interaction.guild.id,
-        teamName: {'$regex' : `^${teamName}$`, '$options' : 'i'}
-    },{
-        $set : {
+        teamName: { '$regex': teamName, '$options': 'i' }
+    }, {
+        $set: {
             teamName: newTeamName
         }
     })
@@ -289,7 +289,7 @@ async function getTeam(guildID, teamName) {
     const filter = {
         guildID: guildID,
         userID: null,
-        teamName: {'$regex' : `^${teamName}$`, '$options' : 'i'}
+        teamName: { '$regex': teamName, '$options': 'i' }
     }
 
     let foundTeam = await TeamUser.findOne(filter)

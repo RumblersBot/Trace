@@ -36,7 +36,7 @@ module.exports = {
                 await viewLeaderboard(bot)
                 break;
         }
-    }, 
+    },
     viewLeaderboard,
     viewTeam
 }
@@ -126,14 +126,14 @@ async function viewTeam(bot) {
     }
 
     if (!!teamName) {
-        filter.teamName = {'$regex' : `^${teamName}$`, '$options' : 'i'}
+        filter.teamName = { '$regex': teamName, '$options': 'i' }
         const result = (await TeamUser.find(filter)).map(e => `<@${e.userID}> - \`${e.points}\``)
         const teamPoints = await TeamUser.aggregate(
             [
                 {
                     $match: {
                         guildID: interaction.guild.id,
-                        teamName: {'$regex' : `^${teamName}$`, '$options' : 'i'}
+                        teamName: { '$regex': teamName, '$options': 'i' }
                     }
                 },
                 {
@@ -154,7 +154,7 @@ async function viewTeam(bot) {
 
         return await interaction.editReply({ embeds: [embed] })
     } else {
-        const teams = await TeamUser.aggregate([{ $match: filter }, { $group: { _id: "$teamName", normalized: { $first: { $toLower: "$teamName"}}, members: { $push: { $concat: ["<@", "$userID", ">"] } } } }, { $sort: { normalized: 1 } }])
+        const teams = await TeamUser.aggregate([{ $match: filter }, { $group: { _id: "$teamName", normalized: { $first: { $toLower: "$teamName" } }, members: { $push: { $concat: ["<@", "$userID", ">"] } } } }, { $sort: { normalized: 1 } }])
         let printData = []
         await teams.forEach(async team => {
             printData.push([team._id, team.members.join(", ")])
