@@ -144,6 +144,11 @@ async function viewTeam(bot) {
                 }
             ]
         )
+
+        if (!teamPoints) {
+            return await interaction.editReply(`Team \`${teamName}\` not found.`)
+        }
+
         let embed = new Discord.EmbedBuilder()
             .setColor(Discord.Colors.Blue)
             .setTitle(`Team: \`${teamPoints[0]._id}\``)
