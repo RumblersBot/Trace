@@ -78,18 +78,23 @@ async function checkAutoRoles(client, message, userDBObj, member) {
         }
     })
 
+    let roleMessages = ""
+
     await winRoles.forEach(async r => {
         if (!member.roles.cache.has(r.roleID)) {
             member.roles.add(r.roleID)
             const role = message.guild.roles.cache.get(r.roleID)
             const roleName = role.name || entry.roleID
             assignedRoles.push(`\`${roleName}\``)
+            if (!r.message) {
+                roleMessages += `\n${r.message}`
+            }
         }
     })
 
     if (assignedRoles.length === 0) return
 
-    let msg = `Congratulations <@${member.id}> :tada:, you have received the following roles: ${assignedRoles.join(", ")}`
+    let msg = `Congratulations <@${member.id}> :tada:, you have received the following roles: ${assignedRoles.join(", ")}${roleMessages}`
     await message.channel.send(msg)
 }
 
