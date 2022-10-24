@@ -86,7 +86,7 @@ async function checkAutoRoles(client, message, userDBObj, member) {
             const role = message.guild.roles.cache.get(r.roleID)
             const roleName = role.name || entry.roleID
             assignedRoles.push(`\`${roleName}\``)
-            if (!r.message) {
+            if (!r.message && r.message !== undefined) {
                 roleMessages += `\n${r.message}`
             }
         }
