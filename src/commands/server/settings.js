@@ -53,7 +53,7 @@ module.exports = {
                 else
                     guildSettings.ownerMessage = msg
                 await guildSettings.save()
-                message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
+                message.reply(`Settings updated: \`${args[0]}\` to ${msg}`)
             }
         }
     }
