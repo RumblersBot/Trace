@@ -39,12 +39,12 @@ module.exports = {
             if ("prefix" === args[0]) {
                 guildSettings.prefix = args[1]
                 await guildSettings.save()
-                message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
+                message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
             if ("shopresetchannel" === args[0]) {
                 guildSettings.shopResetChannelID = args[1]
                 await guildSettings.save()
-                message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
+                message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
             if ("ownermessage" === args[0]) {
                 if (args[1] === "''")
@@ -52,7 +52,7 @@ module.exports = {
                 else
                     guildSettings.ownerMessage = args[1]
                 await guildSettings.save()
-                message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
+                message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
         }
     }
