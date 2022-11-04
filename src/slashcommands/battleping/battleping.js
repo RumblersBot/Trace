@@ -81,7 +81,7 @@ module.exports = {
         
         let guildSettings = await client.functions.get("functions").getGuildSettings(interaction.guild.id)
         if (!!guildSettings.ownerMessage)
-            description += `__\`Owner Message:\`__ ${guildSettings.ownerMessage}`
+            description += `__\`Owner Message:\`__ ${guildSettings.ownerMessage}\n`
 
         description += `__\`Message from Host:\`__ `
         if (!!message) description += message
