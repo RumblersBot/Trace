@@ -47,10 +47,11 @@ module.exports = {
                 message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
             if ("ownermessage" === args[0]) {
-                if (args[1] === "''")
+                let msg = args.slice(1).join(" ")
+                if (msg === "''")
                     guildSettings.ownerMessage = ""
                 else
-                    guildSettings.ownerMessage = args[1]
+                    guildSettings.ownerMessage = msg
                 await guildSettings.save()
                 message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
