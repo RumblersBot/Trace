@@ -78,6 +78,11 @@ module.exports = {
         description += `__\`Era:\`__ ${era}\n`
         if (!!bp.reward)
             description += `__\`Reward:\`__ ${bp.reward}\n`
+        
+        let guildSettings = await client.functions.get("functions").getGuildSettings(interaction.guild.id)
+        if (!!guildSettings.ownerMessage)
+            description += `__\`Owner Message:\`__ ${guildSettings.ownerMessage}`
+
         description += `__\`Message from Host:\`__ `
         if (!!message) description += message
         else description += bp.defaultMessage

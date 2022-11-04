@@ -12,6 +12,7 @@ module.exports = {
         let properties = ["prefix"]
 
         if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) properties.push("shopresetchannel")
+        if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) properties.push("ownermessage")
 
         if (!args.length) {
             let embed = new Discord.EmbedBuilder()
@@ -23,6 +24,10 @@ module.exports = {
             if (["968176372944109709", "968886418883637278"].includes(message.guild.id))
                 if (!!guildSettings.shopResetChannelID)
                     embed.addFields({ name: "Shop Reset Channel", value: `<#${guildSettings.shopResetChannelID}>` })
+
+            if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id))
+                if (!!guildSettings.ownerMessage)
+                    embed.addFields({ name: "Owner Message", value: guildSettings.ownerMessage })
 
             embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
@@ -38,6 +43,14 @@ module.exports = {
             }
             if ("shopresetchannel" === args[0]) {
                 guildSettings.shopResetChannelID = args[1]
+                await guildSettings.save()
+                message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
+            }
+            if ("ownermessage" === args[0]) {
+                if (args[1] === "''")
+                    guildSettings.ownerMessage = ""
+                else
+                    guildSettings.ownerMessage = args[1]
                 await guildSettings.save()
                 message.reply(`Settings updated: ${args[0]} to ${args[1]}`)
             }
