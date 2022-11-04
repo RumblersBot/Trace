@@ -100,11 +100,19 @@ module.exports = {
                 }
             ]
         },
-        // {
-        //     name: "reset",
-        //     description: "resets all teams",
-        //     type: Discord.ApplicationCommandOptionType.Subcommand
-        // }
+        {
+            name: "reset",
+            description: "resets all teams",
+            type: Discord.ApplicationCommandOptionType.Subcommand,
+            options: [
+                {
+                    name: "confirmation",
+                    description: "type DELETE in caps to confirm delete all teams",
+                    type: Discord.ApplicationCommandOptionType.String,
+                    required: true
+                }
+            ]
+        }
     ],
     run: async (bot) => {
         var { interaction } = bot;
@@ -128,9 +136,9 @@ module.exports = {
             case 'rename':
                 await renameTeam(bot);
                 break;
-            // case 'reset':
-            //     await resetTeams(bot)
-            //     break;
+            case 'reset':
+                await resetTeams(bot)
+                break;
         }
     },
     getTeam
@@ -139,6 +147,11 @@ module.exports = {
 async function resetTeams(bot) {
     var { client, interaction } = bot;
     await interaction.deferReply()
+
+    const confirmation = interaction.options.getString('confirmation')
+    if (confirmation !== 'DELETE') {
+        return await interaction.editReply("Confirmation incorrect, cancelled")
+    }
 
     await TeamUser.deleteMany({
         guildID: interaction.guild.id
@@ -239,9 +252,14 @@ async function removeTeam(bot) {
 
     const teamName = interaction.options.getString('teamname')
 
+    let foundTeam = await getTeam(interaction.guild.id, teamName)
+    if (!foundTeam) {
+        return await interaction.editReply(`Team \`${teamName}\` not found.`)
+    }    
+
     await TeamUser.deleteMany({
         guildID: interaction.guild.id,
-        teamName: teamName
+        teamName: foundTeam
     })
 
     interaction.editReply({ content: `\`${teamName}\` was removed.` })
