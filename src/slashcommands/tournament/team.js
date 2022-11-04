@@ -288,21 +288,6 @@ async function removeUser(bot) {
     }
 }
 
-async function resetTeams(bot) {
-    var { client, interaction } = bot;
-    await interaction.deferReply()
-
-    const teamName = interaction.options.getString('teamname')
-
-    await TeamUser.deleteMany({
-        guildID: interaction.guild.id
-    })
-
-    interaction.editReply({ content: `All teams removed.` })
-
-    // await client.announceSlashCommands(bot, interaction.guild.id, false)
-}
-
 async function getTeam(guildID, teamName) {
     const filter = {
         guildID: guildID,
