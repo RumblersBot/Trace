@@ -5,7 +5,7 @@ module.exports = {
     description: "Gets a Rumble Shop Guild Item",
     category: "rumbleshop",
     cmdpermissions: 10,
-    guilds: ["968886418883637278", "968176372944109709"],
+    guilds: ["968886418883637278", "968176372944109709","841882715585904650"],
     default_member_permissions: Discord.PermissionFlagsBits.ManageChannels,
     options: [
         {

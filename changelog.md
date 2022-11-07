@@ -37,3 +37,8 @@
   * /team [add|remove|adduser|removeuser|view]
   * /points [add|leaderboard|view]
   * /tournament [leaderboard|team]
+
+2022-11-07 v2.2.0:
+- /points [remove]
+- /team [reset|resetpoints]
+- Shop availability for RRU

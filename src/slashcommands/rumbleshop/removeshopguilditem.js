@@ -4,7 +4,7 @@ module.exports = {
     name: "removeshopguilditem",
     description: "Removes a Rumble Shop Guild Item",
     category: "rumbleshop",
-    guilds: ["968886418883637278", "968176372944109709"],
+    guilds: ["968886418883637278", "968176372944109709","841882715585904650"],
     cmdpermissions: 10,
     default_member_permissions: PermissionFlagsBits.ManageChannels,
     options: [

@@ -11,8 +11,10 @@ module.exports = {
 
         let properties = ["prefix"]
 
-        if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) properties.push("shopresetchannel")
-        if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) properties.push("ownermessage")
+        if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) {
+            properties.push("shopresetchannel")
+            properties.push("ownermessage")
+        }
 
         if (!args.length) {
             let embed = new Discord.EmbedBuilder()
@@ -21,13 +23,14 @@ module.exports = {
                 .setDescription(`If nothing is shown, there are no properties assigned\nProperties: ${properties.join(", ")}`)
 
             if (guildSettings.prefix) embed.addFields({ name: "Prefix", value: guildSettings.prefix })
-            if (["968176372944109709", "968886418883637278"].includes(message.guild.id))
+
+            if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) {
                 if (!!guildSettings.shopResetChannelID)
                     embed.addFields({ name: "Shop Reset Channel", value: `<#${guildSettings.shopResetChannelID}>` })
 
-            if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id))
-                if (!!guildSettings.ownerMessage)
-                    embed.addFields({ name: "Owner Message", value: guildSettings.ownerMessage })
+                    if (!!guildSettings.ownerMessage)
+                    embed.addFields({ name: "Owner Message", value: guildSettings.ownerMessage })                    
+            }
 
             embed = client.functions.get("functions").setEmbedFooter(embed, client)
 
