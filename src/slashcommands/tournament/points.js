@@ -33,6 +33,29 @@ module.exports = {
             ]
         },
         {
+            name: "remove",
+            description: "Remove points",
+            type: Discord.ApplicationCommandOptionType.Subcommand,
+            options: [
+                {
+                    name: "points",
+                    description: 'Points to update',
+                    type: Discord.ApplicationCommandOptionType.Integer,
+                    required: true
+                },
+                {
+                    name: "teamname",
+                    description: 'Team name',
+                    type: Discord.ApplicationCommandOptionType.String,
+                },
+                {
+                    name: "user",
+                    description: 'Points for user',
+                    type: Discord.ApplicationCommandOptionType.User
+                }
+            ]
+        },
+        {
             name: "view",
             description: "Views a team points",
             type: Discord.ApplicationCommandOptionType.Subcommand,
@@ -56,7 +79,10 @@ module.exports = {
         const { viewTeam, viewLeaderboard } = require("./tournament")
         switch (interaction.options.getSubcommand()) {
             case 'add':
-                await addPoints(bot)
+                await addPoints(bot, true)
+                break;
+            case 'remove':
+                await addPoints(bot, false)
                 break;
             case 'view':
                 await viewTeam(bot)
@@ -68,13 +94,15 @@ module.exports = {
     }
 }
 
-async function addPoints(bot) {
+async function addPoints(bot, addPoints) {
     var { client, interaction } = bot;
     await interaction.deferReply()
 
     const teamName = interaction.options.getString("teamname")
     const points = interaction.options.getInteger("points")
     const targetUser = interaction.options.getUser("user")
+
+    if (!addPoints) points = points * -1
 
     if (!teamName && !targetUser) {
         return await interaction.editReply("No team or user supplied.")
@@ -100,12 +128,16 @@ async function addPoints(bot) {
 
     target.points += points
 
+    const pts = Math.abs(points)
+    let action = "added to"
+    if (points < 0) action = "removed from"
+
     try {
         await target.save()
         if (!!targetUser)
-            return await interaction.editReply(`\`${points}\` points added to Team \`${target.teamName}\` - \`${targetUser.username}\`.`)
+            return await interaction.editReply(`\`${pts}\` points ${action} Team \`${target.teamName}\` - \`${targetUser.username}\`.`)
 
-        return await interaction.editReply(`\`${points}\` points added to Team \`${target.teamName}\`.`)
+        return await interaction.editReply(`\`${pts}\` points ${action} Team \`${target.teamName}\`.`)
     } catch (error) {
         addLog(interaction.channel, error, error.stack)
     }

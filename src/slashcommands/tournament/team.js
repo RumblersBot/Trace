@@ -112,8 +112,20 @@ module.exports = {
                     required: true
                 }
             ]
-        }
-    ],
+        },
+        {
+            name: "resetpoints",
+            description: "resets all team points",
+            type: Discord.ApplicationCommandOptionType.Subcommand,
+            options: [
+                {
+                    name: "confirmation",
+                    description: "type RESET in caps to confirm reset all points",
+                    type: Discord.ApplicationCommandOptionType.String,
+                    required: true
+                }
+            ]
+        }],
     run: async (bot) => {
         var { interaction } = bot;
         switch (interaction.options.getSubcommand()) {
@@ -139,6 +151,9 @@ module.exports = {
             case 'reset':
                 await resetTeams(bot)
                 break;
+            case 'resetpoints':
+                await resetPoints(bot);
+                break;
         }
     },
     getTeam
@@ -158,6 +173,27 @@ async function resetTeams(bot) {
     })
 
     interaction.editReply({ content: `All teams / points removed.` })
+    // await client.announceSlashCommands(bot, interaction.guild.id, false)
+}
+
+async function resetPoints(bot) {
+    var { client, interaction } = bot;
+    await interaction.deferReply()
+
+    const confirmation = interaction.options.getString('confirmation')
+    if (confirmation !== 'RESET') {
+        return await interaction.editReply("Confirmation incorrect, cancelled")
+    }
+
+    await TeamUser.updateMany({
+        guildID: interaction.guild.id
+    }, {
+        $set: {
+            points: 0
+        }
+    })
+
+    interaction.editReply({ content: `All teams / user points reset.` })
     // await client.announceSlashCommands(bot, interaction.guild.id, false)
 }
 
@@ -255,7 +291,7 @@ async function removeTeam(bot) {
     let foundTeam = await getTeam(interaction.guild.id, teamName)
     if (!foundTeam) {
         return await interaction.editReply(`Team \`${teamName}\` not found.`)
-    }    
+    }
 
     await TeamUser.deleteMany({
         guildID: interaction.guild.id,
