@@ -99,7 +99,7 @@ async function addPoints(bot, addPoints) {
     await interaction.deferReply()
 
     const teamName = interaction.options.getString("teamname")
-    const points = interaction.options.getInteger("points")
+    let points = interaction.options.getInteger("points")
     const targetUser = interaction.options.getUser("user")
 
     if (!addPoints) points = points * -1
