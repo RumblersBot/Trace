@@ -42,3 +42,6 @@
 - /points [remove]
 - /team [reset|resetpoints]
 - Shop availability for RRU
+
+2022-11-09 v2.2.0:
+- Limit battle ping subscription to 1 year to avoid overflows
