@@ -17,8 +17,8 @@ async function addMember(member, delaySec) {
     if (!delaySec)
         delaySec = 30 * 60
 
-    if (delaySec > 31536000) // 1 year
-        delaySec = 31536000
+    if (delaySec > 1 * 365 * 24 * 60 * 60) // 1 year
+        delaySec = 1 * 365 * 24 * 60 * 60
 
     let pingUser = await new PingList({
         _id: mongoose.Types.ObjectId(),
