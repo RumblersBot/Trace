@@ -15,12 +15,12 @@ module.exports = {
         if (!secs) secs = 30 * 60
         if (secs === 0) secs = 30 * 60
 
-        await addMember(message.member, secs)
+        let pingUser = await addMember(message.member, secs)
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
 
         let footer = "\nUnsubscribe with \`" + prefix + "unsub\`"
         footer += "\nView your current subscription with \`" + prefix + "showsub\`"
-        await message.reply(`You have renewed your subscription. It will expire <t:${Math.round(Date.now() / 1000 + secs)}:R>.` + footer)
+        await message.reply(`You have renewed your subscription. It will expire <t:${pingUser.entryTimeStamp}:R>.` + footer)
     }
 }
 

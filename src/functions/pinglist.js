@@ -27,6 +27,8 @@ async function addMember(member, delaySec) {
         entryTimeStamp: Math.round(Date.now() / 1000 + delaySec)
     })
     await pingUser.save().catch(error => addLog(null, error, error.stack))
+
+    return pingUser
 }
 
 async function removeMember(member) {
