@@ -50,13 +50,13 @@ function initEvents(bot) {
 
     //joined a server
     client.on("guildCreate", guild => {
-        client.guilds.cache.get("968886418883637278").channels.cache.get("1040288842894295080").send("Joined a new guild: " + guild.name)
+        client.guilds.cache.get("968886418883637278").channels.cache.get("1040288842894295080").send(`Joined a new guild: ${guild.name} (${guild.id})`)
     })
 
     //removed from a server
     client.on("guildDelete", guild => {
         if (guild.available)
-            client.guilds.cache.get("968886418883637278").channels.cache.get("1040288842894295080").send("Left a guild: " + guild.name)
+            client.guilds.cache.get("968886418883637278").channels.cache.get("1040288842894295080").send(`Left a guild: ${guild.name} (${guild.id})`)
     })
 
     client.on("interactionCreate", (interaction) => {
