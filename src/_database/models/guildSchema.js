@@ -5,7 +5,8 @@ const guildSchema = new mongoose.Schema({
     guildID: String,
     prefix: { type: String, default: "-" },
     shopResetChannelID: String,
-    ownerMessage: String
+    ownerMessage: String,
+    pingExpirationDM: Boolean
 })
 
 module.exports = new mongoose.model('Guild', guildSchema, 'guilds')

@@ -60,14 +60,16 @@ async function removeTimedOutAndGetUserPings(guildID) {
     });
 
     let usersToRemove = []
-    await toRemove.forEach(async user => {
-        usersToRemove.push(`<@${user.userID}>`)
-    })
+    let users = []   
+    for (let index = 0; index < toRemove.length; index++) {
+        const user = toRemove[index];
+        usersToRemove.push(user.userID)
+    }
 
-    let users = []
-    await pingUsers.forEach(async user => {
+    for (let index = 0; index < pingUsers.length; index++) {
+        const user = pingUsers[index];
         users.push(`<@${user.userID}>`)
-    })
+    }
 
     return [usersToRemove, users]
 }

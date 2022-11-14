@@ -9,7 +9,7 @@ module.exports = {
     run: async ({ client, message, args }) => {
         let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
 
-        let properties = ["prefix"]
+        let properties = ["prefix", "pingexpirationdm"]
 
         if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) {
             properties.push("shopresetchannel")
@@ -23,6 +23,7 @@ module.exports = {
                 .setDescription(`If nothing is shown, there are no properties assigned\nProperties: ${properties.join(", ")}`)
 
             if (guildSettings.prefix) embed.addFields({ name: "Prefix", value: guildSettings.prefix })
+            if (!!guildSettings.pingExpirationDM) embed.addFields({ name: "pingexpirationdm", value: `\`${guildSettings.pingExpirationDM}\`` })
 
             if (["968176372944109709", "968886418883637278", "841882715585904650"].includes(message.guild.id)) {
                 if (!!guildSettings.shopResetChannelID)
@@ -44,6 +45,11 @@ module.exports = {
                 await guildSettings.save()
                 message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
             }
+            if ("pingexpirationdm" === args[0]) {
+                guildSettings.pingExpirationDM = args[1]
+                await guildSettings.save()
+                message.reply(`Settings updated: \`${args[0]}\` to ${args[1]}`)
+            }            
             if ("shopresetchannel" === args[0]) {
                 guildSettings.shopResetChannelID = args[1]
                 await guildSettings.save()

@@ -45,3 +45,7 @@
 
 2022-11-09 v2.2.0:
 - Limit battle ping subscription to 1 year to avoid overflows
+
+2022-11-14 v2.3.0:
+- Ping list => timer expired through DM
+  Settable through -settings pingexpirationdm [0|1]

@@ -2,6 +2,7 @@
 const RumbleNotification = require('../_database/models/rumbleNotificationSchema')
 const Discord = require("discord.js")
 const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
+const { resolveMember } = require('../functions/parameters');
 const { addLog } = require('../functions/logs')
 const { ButtonStyle, PermissionFlagsBits } = require('discord.js')
 
@@ -125,12 +126,23 @@ async function showPingList(client, message) {
             ]
         })
         if (!!tr && tr.length !== 0) {
-            await message.channel.send({
-                content: tr.join(" "),
-                embeds: [
-                    new Discord.EmbedBuilder().setTitle("Subscription expired").setDescription(`Your subscription timer has expired. You can resubscribe using the buttons above.`).setColor(Discord.Colors.Red)
-                ]
-            })
+            let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
+            if (!!guildSettings.pingExpirationDM)
+            {
+                let msg = `Your Rumble Battle Subscription timer has expired in \`${message.guild.name}\`.`
+                for (let index = 0; index < tr.length; index++) {
+                    const userID = tr[index];
+                    let targetMember = await resolveMember(message, userID, false)
+                    targetMember.send(msg).catch(err => {})
+                }      
+            } else {
+                await message.channel.send({
+                    content: tr.map(e => `<@${e}>`).join(" "),
+                    embeds: [
+                        new Discord.EmbedBuilder().setTitle("Subscription expired").setDescription(`Your subscription timer has expired. You can resubscribe using the buttons above.`).setColor(Discord.Colors.Red)
+                    ]
+                })
+            }
         }
 
         client.pinglistsLastSent.set(message.channel.id, {
