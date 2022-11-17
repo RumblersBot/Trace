@@ -70,6 +70,8 @@ async function listAnnouncements(bot) {
 async function checkIfNeeded(bot) {
     var { client } = bot
 
+    return // TODO: Just to be sure, cache the next run...
+
     const now = Math.round(new Date() / 1000)
     const announcements = await AnnouncementSchema.find({
         nextRun: { $lt: now}
