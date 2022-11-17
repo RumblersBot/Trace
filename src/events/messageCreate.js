@@ -11,6 +11,13 @@ module.exports = {
         let prefix = await client.functions.get("functions").getPrefix(message.guild.id)
         const args = message.content.slice(prefix.length).trim().split(/ +/g)
 
+        try {
+            const { checkIfNeeded } = require("../functions/announcements")
+
+            await checkIfNeeded(bot)
+        } catch (error) {
+        }
+
         // ******************************************************
         // Check webhook announcement of Rumble Royale and post
         // to #magno-bot-test in The Rumblers

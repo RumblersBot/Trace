@@ -8,6 +8,13 @@ module.exports = {
         let member = interaction.member
         let userPermLevel = getPermissionLevel(member)
 
+        try {
+            const { checkIfNeeded } = require("../functions/announcements")
+
+            await checkIfNeeded(bot)
+        } catch (error) {
+        }
+
         if (client.functions.get("functions").isDevMode()) {
             if (interaction.guild.id !== '968886418883637278') // exclude test server
                 if (userPermLevel >= 0) return // only bot owner

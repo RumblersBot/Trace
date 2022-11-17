@@ -49,3 +49,6 @@
 2022-11-14 v2.3.0:
 - Ping list => timer expired through DM
   Settable through -settings pingexpirationdm [0|1]
+
+2022-11-17 v2.4.0:
+- Allow adding automatic announcements
