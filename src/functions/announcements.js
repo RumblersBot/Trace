@@ -55,7 +55,7 @@ async function listAnnouncements(bot) {
         guildID: interaction.guild.id
     })
 
-    let printData = "**Announcements**:\n"
+    let printData = ""
 
     for (let index = 0; index < announcements.length; index++) {
         const announcement = announcements[index];
@@ -68,6 +68,11 @@ async function listAnnouncements(bot) {
         printData += `${announcement.message.replace("\\n", "\n")} \n\n`
     }
 
+    if (printData === "") {
+        printData = "No announcement set up on this server."
+    } else {
+        printData = "**Announcements**:\n" + printData
+    }
     await interaction.editReply(printData)
 }
 async function skipAnnouncements(client, runTime) {
