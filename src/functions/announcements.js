@@ -1,9 +1,10 @@
 const AnnouncementSchema = require('../_database/models/announcementSchema')
 const mongoose = require('mongoose')
 const { addLog } = require('../functions/logs')
+let isRunning = false
 
 async function addAnnouncement(bot) {
-    var { interaction } = bot
+    var { client, interaction } = bot
 
     await interaction.deferReply()
 
@@ -26,6 +27,8 @@ async function addAnnouncement(bot) {
         nextRun: Math.round(nextRun / 1000)
     })
     await announcement.save().catch(error => addLog(null, error, error.stack))
+
+    if (await skipAnnouncements(client, announcement.nextRun)) client.earliestAnnouncement = announcement.nextRun
 
     await interaction.editReply(`Announcement created with id \`${announcement._id}\`. Next run on <t:${announcement.nextRun}:F>`)
 }
@@ -67,26 +70,49 @@ async function listAnnouncements(bot) {
 
     await interaction.editReply(printData)
 }
+async function skipAnnouncements(client, runTime) {
+    if (!client.earliestAnnouncement) client.earliestAnnouncement = 0
+
+    if (client.earliestAnnouncement === 0) {
+        let earliestAnnouncement = await AnnouncementSchema.find().sort('nextRun').limit(1)
+        if (earliestAnnouncement.length === 0)
+            client.earliestAnnouncement = 9123456789
+        else
+            client.earliestAnnouncement = earliestAnnouncement[0].nextRun
+    }
+
+    return client.earliestAnnouncement > runTime
+}
 async function checkIfNeeded(bot) {
     var { client } = bot
 
-    return // TODO: Just to be sure, cache the next run...
+    if (isRunning) return
+    isRunning = true
 
     const now = Math.round(new Date() / 1000)
+    if (await skipAnnouncements(client, now)) {
+        isRunning = false
+        return;
+    }
+
     const announcements = await AnnouncementSchema.find({
-        nextRun: { $lt: now}
+        nextRun: { $lt: now }
     })
 
     for (let index = 0; index < announcements.length; index++) {
         const announcement = announcements[index];
 
         const nextRun = calcNextRun(announcement.dayOfWeek, announcement.hourGMT, announcement.minutes)
+        const actualRun = announcement.nextRun
         announcement.nextRun = Math.round(nextRun / 1000)
 
         await announcement.save().catch(error => addLog(null, error, error.stack))
 
-        await client.guilds.cache.get(announcement.guildID).channels.cache.get(announcement.channelID).send(announcement.message.replace("\\n","\n"))
+        await client.guilds.cache.get(announcement.guildID).channels.cache.get(announcement.channelID).send(getMessage(announcement, actualRun))
     }
+
+    client.earliestAnnouncement = 0
+    isRunning = false
 }
 function calcNextRun(dayofweek, hourGMT, minutes) {
     let nextRun = new Date()
@@ -104,6 +130,29 @@ function calcNextRun(dayofweek, hourGMT, minutes) {
     } while (nextRun.getDay() !== (dayofweek % 7))
 
     return nextRun
+}
+
+function getMessage(announcement, actualRun) {
+    let message = announcement.message
+
+    let checkVar = "%72HRS%"
+    if (message.includes(checkVar)) {
+        let msgRun = actualRun + (72 * 60 * 60)
+        message = message.replace(checkVar, `<t:${msgRun}:F>(<t:${msgRun}:R>)`)
+    }
+    checkVar = "%48HRS%"
+    if (message.includes(checkVar)) {
+        let msgRun = actualRun + (48 * 60 * 60)
+        message = message.replace(checkVar, `<t:${msgRun}:F>(<t:${msgRun}:R>)`)
+    }
+    checkVar = "%24HRS%"
+    if (message.includes(checkVar)) {
+        let msgRun = actualRun + (72 * 60 * 60)
+        message = message.replace(checkVar, `<t:${msgRun}:F>(<t:${msgRun}:R>)`)
+    }
+
+    message = message.replace("\\n", "\n")
+    return message
 }
 
 module.exports = {
