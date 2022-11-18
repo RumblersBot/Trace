@@ -65,7 +65,7 @@ async function listAnnouncements(bot) {
         printData += `\`${announcement._id}\`: <#${announcement.channelID}> - `
         printData += `${nextRun.toLocaleString("default", { weekday: "long" })} at ${announcement.hourGMT}:${announcement.minutes.toString().padStart(2, 0)} \n`
         printData += `Next run on <t:${announcement.nextRun}:F> \n`
-        printData += `${announcement.message.replace("\\n", "\n")} \n\n`
+        printData += `${getMessage(announcement, announcement.nextRun)} \n\n`
     }
 
     if (printData === "") {
