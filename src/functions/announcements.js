@@ -63,7 +63,7 @@ async function listAnnouncements(bot) {
         const nextRun = calcNextRun(announcement.dayOfWeek, announcement.hourGMT, announcement.minutes)
 
         printData += `\`${announcement._id}\`: <#${announcement.channelID}> - `
-        printData += `${nextRun.toLocaleString("default", { weekday: "long" })} at ${announcement.hourGMT}:${announcement.minutes.toString().padStart(2, 0)} \n`
+        printData += `${nextRun.toLocaleString("en", { weekday: "long" })} at ${announcement.hourGMT}:${announcement.minutes.toString().padStart(2, 0)} \n`
         printData += `Next run on <t:${announcement.nextRun}:F> \n`
         printData += `${getMessage(announcement, announcement.nextRun)} \n\n`
     }
