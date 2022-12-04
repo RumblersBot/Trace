@@ -126,14 +126,14 @@ async function viewTeam(bot) {
     }
 
     if (!!teamName) {
-        filter.teamName = { '$regex': teamName, '$options': 'i' }
+        filter.teamName = { '$regex': `^${teamName}$`, '$options': 'i' }
         const result = (await TeamUser.find(filter)).map(e => `<@${e.userID}> - \`${e.points}\``)
         const teamPoints = await TeamUser.aggregate(
             [
                 {
                     $match: {
                         guildID: interaction.guild.id,
-                        teamName: { '$regex': teamName, '$options': 'i' }
+                        teamName: { '$regex': `^${teamName}$`, '$options': 'i' }
                     }
                 },
                 {

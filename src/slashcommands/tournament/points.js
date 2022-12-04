@@ -114,7 +114,7 @@ async function addPoints(bot, addPoints) {
     }
 
     if (!!teamName) {
-        filter.teamName = { '$regex': teamName, '$options': 'i' }
+        filter.teamName = { '$regex': `^${teamName}$`, '$options': 'i' }
     }
 
     if (!!targetUser) {
