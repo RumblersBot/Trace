@@ -77,8 +77,10 @@ async function checkNewBattle(client, message) {
             showPingList(client, message);
 
     const searchString = "Rumble Royale hosted by"
-    if (embedFound.title) {
+    if (embedFound.title) {        
         if (embedFound.title.includes(searchString)) {
+
+            client.channelData.set(message.channel.id, null)
 
             let isStaffBattle = false
             if (embedFound.footer) isStaffBattle = embedFound.footer.text.includes("Staff")
