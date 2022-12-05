@@ -3,15 +3,18 @@ const RumbleNotification = require('../_database/models/rumbleNotificationSchema
 const Discord = require("discord.js")
 const { removeTimedOutAndGetUserPings, isChannelEnabled } = require('../functions/pinglist')
 const { resolveMember } = require('../functions/parameters');
+const { getSettings } = require('../functions/usersettings');
 const { addLog } = require('../functions/logs')
 const { ButtonStyle, PermissionFlagsBits } = require('discord.js')
 
 module.exports = {
     run: async ({ client, message }) => {
+        if (!client.channelData) client.channelData = new Discord.Collection()
+
         checkMentions(client, message)
         checkNewBattle(client, message)
         checkShopOutput(client, message)
-    },
+    },    
     checkMentions,
     checkNewBattle,
     showPingList,
@@ -40,6 +43,12 @@ async function checkMentions(client, message) {
             await message.channel.send(`\`${member.displayName}\` is a member of \`${role.name}\`.`)
         }
     })
+
+    let hostReminderUser = client.channelData.get(message.channel.id)
+    if (!!hostReminderUser) {
+        message.channel.send(`<@${hostReminderUser}>, the game you hosted is finished. Reminding you to host another </battle:1013874374752882819>.`)
+        client.channelData.set(message.channel.id, null)
+    }
 }
 
 async function checkNewBattle(client, message) {
@@ -67,21 +76,25 @@ async function checkNewBattle(client, message) {
         if (embedFound.description.includes("Click the emoji below to join"))
             showPingList(client, message);
 
+    const searchString = "Rumble Royale hosted by"
+    if (embedFound.title) {
+        if (embedFound.title.includes(searchString)) {
 
-    if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
-        const searchString = "Rumble Royale hosted by"
-        if (embedFound.title)
-            if (embedFound.title.includes(searchString)) {
+            let isStaffBattle = false
+            if (embedFound.footer) isStaffBattle = embedFound.footer.text.includes("Staff")
 
-                let isStaffBattle = false
-                if (embedFound.footer) isStaffBattle = embedFound.footer.text.includes("Staff")
+            if (!isStaffBattle) {
+                const { resolveMember } = require('../functions/parameters');
 
-                if (!isStaffBattle) {
-                    const { resolveMember } = require('../functions/parameters');
+                let userNameMentioned = embedFound.title.substring(searchString.length + 1)
+                let foundUser = await resolveMember(message, userNameMentioned, false)
+                if (!!foundUser) {
+                    const userSettings = await getSettings(foundUser)
+                    if (!!userSettings.hostReminder) {
+                        client.channelData.set(message.channel.id, foundUser.id)                        
+                    }
 
-                    let userNameMentioned = embedFound.title.substring(searchString.length + 1)
-                    let foundUser = await resolveMember(message, userNameMentioned, false)
-                    if (!!foundUser) {
+                    if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
                         let userData = await client.functions.get("functions").getUser(message.guild.id, foundUser.id)
                         userData.hostCount += 1
                         await userData.save().catch(error => addLog(message.channel, error, error.stack))
@@ -89,6 +102,7 @@ async function checkNewBattle(client, message) {
                     }
                 }
             }
+        }
     }
 }
 
@@ -127,14 +141,13 @@ async function showPingList(client, message) {
         })
         if (!!tr && tr.length !== 0) {
             let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
-            if (!!guildSettings.pingExpirationDM)
-            {
+            if (!!guildSettings.pingExpirationDM) {
                 let msg = `Your Rumble Battle Subscription timer has expired in \`${message.guild.name}\`.`
                 for (let index = 0; index < tr.length; index++) {
                     const userID = tr[index];
                     let targetMember = await resolveMember(message, userID, false)
-                    targetMember.send(msg).catch(err => {})
-                }      
+                    targetMember.send(msg).catch(err => { })
+                }
             } else {
                 await message.channel.send({
                     content: tr.map(e => `<@${e}>`).join(" "),
@@ -178,7 +191,7 @@ async function checkShopOutput(client, message) {
             let costType = weapon.split('-')[1].split(':')[1]
             let cost = weapon.split('>')[2].split('|')[0]
 
-            let item = await getRumbleShopItem(entryName)            
+            let item = await getRumbleShopItem(entryName)
 
             const costImg = currency[costType]
             let lastSeen = 'Not yet seen'
@@ -206,7 +219,7 @@ async function checkShopOutput(client, message) {
                         newMsg = newMsg.replace(`%PING${key}%`, "")
                     } else {
                         newMsg = newMsg.replace(`%PING${key}%`, ` - <@&${guildItem.pingRoleID}>`)
-                    }                    
+                    }
                 }
                 await channel.send(newMsg)
             }

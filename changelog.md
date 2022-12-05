@@ -52,3 +52,9 @@
 
 2022-11-17 v2.4.0:
 - Allow adding automatic announcements
+
+2022-12-04 v2.4.0:
+- Fix tournament team finding (Duo 1 search returns multiple results if Duo 10 exists for instance)
+
+2022-12-05 v2.5.0:
+- Host Reminders
