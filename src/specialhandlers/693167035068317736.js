@@ -14,7 +14,7 @@ module.exports = {
         checkMentions(client, message)
         checkNewBattle(client, message)
         checkShopOutput(client, message)
-    },    
+    },
     checkMentions,
     checkNewBattle,
     showPingList,
@@ -77,7 +77,7 @@ async function checkNewBattle(client, message) {
             showPingList(client, message);
 
     const searchString = "Rumble Royale hosted by"
-    if (embedFound.title) {        
+    if (embedFound.title) {
         if (embedFound.title.includes(searchString)) {
 
             client.channelData.set(message.channel.id, null)
@@ -91,9 +91,11 @@ async function checkNewBattle(client, message) {
                 let userNameMentioned = embedFound.title.substring(searchString.length + 1)
                 let foundUser = await resolveMember(message, userNameMentioned, false)
                 if (!!foundUser) {
-                    const userSettings = await getSettings(foundUser)
-                    if (!!userSettings.hostReminder) {
-                        client.channelData.set(message.channel.id, foundUser.id)                        
+                    if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
+                        const userSettings = await getSettings(foundUser)
+                        if (!!userSettings.hostReminder) {
+                            client.channelData.set(message.channel.id, foundUser.id)
+                        }
                     }
 
                     if (["968176372944109709", "968886418883637278"].includes(message.guild.id)) {
