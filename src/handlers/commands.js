@@ -1,5 +1,6 @@
 const { getFiles } = require("../functions/functions")
 const fs = require("fs")
+const { stringify } = require("querystring")
 
 module.exports = (bot, reload) => {
     const { client } = bot
@@ -11,15 +12,15 @@ module.exports = (bot, reload) => {
             if (reload)
                 delete require.cache[require.resolve(`../commands/${category}/${f}`)]
             const command = require(`../commands/${category}/${f}`)
-            client.commands.set(command.name, command)
+            client.commands.set(command.name.toLowerCase(), command)
 
             // If file has aliases and aliases are in an Array (List), register each alias in to the collection
             if (command.aliases)
                 command.aliases.forEach((alias) => {
-                    client.aliases.set(alias, command.name); //adds it to commands
+                    client.aliases.set(alias.toLowerCase(), command.name); //adds it to commands
                 });
         })
     })
 
-    console.log(`Loaded ${client.commands.size} commands`)
+    console.log(`Loaded ${client.commands.size} commands`)    
 }

@@ -73,7 +73,7 @@ module.exports = {
 
         let cmds = client.commands.filter(cmd => !cmd.guilds || cmd.guilds.includes(message.guild.id))
 
-        let command = cmds.get(cmdstr) || cmds.get(client.aliases.get(cmdstr))
+        let command = cmds.get(cmdstr.toLowerCase()) || cmds.get(client.aliases.get(cmdstr.toLowerCase()))
         if (!command) return // undefined command                 
 
         if (command.cmdpermissions !== undefined && userPermLevel > command.cmdpermissions) {

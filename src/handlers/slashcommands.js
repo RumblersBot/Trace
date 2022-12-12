@@ -10,7 +10,7 @@ module.exports = (bot, reload) => {
 		slashcommands.forEach((f) => {
 			if (reload) delete require.cache[require.resolve(`../slashcommands/${category}/${f}`)]
 			const slashcmd = require(`../slashcommands/${category}/${f}`)
-			client.slashcommands.set(slashcmd.name, slashcmd)
+			client.slashcommands.set(slashcmd.name.toLowerCase(), slashcmd)
 		})
 	})
 

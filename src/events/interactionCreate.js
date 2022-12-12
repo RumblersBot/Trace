@@ -48,7 +48,7 @@ const handleSlashCommand = async (bot, interaction) => {
 
     if (!interaction.inGuild()) return await interaction.reply({ content: "This command can only be used in a server" })
 
-    const slashcmd = client.slashcommands.get(interaction.commandName)
+    const slashcmd = client.slashcommands.get(interaction.commandName.toLowerCase())
 
     if (!slashcmd) return
 
