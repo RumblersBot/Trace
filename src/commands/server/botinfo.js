@@ -16,7 +16,7 @@ module.exports = {
             .setColor("#800080")
             .addFields({ name: "Bot name:", value: client.user.username, inline: true })
             .addFields({ name: "Version:", value: `${pjson.version} ${pjson.codeName}`, inline: true })
-            .addFields({ name: "Created by:", value: "MagnoBE", inline: true })
+            .addFields({ name: "Created by:", value: "<@403654158609154058>", inline: true })
             .addFields({ name: "Created on", value: `<t:${Math.round(client.user.createdTimestamp / 1000)}:F>`, inline: true })
             .addFields({ name: "On the server since:", value: `<t:${Math.round(botMember.joinedTimestamp / 1000)}:F>`, inline: true })
             .addFields({ name: "Guilds Using this bot: ", value: `\`${client.guilds.cache.size}\``, inline: true })
