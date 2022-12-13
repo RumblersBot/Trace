@@ -52,6 +52,7 @@ async function checkMentions(client, message) {
 }
 
 async function checkNewBattle(client, message) {
+    const origMsg = message
     if (!message.embeds || message.embeds.length === 0) {
         const botPerms = await message.guild.members.me.permissions.has(PermissionFlagsBits.ReadMessageHistory)
         if (!botPerms) {
@@ -88,8 +89,14 @@ async function checkNewBattle(client, message) {
             if (!isStaffBattle) {
                 const { resolveMember } = require('../functions/parameters');
 
-                let userNameMentioned = embedFound.title.substring(searchString.length + 1)
-                let foundUser = await resolveMember(message, userNameMentioned, false)
+                let foundUser
+                try {
+                    foundUser = await resolveMember(message, message.interaction.user.id, false)
+                } catch (error) {
+                    let userNameMentioned = embedFound.title.substring(searchString.length + 1)
+                    foundUser = await resolveMember(message, userNameMentioned, false)                    
+                }
+
                 if (!!foundUser) {
                     if ((await isChannelEnabled(message.guild.id, message.channel.id))) {
                         const userSettings = await getSettings(foundUser)
