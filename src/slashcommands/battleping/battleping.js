@@ -13,41 +13,7 @@ module.exports = {
         {
             name: "era",
             description: "Rumble Era.",
-            type: ApplicationCommandOptionType.String,
-            choices: [
-                {
-                    name: "classic",
-                    value: "<:Classic:1021411565179764807> Classic"
-                },
-                {
-                    name: "steampunk",
-                    value: "<:Steampunk:1021411912740786226> Steampunk"
-                },
-                {
-                    name: "modern",
-                    value: "<:Modern:1021412074733174865> Modern"
-                },
-                {
-                    name: "futuristic",
-                    value: "<:Futuristic:1021412144882909224> Futuristic"
-                },
-                {
-                    name: "medieval",
-                    value: "<:Medieval:1021412303956086886> Medieval"
-                },
-                {
-                    name: "samurai",
-                    value: "<:Samurai:1021412376228135012> Samurai"
-                },
-                {
-                    name: "zombie",
-                    value: "<:Zombie:1021412460885983362> Zombie"
-                },
-                {
-                    name: "pirate",
-                    value: "<:Pirate:1021407309617971231> Pirate"
-                }
-            ],
+            type: ApplicationCommandOptionType.String,            
             required: true
         },
         {

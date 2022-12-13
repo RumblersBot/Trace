@@ -58,3 +58,6 @@
 
 2022-12-05 v2.5.0:
 - Host Reminders
+
+2022-12-13 v2.5.1:
+- battleping era's settable
