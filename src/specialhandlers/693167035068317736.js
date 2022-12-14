@@ -94,7 +94,7 @@ async function checkNewBattle(client, message) {
                     foundUser = await resolveMember(message, message.interaction.user.id, false)
                 } catch (error) {
                     let userNameMentioned = embedFound.title.substring(searchString.length + 1)
-                    foundUser = await resolveMember(message, userNameMentioned, false)                    
+                    foundUser = await resolveMember(message, userNameMentioned, false)
                 }
 
                 if (!!foundUser) {
@@ -141,15 +141,20 @@ async function showPingList(client, message) {
             count = pl.length
 
         }
-        await message.channel.send({
-            content: `Notified **${count}** users.`,
-            embeds: [
-                new Discord.EmbedBuilder().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor(Discord.Colors.Blue)
-            ],
-            components: [
-                new Discord.ActionRowBuilder({ components: buttons})
-            ]
-        })
+        try {
+            await message.channel.send({
+                content: `Notified **${count}** users.`,
+                embeds: [
+                    new Discord.EmbedBuilder().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor(Discord.Colors.Blue)
+                ],
+                components: [
+                    new Discord.ActionRowBuilder({ components: buttons })
+                ]
+            })
+        } catch (error) {
+            addLog(message.channel, error, error.stack)
+        }
+
         if (!!tr && tr.length !== 0) {
             let guildSettings = await client.functions.get("functions").getGuildSettings(message.guild.id)
             if (!!guildSettings.pingExpirationDM) {
