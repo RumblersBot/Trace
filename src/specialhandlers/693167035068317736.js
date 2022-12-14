@@ -147,7 +147,7 @@ async function showPingList(client, message) {
                 new Discord.EmbedBuilder().setTitle("Battle Notifier").setDescription("Click the buttons below to get pinged when a new battle is hosted.").setColor(Discord.Colors.Blue)
             ],
             components: [
-                new Discord.ActionRowBuilder().addComponents(buttons)
+                new Discord.ActionRowBuilder({ components: buttons})
             ]
         })
         if (!!tr && tr.length !== 0) {
