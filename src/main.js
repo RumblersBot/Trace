@@ -14,6 +14,7 @@ const Bot = require("./classes/bot")
 let bot
 
 mongoose.init(connString)
+mongoose.set('strictQuery', false)
 
 const start = ((reboot) => {
 
