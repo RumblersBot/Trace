@@ -135,9 +135,14 @@ async function showPingList(client, message) {
         let pl = result[1]
         let count = 0
         if (!!pl && pl.length !== 0) {
-            let pingmsg = await message.channel.send('Notify list: ' + pl.join(" "))
-            await pingmsg.delete()
 
+            try {
+                let pingmsg = await message.channel.send('Notify list: ' + pl.join(" "))
+                await pingmsg.delete()
+    
+            } catch (error) {
+                addLog(message.channel, error, error.stack)
+            }
             count = pl.length
 
         }
